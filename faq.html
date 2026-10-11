@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أسئلة المسلم الجديد · New Muslim FAQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Reem+Kufi:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.faq-hero{text-align:center;padding:3rem 1rem 2rem;position:relative;z-index:2}
+.faq-hero .arabesque{font-family:var(--f-q);font-size:2rem;color:var(--au500);opacity:.7;margin-bottom:1rem}
+.faq-hero h1{font-family:var(--f-d);font-size:clamp(1.9rem,5.5vw,2.8rem);font-weight:700;background:linear-gradient(135deg,var(--g700),var(--au500));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+.faq-hero p{font-family:var(--f-l);font-size:.85rem;color:var(--i400);direction:ltr;letter-spacing:.05em}
+.faq-hero .subtitle-ar{font-family:var(--f-q);font-size:1.05rem;color:var(--i600);margin-top:1rem;line-height:1.9;max-width:640px;margin-left:auto;margin-right:auto}
+[data-theme="dark"] .faq-hero .subtitle-ar{color:var(--i400)}
+
+.faq-list{display:flex;flex-direction:column;gap:.9rem;position:relative;z-index:2;margin-bottom:3rem}
+.faq-item{background:var(--paper);backdrop-filter:blur(20px);border:1px solid var(--i200);border-radius:var(--r-m);overflow:hidden;transition:all .4s var(--e)}
+[data-theme="dark"] .faq-item{border-color:rgba(82,183,136,.12)}
+.faq-item:hover{border-color:var(--g300);box-shadow:0 8px 24px rgba(13,40,24,.06)}
+.faq-q{display:flex;align-items:center;gap:1rem;padding:1.3rem 1.5rem;cursor:pointer;user-select:none;font-family:var(--f-d);font-size:1.05rem;font-weight:600;color:var(--i900);transition:all .3s var(--e);position:relative}
+.faq-q::after{content:'+';font-family:var(--f-l);font-size:1.6rem;font-weight:300;color:var(--g500);transition:transform .4s var(--e);flex-shrink:0;line-height:1}
+.faq-item.open .faq-q::after{transform:rotate(45deg);color:var(--au500)}
+.faq-num{flex-shrink:0;width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--g100),var(--g200));display:flex;align-items:center;justify-content:center;color:var(--g700);font-family:var(--f-l);font-weight:700;font-size:.85rem}
+[data-theme="dark"] .faq-num{background:rgba(82,183,136,.12);color:var(--g300)}
+.faq-item.open .faq-num{background:linear-gradient(135deg,var(--au400),var(--au500));color:#fff}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .5s var(--e),padding .4s var(--e);padding:0 1.5rem;font-size:.95rem;color:var(--i600);line-height:1.9}
+[data-theme="dark"] .faq-a{color:var(--i400)}
+.faq-item.open .faq-a{max-height:800px;padding:0 1.5rem 1.5rem}
+.faq-a strong{color:var(--g700);font-weight:700}
+[data-theme="dark"] .faq-a strong{color:var(--g300)}
+.faq-a .hadith{display:block;margin:1rem 0;padding:1rem 1.2rem;background:var(--g50);border-right:3px solid var(--g500);border-radius:var(--r-s);font-family:var(--f-q);font-size:1.05rem;color:var(--g800);line-height:1.9}
+[data-theme="dark"] .faq-a .hadith{background:rgba(82,183,136,.08);color:var(--g200)}
+[dir="ltr"] .faq-a .hadith{border-right:none;border-left:3px solid var(--g500)}
+
+.back-bar{display:flex;justify-content:center;margin-bottom:2rem;position:relative;z-index:2}
+.back-btn{display:inline-flex;align-items:center;gap:.6rem;padding:.9rem 1.8rem;background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;text-decoration:none;border-radius:var(--r-pill);font-family:var(--f-b);font-size:.95rem;font-weight:600;box-shadow:0 12px 30px rgba(45,106,79,.3);transition:all .4s var(--e)}
+.back-btn:hover{transform:translateY(-3px);box-shadow:0 20px 45px rgba(45,106,79,.4)}
+.back-btn svg{width:18px;height:18px}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <a href="index.html" style="text-decoration:none;padding:.6rem 1.1rem;background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-pill);color:var(--i800);font-family:var(--f-b);font-size:.85rem;font-weight:600;box-shadow:var(--sh-md)">🏠 الرئيسية</a>
+</div>
+<button class="theme-toggle" id="themeToggle">
+  <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+</button>
+
+<main class="container">
+<section class="faq-hero">
+  <div class="arabesque">❁ ✦ ❁</div>
+  <h1 data-i18n="faq_title">أسئلة المسلم الجديد</h1>
+  <p>New Muslim — Frequently Asked Questions</p>
+  <p class="subtitle-ar" data-i18n="faq_subtitle">كل ما يدور في ذهنك بعد نطق الشهادتين، أجوبةٌ واضحةٌ ميسّرة من الكتاب والسنة.</p>
+</section>
+
+<div class="faq-list" id="faqList">
+
+<div class="faq-item">
+  <div class="faq-q"><div class="faq-num">01</div><span>هل يجب أن أُغيّر اسمي بعد الإسلام؟</span></div>
+  <div class="faq-a">لا، ليس واجباً. الاسم في الإسلام ليس شرطاً للدخول فيه، والاسم الأصلي **يجوز** أن يبقى ما لم يكن فيه معنى محرّم أو شركيّ (مثل: عبد المسيح، أو اسم صنم). كثير من الصحابة أسلموا وبقوا بأسمائهم. لكن **يُستحب** تغيير الاسم إن كان فيه شرك، ويجوز تغييره اختياراً. إن أحببت أن تتسمى باسم إسلامي جديد فهذا جميل، وإن بقيت باسمك فلا حرج عليك إطلاقاً.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q"><div class="faq-num">02</div><span>هل أُخبر عائلتي وأصدقائي بإسلامي؟</span></div>
+  <div class="faq-a">هذا قرارك أنت. الأصل أن تُظهر دينك بلا خوف، لكن الشريعة تُراعي المصلحة. إن كنت تخشى ضرراً حقيقياً على نفسك (طرد، إيذاء جسدي)، فلك أن تُخفي إسلامك مؤقتاً (تقية) حتى تُهيّئ الظروف. والأفضل على المدى الطويل: أن تُخبرهم بحكمة، بأسلوب لطيف، مع بيان أن الإسلام زادك حبّاً ورحمة بهم. <strong>لا تقطع صلة الرحم أبداً</strong>، فالوالدان لهما حقٌّ عظيم في الإسلام حتى لو كانا غير مسلمين.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q"><div class="faq-num">03</div><span>ماذا أفعل إن أخطأت في الصلاة أو نسيت شيئاً؟</span></div>
+  <div class="faq-a">لا تقلق — الإسلام دين يُسر. إذا نسيت ركعة، سلّم ثم اسجد سجدتي السهو. إذا لم تعرف الأذكار بعد، قل: "سبحان الله، والحمد لله، ولا إله إلا الله، والله أكبر". إذا نسيت ركناً، أعد الصلاة. المهم: **لا تترك الصلاة بسبب الجهل** — صلّ ما تعلم، وأكمل ما تجهل، وسيتعلم مع الوقت. النبي ﷺ قال: <span class="hadith">«إنما أنت عبدي، إن الله لا يملّ حتى تملّوا»</span>.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q"><div class="faq-num">04</div><span>هل أستطيع أكل اللحم من مطاعم أهل الكتاب؟</span></div>
+  <div class="faq-a">الأصل: اللحم إما ذُبح على الطريقة الإسلامية = حلال، أو ذُبح لغير الله (أو لم يُذكر اسم الله عليه) = حرام. اللحوم في معظم البلدان الغربية قد لا تكون مذبوحة إسلامياً. القاعدة: **إن كنت تعلم أنه ذُبح لغير الله فلا تأكله، وإن لم تعلم فالأصل الحل**. الأفضل البحث عن "Halal" في مطعمك. أما الخضروات والأسماك والأجبان والبيض فهي حلال بلا خلاف.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q"><div class="faq-num">05</div><span>كيف أتعامل مع من يسخر مني أو يستهزئ بإسلامي؟</span></div>
+  <div class="faq-a">بأخلاق النبي ﷺ. النبي كان يُساء إليه فيقول خيراً. لا ترد بالمثل، ولا تُقاطِع. اترك ثقل الطرف الآخر. الله قال: <span class="hadith">﴿وَإِذَا خَاطَبَهُمُ الْجَاهِلُونَ قَالُوا سَلَامًا﴾</span> — أي إذا خاطبهم الجاهلون قالوا كلاماً حسناً. وأحياناً السكوت أبلغ رد. أنت مؤمن، والله معك، فثق بنصر الله.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q"><div class="faq-num">06</div><span>هل يجب عليّ أن أتعلم اللغة العربية؟</span></div>
+  <div class="faq-a">لا يجب عليك تعلمها كاملة، لكن **تعلّم قراءة الفاتحة وقراءة القرآن** واجب. تعلم الحروف العربية ولو بشكل بسيط ليتمكنك من القراءة. يمكنك البدء بالترجمة أولاً، ثم التدرج في قراءة العربية. القرآن بلغته الأصليّة له نكهة خاصة، لكن الله يقبل صلاة من قرأ بلغة أخرى إذا لم يستطع العربية بعد. **النية ثم التدرج**.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q"><div class="faq-num">07</div><span>ما حكم قصّ شعر الرأس أو صبغه؟ هل هناك شيء محرّم؟</span></div>
+  <div class="faq-a">قصّ الشعر وتصفيفه حلال بإجماع. **يحرم فقط**: (1) قصّ أو حلق شعر اللحية للرجال بدون عذر شرعي، (2) تشبّه الرجال بالنساء أو العكس في المظهر، (3) صبغ الشعر بالأسود للتحايل على الكبر، (4) وصل الشعر بشعر آخر (مثل الوصل الصناعي). ما عدا ذلك فلك حرية كاملة. "الأصل في الأشياء الإباحة".</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q"><div class="faq-num">08</div><span>هل أرث والدي غير المسلم؟ أو يتوقف ميراثي عنهم؟</span></div>
+  <div class="faq-a">في الشريعة، **لا توارث بين مسلم وغير مسلم** في المذهب الحنبلي والشافعي المشهور. لكن: إذا كنت جديداً في الإسلام ولم تعلم بحكم الميراث قبل موت مورّثك، فالأمر فيه تفصيل — اسأل عالماً. الأهم: صل رحمك، ولا تقطع والديك، ولو لم تكن قادراً على صلة الميراث فصِل بالإحسان والهدية والزيارة — فهذه **لا تُقطَع أبداً**.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q"><div class="faq-num">09</div><span>هل يمكن أن أخطئ وأرجع للمعصية بعد الإسلام؟</span></div>
+  <div class="faq-a">نعم، يمكن. لكن باب التوبة مفتوح دائماً. النبي ﷺ قال: <span class="hadith">«كل ابن آدم خطّاء، وخير الخطّائين التوّابون»</span>. المهم: (1) لا تستهن بالمعصية، (2) تُب فوراً ولا تؤخّر، (3) لا تُقنط من رحمة الله، (4) لا تُصرّ على الذنب وأنت قادر على تركه. المسلم ليس معصوماً، لكنه **يتوب** إذا أخطأ. كل مرة تتوب يقربك الله أكثر.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q"><div class="faq-num">10</div><span>كيف أعرف أن صلاتي قُبلت؟ وهل هناك علامات؟</span></div>
+  <div class="faq-a">لا يوجد "علامة" حسّية للقبول. لكن دلائل الروحانية: (1) تشعر بطمأنينة بعدها، (2) تحبّ الله أكثر بعدها، (3) لا تشعر بشيء أحياناً — وهذا طبيعي! المهم: <strong>أدِّها بشروطها وواجباتها، وادعُ الله بالقبول، وأحسِن الظنّ به</strong>. من المهم أن تعلم: القبول والرفض في علم الله، دورك أن تُؤدّي العمل كما أُمِرت، والنتيجة على الله وهو كريم لا يخيب من يأتيه.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q"><div class="faq-num">11</div><span>هل يمكنني أن أتزوج مسلمة أو غير مسلمة؟</span></div>
+  <div class="faq-a">للرجل المسلم: يجوز الزواج بالمسلمة، وكذلك بالكتابية (اليهودية أو النصرانية) بشرط أن تؤمن بالله ورسله، وأن تحفظ نفسها، وأن يكون في الزواج مصلحة. **يحرم** الزواج بالمشركة (البوذية، الهندوسية، الملحدة). وللمرأة المسلمة: **يجوز** الزواج بالمسلم فقط، لا يحلّ لها الزواج بغير المسلم إجماعاً. الأفضل للتوفيق أن يكون الزوجان مسلمين — فهذا أقوم للحياة الأسرية.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q"><div class="faq-num">12</div><span>ماذا أفعل إذا كان والديّ غير مسلمين ويعتمدان عليّ؟</span></div>
+  <div class="faq-a">برّ الوالدين **واجب** في الإسلام، حتى لو كانا غير مسلمين. يقول الله: <span class="hadith">﴿وَصَاحِبْهُمَا فِي الدُّنْيَا مَعْرُوفًا﴾</span>. يعني: أحسِن إليهما في الدنيا حتى لو حاولا إخراجك من دينك — لا تُطعهما في المعصية، لكن **صل صلتك بهما بالإحسان**. وفي الحديث: جاء رجل يسأل النبي: «من أحق الناس بحُسن صحابتي؟» قال: «أمك». قال: ثم من؟ قال: «أمك». قال: ثم من؟ قال: «أمك». قال: ثم من؟ قال: «أبوك» — وهذا الرجل كان يشير لوالديه غير المسلمين. فالإحسان إليهما من أعظم القربات.</div>
+</div>
+
+</div>
+
+<div class="back-bar">
+  <a href="index.html" class="back-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    <span data-i18n="back_home">العودة للرئيسية</span>
+  </a>
+</div>
+</main>
+
+<div class="share-container"></div>
+
+<footer class="footer">
+  <div class="footer-dua">اللهم علّمنا ما ينفعنا، وانفعنا بما علّمتنا</div>
+  <div class="footer-owner">صاحب الموقع: <strong>واشمي محمد</strong></div>
+</footer>
+
+<script>
+(function(){
+  const s=localStorage.getItem('theme');
+  const d=window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme',s||(d?'dark':'light'));
+  document.getElementById('themeToggle').addEventListener('click',()=>{
+    const c=document.documentElement.getAttribute('data-theme');
+    const n=c==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',n);
+    localStorage.setItem('theme',n);
+  });
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    item.querySelector('.faq-q').addEventListener('click',()=>{
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+  // فتح الأول تلقائياً
+  document.querySelector('.faq-item').classList.add('open');
+})();
+</script>
+<script src="share.js"></script>
+<script src="pages-i18n.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+    window.injectLangSelector();
+    window.applyPagesI18n();
+  });
+</script>
+</body>
+</html>
