@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Reem+Kufi:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="home-i18n.js"></script>
 <style>
 /* ═══════════════════════════════════════════════════════
    ROOT — Emerald + Gold 2026
@@ -1554,8 +1555,8 @@ body {
     <a href="/" class="brand">
       <div class="brand-logo">☪</div>
       <div class="brand-text">
-        <span>بيتك الجديد</span>
-        <small>Welcome Home</small>
+        <span data-h="brand">بيتك الجديد</span>
+        <small data-h="brand_sub">Welcome Home</small>
       </div>
     </a>
     <div class="header-actions">
@@ -1573,24 +1574,24 @@ body {
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <div class="hero-badge">✦ موقع إسلامي شامل</div>
-    <h1 class="hero-title">أهلاً بك في <span>بيتك الجديد</span></h1>
-    <p class="hero-sub">رحلتك تبدأ من هنا. سنكون معك خطوة بخطوة من لحظة نطق الشهادة إلى أن تصبح مسلماً عالماً عاملاً بإذن الله.</p>
+    <div class="hero-badge" data-h="hero_badge">✦ موقع إسلامي شامل</div>
+    <h1 class="hero-title"><span data-h="hero_title_1">أهلاً بك في</span> <span data-h="hero_title_2">بيتك الجديد</span></h1>
+    <p class="hero-sub" data-h="hero_sub">رحلتك تبدأ من هنا. سنكون معك خطوة بخطوة من لحظة نطق الشهادة إلى أن تصبح مسلماً عالماً عاملاً بإذن الله.</p>
     <div class="hero-verse">
       ﴿ قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَىٰ أَنفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ ۚ إِنَّ اللَّهَ يَغْفِرُ الذُّنُوبَ جَمِيعًا ﴾
       <div style="font-family:var(--font-mono);font-size:.7rem;color:var(--gold-500);margin-top:.7rem">الزمر: 53</div>
     </div>
-    <a href="#shahada" class="hero-cta">🤍 أريد أن أُسلم الآن</a>
+    <a href="#shahada" class="hero-cta" data-h="hero_cta">🤍 أريد أن أُسلم الآن</a>
   </div>
 </section>
 
 <!-- ═══ STATS STRIP ═══ -->
 <section class="container" style="margin-top:-3rem; position:relative; z-index:10;">
   <div class="stats-strip reveal">
-    <div class="stat-item"><div class="num">21</div><div class="lbl">صفحة كاملة</div></div>
-    <div class="stat-item"><div class="num">34</div><div class="lbl">لغة</div></div>
-    <div class="stat-item"><div class="num">99</div><div class="lbl">اسم من أسماء الله</div></div>
-    <div class="stat-item"><div class="num">∞</div><div class="lbl">أجر جارٍ</div></div>
+    <div class="stat-item"><div class="num">21</div><div class="lbl" data-h="stat_pages">صفحة كاملة</div></div>
+    <div class="stat-item"><div class="num">34</div><div class="lbl" data-h="stat_langs">لغة</div></div>
+    <div class="stat-item"><div class="num">99</div><div class="lbl" data-h="stat_names">اسم من أسماء الله</div></div>
+    <div class="stat-item"><div class="num">∞</div><div class="lbl" data-h="stat_reward">أجر جارٍ</div></div>
   </div>
 </section>
 
@@ -1598,9 +1599,9 @@ body {
 <section class="section">
   <div class="container">
     <div class="section-head">
-      <div class="section-eyebrow">Chapter One</div>
-      <h2 class="section-title">🌟 ابدأ رحلتك</h2>
-      <p class="section-sub">أول ما يحتاجه المسلم الجديد — من التعريف بالله إلى الأذكار اليومية</p>
+      <div class="section-eyebrow" data-h="s1_eyebrow">Chapter One</div>
+      <h2 class="section-title" data-h="s1_title">🌟 ابدأ رحلتك</h2>
+      <p class="section-sub" data-h="s1_sub">أول ما يحتاجه المسلم الجديد — من التعريف بالله إلى الأذكار اليومية</p>
     </div>
     <div class="cards-grid" id="grid-1"></div>
   </div>
@@ -1610,9 +1611,9 @@ body {
 <section class="section" style="background: rgba(255,255,255,.5); backdrop-filter: blur(20px);">
   <div class="container">
     <div class="section-head">
-      <div class="section-eyebrow">Chapter Two</div>
-      <h2 class="section-title">🎯 أدواتك الشخصية</h2>
-      <p class="section-sub">أنظمة تفاعلية لتتبع رحلتك اليومية بإنجازات</p>
+      <div class="section-eyebrow" data-h="s2_eyebrow">Chapter Two</div>
+      <h2 class="section-title" data-h="s2_title">🎯 أدواتك الشخصية</h2>
+      <p class="section-sub" data-h="s2_sub">أنظمة تفاعلية لتتبع رحلتك اليومية بإنجازات</p>
     </div>
     <div class="cards-grid" id="grid-2"></div>
   </div>
@@ -1622,9 +1623,9 @@ body {
 <section class="section">
   <div class="container">
     <div class="section-head">
-      <div class="section-eyebrow">Chapter Three</div>
-      <h2 class="section-title">📚 العلم والمعرفة</h2>
-      <p class="section-sub">تعلّم دينك من المصادر الموثوقة</p>
+      <div class="section-eyebrow" data-h="s3_eyebrow">Chapter Three</div>
+      <h2 class="section-title" data-h="s3_title">📚 العلم والمعرفة</h2>
+      <p class="section-sub" data-h="s3_sub">تعلّم دينك من المصادر الموثوقة</p>
     </div>
     <div class="cards-grid" id="grid-3"></div>
   </div>
@@ -1634,9 +1635,9 @@ body {
 <section class="section" style="background: rgba(255,255,255,.5); backdrop-filter: blur(20px);">
   <div class="container">
     <div class="section-head">
-      <div class="section-eyebrow">Chapter Four</div>
-      <h2 class="section-title">🕌 أدوات العبادة</h2>
-      <p class="section-sub">حاسبات وأدوات لمساعدتك في عباداتك</p>
+      <div class="section-eyebrow" data-h="s4_eyebrow">Chapter Four</div>
+      <h2 class="section-title" data-h="s4_title">🕌 أدوات العبادة</h2>
+      <p class="section-sub" data-h="s4_sub">حاسبات وأدوات لمساعدتك في عباداتك</p>
     </div>
     <div class="cards-grid" id="grid-4"></div>
   </div>
@@ -1646,9 +1647,9 @@ body {
 <section class="section">
   <div class="container">
     <div class="section-head">
-      <div class="section-eyebrow">Chapter Five</div>
-      <h2 class="section-title">✨ إضافات مميزة</h2>
-      <p class="section-sub">محتوى فريد لا تجده في مكان آخر</p>
+      <div class="section-eyebrow" data-h="s5_eyebrow">Chapter Five</div>
+      <h2 class="section-title" data-h="s5_title">✨ إضافات مميزة</h2>
+      <p class="section-sub" data-h="s5_sub">محتوى فريد لا تجده في مكان آخر</p>
     </div>
     <div class="cards-grid" id="grid-5"></div>
   </div>
@@ -1660,10 +1661,7 @@ body {
     <div class="shahada-inner">
       <div class="shahada-bismillah">﷽</div>
       <div class="shahada-label">The Testimony of Faith</div>
-      <div class="shahada-text">
-        أشهد أن لا إله إلا الله،<br>
-        وأشهد أن محمداً رسول الله
-      </div>
+      <div class="shahada-text" data-h="shahada_text">أشهد أن لا إله إلا الله،<br>وأشهد أن محمداً رسول الله</div>
       <div class="shahada-translit">
         Ash-hadu an la ilaha illa Allah,<br>
         wa ash-hadu anna Muhammadan rasoolu Allah.
@@ -1671,9 +1669,9 @@ body {
       <div class="shahada-actions">
         <button class="btn-audio" id="audioBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-          <span>اسمع وردد</span>
+          <span data-h="btn_audio">اسمع وردد</span>
         </button>
-        <button class="btn-shahada" id="shahadaBtn">🤍 لقد نطقتُ الشهادة الآن</button>
+        <button class="btn-shahada" id="shahadaBtn" data-h="btn_shahada">🤍 لقد نطقتُ الشهادة الآن</button>
       </div>
     </div>
   </div>
@@ -1683,8 +1681,8 @@ body {
 <section class="section">
   <div class="container">
     <div class="share-box reveal">
-      <h3>📢 شارك الموقع</h3>
-      <p>كل شخص يزور الموقع بسببك = أجر لك في ميزانك يوم القيامة</p>
+      <h3 data-h="share_title">📢 شارك الموقع</h3>
+      <p data-h="share_sub">كل شخص يزور الموقع بسببك = أجر لك في ميزانك يوم القيامة</p>
       <button class="share-btn" id="shareBtn">
         <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
         شارك على واتساب
@@ -1695,9 +1693,9 @@ body {
 
 <!-- ═══ FOOTER ═══ -->
 <footer class="footer">
-  <div class="footer-dua">اللهم ثبّت قلوبنا على دينك، واجعلنا من عبادك الصالحين</div>
+  <div class="footer-dua" data-h="footer_dua">اللهم ثبّت قلوبنا على دينك، واجعلنا من عبادك الصالحين</div>
   <div>صُنع بمحبة <span style="color:var(--gold-600)">♥</span> لكل من يبحث عن النور</div>
-  <div class="footer-owner">صاحب الموقع: <strong>واشمي محمد</strong> 🇩🇿</div>
+  <div class="footer-owner"><span data-h="footer_owner">صاحب الموقع:</span> <strong data-h="footer_owner_name">واشمي محمد</strong> 🇩🇿</div>
 </footer>
 
 <!-- ═══ CERTIFICATE OVERLAY ═══ -->
@@ -1706,15 +1704,15 @@ body {
     <div class="cert-form-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     </div>
-    <h3 class="cert-form-title">مبارك عليك 🤍</h3>
-    <p class="cert-form-sub">أدخل اسمك لنُصدر لك شهادة إسلامك الرقمية</p>
-    <label for="firstName">الاسم الأول</label>
+    <h3 class="cert-form-title" data-h="cert_title">مبارك عليك 🤍</h3>
+    <p class="cert-form-sub" data-h="cert_sub">أدخل اسمك لنُصدر لك شهادة إسلامك الرقمية</p>
+    <label for="firstName" data-h="cert_first">الاسم الأول</label>
     <input type="text" id="firstName" maxlength="30" placeholder="محمد، أحمد...">
-    <label for="lastName">اللقب (اختياري)</label>
+    <label for="lastName" data-h="cert_last">اللقب (اختياري)</label>
     <input type="text" id="lastName" maxlength="30" placeholder="العبد، الخالدي...">
     <div class="cert-form-actions">
-      <button class="btn-cert-ghost" id="certCancel">إلغاء</button>
-      <button class="btn-cert-primary" id="certConfirm">استلم الشهادة</button>
+      <button class="btn-cert-ghost" id="certCancel" data-h="cert_cancel">إلغاء</button>
+      <button class="btn-cert-primary" id="certConfirm" data-h="cert_confirm">استلم الشهادة</button>
     </div>
   </div>
 
@@ -1752,9 +1750,9 @@ body {
       </div>
     </div>
     <div class="cert-actions">
-      <button class="cert-action-btn cert-dl" id="certDownload">📥 تحميل PNG</button>
+      <button class="cert-action-btn cert-dl" id="certDownload" data-h="cert_download">📥 تحميل PNG</button>
       <button class="cert-action-btn cert-share-wa" id="certShareWa">💬 واتساب</button>
-      <button class="cert-action-btn cert-close" id="certClose">إغلاق</button>
+      <button class="cert-action-btn cert-close" id="certClose" data-h="cert_close">إغلاق</button>
     </div>
   </div>
 </div>
@@ -1791,289 +1789,41 @@ body {
   // ═══ CARDS DATA ═══
   var SECTIONS = {
     'grid-1': [
-      { href:'god.html', icon:'🌌', title:'تعريف الله', desc:'حجج منطقية لمن يبحث عن الحق' },
-      { href:'names.html', icon:'✨', title:'أسماء الله الحسنى', desc:'99 اسماً حسناً بمعانيها', badge:'99' },
-      { href:'faq.html', icon:'❓', title:'الأسئلة الشائعة', desc:'أجوبة للمسلم الجديد' },
-      { href:'adhkar.html', icon:'📿', title:'الأذكار اليومية', desc:'صباح ومساء ونوم وطعام' }
+      { href:'god.html', icon:'🌌', key:'card_god' },
+      { href:'names.html', icon:'✨', key:'card_names', badgeKey:'badge_99' },
+      { href:'faq.html', icon:'❓', key:'card_faq' },
+      { href:'adhkar.html', icon:'📿', key:'card_adhkar' }
     ],
     'grid-2': [
-      { href:'journey.html', icon:'🎯', title:'رحلتي', desc:'تتبع تقدمك اليومي بإنجازات', badge:'جديد' },
-      { href:'tree.html', icon:'🌳', title:'شجرة الإيمان', desc:'تنمو مع كل عمل صالح', badge:'مميز' },
-      { href:'first40.html', icon:'📅', title:'أول 40 يوم', desc:'برنامج تدريجي شامل', badge:'40 يوم' },
-      { href:'numbers.html', icon:'🔢', title:'حياتي بالأرقام', desc:'إحصائيات رحلتك في الإسلام' }
+      { href:'journey.html', icon:'🎯', key:'card_journey', badgeKey:'badge_new' },
+      { href:'tree.html', icon:'🌳', key:'card_tree', badgeKey:'badge_special' },
+      { href:'first40.html', icon:'📅', key:'card_first40', badgeKey:'badge_40' },
+      { href:'numbers.html', icon:'🔢', key:'card_numbers' }
     ],
     'grid-3': [
-      { href:'prophets.html', icon:'📖', title:'قصص الأنبياء', desc:'من آدم إلى محمد ﷺ', badge:'7 قصص' },
-      { href:'halal.html', icon:'☪️', title:'الحلال والحرام', desc:'دليل شامل للمسلم' },
-      { href:'questions.html', icon:'🤔', title:'الأسئلة الصعبة', desc:'لكل سؤال جواب' },
-      { href:'ruqyah.html', icon:'🩺', title:'الرقية الشرعية', desc:'شفاء بالقرآن والسنة', badge:'10 لغات' }
+      { href:'prophets.html', icon:'📖', key:'card_prophets', badgeKey:'badge_7_stories' },
+      { href:'halal.html', icon:'☪️', key:'card_halal' },
+      { href:'questions.html', icon:'🤔', key:'card_questions' },
+      { href:'ruqyah.html', icon:'🩺', key:'card_ruqyah', badgeKey:'badge_10_langs' }
     ],
     'grid-4': [
-      { href:'hajj.html', icon:'🕋', title:'دليل الحج والعمرة', desc:'خطوة بخطوة مع الأدعية' },
-      { href:'zakat.html', icon:'💰', title:'حاسبة الزكاة', desc:'احسب زكاتك بدقة' },
-      { href:'hijri.html', icon:'📅', title:'التقويم الهجري', desc:'التاريخ الهجري والمناسبات' },
-      { href:'baby-names.html', icon:'👶', title:'أسماء المولود', desc:'أسماء بمعانيها الجميلة', badge:'180 اسم' }
+      { href:'hajj.html', icon:'🕋', key:'card_hajj' },
+      { href:'zakat.html', icon:'💰', key:'card_zakat' },
+      { href:'hijri.html', icon:'📅', key:'card_hijri' },
+      { href:'baby-names.html', icon:'👶', key:'card_baby', badgeKey:'badge_180' }
     ],
     'grid-5': [
-      { href:'cards.html', icon:'🎨', title:'بطاقات النور', desc:'صمّم بطاقات إسلامية وشاركها' },
-      { href:'world-map.html', icon:'🗺️', title:'خريطة الدول', desc:'الدول الإسلامية حول العالم' },
-      { href:'algeria.html', icon:'🇩🇿', title:'حبيبتي الجزائر', desc:'بلد المليون شهيد' }
+      { href:'cards.html', icon:'🎨', key:'card_cards' },
+      { href:'world-map.html', icon:'🗺️', key:'card_map' },
+      { href:'algeria.html', icon:'🇩🇿', key:'card_algeria' }
     ]
   };
 
   // ═══ RENDER CARDS ═══
-  Object.keys(SECTIONS).forEach(function(gridId, idx){
-    var grid = document.getElementById(gridId);
-    if (!grid) return;
-    SECTIONS[gridId].forEach(function(card, i){
-      var key = card.href.replace('.html', '');
-      var img = IMAGES[key] || IMAGES['god'];
-      
-      var el = document.createElement('a');
-      el.className = 'card reveal';
-      el.href = card.href;
-      el.style.setProperty('--bg-img', 'url("' + img + '")');
-      
-      var uniqueClass = 'c-' + idx + '-' + i;
-      el.classList.add(uniqueClass);
-      
-      el.innerHTML = 
-        '<div class="card-icon">' + card.icon + '</div>' +
-        (card.badge ? '<div class="card-badge">' + card.badge + '</div>' : '') +
-        '<div class="card-content">' +
-          '<h3 class="card-title">' + card.title + '</h3>' +
-          '<p class="card-desc">' + card.desc + '</p>' +
-          '<span class="card-arrow">اقرأ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></span>' +
-        '</div>';
-      
-      grid.appendChild(el);
-      
-      var style = document.createElement('style');
-      style.textContent = '.' + uniqueClass + '::before { background-image: url("' + img + '"); }';
-      document.head.appendChild(style);
-    });
-  });
-
-  // ═══ THEME ═══
-  var savedTheme = localStorage.getItem('theme');
-  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
-  updateThemeIcon();
-
-  document.getElementById('themeToggle').addEventListener('click', function(){
-    var c = document.documentElement.getAttribute('data-theme');
-    var n = c === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', n);
-    localStorage.setItem('theme', n);
-    updateThemeIcon();
-  });
-
-  function updateThemeIcon(){
-    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    document.querySelector('.moon').style.display = isDark ? 'none' : 'block';
-    document.querySelector('.sun').style.display = isDark ? 'block' : 'none';
-  }
-
-  // ═══ LANGUAGES ═══
-  var LANGS = {
-    ar:'🇸🇦 العربية', en:'🇬🇧 English', fr:'🇫🇷 Français', es:'🇪🇸 Español',
-    de:'🇩🇪 Deutsch', tr:'🇹🇷 Türkçe', ur:'🇵🇰 اردو', id:'🇮🇩 Indonesia',
-    ru:'🇷🇺 Русский', zh:'🇨🇳 中文'
-  };
-  var langSelect = document.getElementById('langSelect');
-  Object.keys(LANGS).forEach(function(c){
-    var o = document.createElement('option');
-    o.value = c; o.textContent = LANGS[c];
-    langSelect.appendChild(o);
-  });
-  langSelect.value = localStorage.getItem('lang') || 'ar';
-  langSelect.addEventListener('change', function(){
-    localStorage.setItem('lang', this.value);
-  });
-
-  // ═══ SCROLL REVEAL ═══
-  var io = new IntersectionObserver(function(es){
-    es.forEach(function(e, i){
-      if (e.isIntersecting){
-        setTimeout(function(){ e.target.classList.add('revealed'); }, i * 80);
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: .08, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
-
-  // ═══ AUDIO ═══
-  var audioBtn = document.getElementById('audioBtn');
-  var audioBtnSpan = audioBtn.querySelector('span');
-  audioBtn.addEventListener('click', function(){
-    audioBtn.classList.add('playing');
-    audioBtnSpan.textContent = 'جارٍ...';
-    
-    var audio = new Audio('/audio/shahada.mp3');
-    
-    audio.onended = reset;
-    audio.onerror = function(){
-      if ('speechSynthesis' in window){
-        var u = new SpeechSynthesisUtterance('أشهد أن لا إله إلا الله وأشهد أن محمداً رسول الله');
-        u.lang = 'ar-SA';
-        u.rate = 0.5;
-        u.pitch = 0.65;
-        u.onend = reset;
-        u.onerror = reset;
-        speechSynthesis.speak(u);
-      } else {
-        reset();
-      }
-    };
-    
-    function reset(){
-      audioBtn.classList.remove('playing');
-      audioBtnSpan.textContent = 'اسمع وردد';
-    }
-    
-    audio.play().catch(function(){ audio.onerror(); });
-  });
-
-  // ═══ SHARE ═══
-  document.getElementById('shareBtn').addEventListener('click', function(){
-    var text = 'اكتشفت هذا الموقع الإسلامي الجميل:\nhttps://www.mohammedouachemi.work.gd\n\nفيه الشهادة، أسماء الله، الأذكار، الرقية، قصص الأنبياء وغيرها 🤍';
-    if (navigator.share){
-      navigator.share({ title: 'بيتك الجديد', text: text, url: 'https://www.mohammedouachemi.work.gd' });
-    } else {
-      window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
-    }
-  });
-
-  // ═══ CONFETTI ═══
-  function launchConfetti(){
-    var canvas = document.getElementById('confetti-canvas');
-    var ctx = canvas.getContext('2d');
-    var dpr = window.devicePixelRatio || 1;
-    canvas.width = window.innerWidth * dpr;
-    canvas.height = window.innerHeight * dpr;
-    canvas.style.width = window.innerWidth + 'px';
-    canvas.style.height = window.innerHeight + 'px';
-    ctx.scale(dpr, dpr);
-    
-    var colors = ['#0d5c3a','#c9a961','#52b788','#fff','#e6c988','#d8f3dc','#f0dba8'];
-    var parts = [];
-    for (var i = 0; i < 200; i++){
-      parts.push({
-        x: Math.random() * canvas.width,
-        y: -20 - Math.random() * 300,
-        w: 6 + Math.random() * 12,
-        h: 8 + Math.random() * 14,
-        vx: (Math.random() - 0.5) * 5,
-        vy: 2 + Math.random() * 6,
-        rot: Math.random() * Math.PI * 2,
-        vrot: (Math.random() - 0.5) * 0.3,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        shape: Math.random() > 0.6 ? 'circle' : 'rect',
-        opacity: 0.9
-      });
-    }
-    
-    var frame = 0;
-    function draw(){
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      parts.forEach(function(p){
-        p.x += p.vx; p.y += p.vy; p.vy += 0.1; p.vx *= 0.995; p.rot += p.vrot;
-        ctx.save();
-        ctx.translate(p.x, p.y);
-        ctx.rotate(p.rot);
-        ctx.globalAlpha = p.opacity;
-        ctx.fillStyle = p.color;
-        if (p.shape === 'circle'){ ctx.beginPath(); ctx.arc(0,0,p.w/2,0,Math.PI*2); ctx.fill(); }
-        else { ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h); }
-        ctx.restore();
-      });
-      frame++;
-      if (frame < 340) requestAnimationFrame(draw);
-      else ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-    draw();
-  }
-
-  // ═══ CERTIFICATE FLOW ═══
-  var shahadaBtn = document.getElementById('shahadaBtn');
-  var certOverlay = document.getElementById('certOverlay');
-  var certForm = document.getElementById('certForm');
-  var certStep2 = document.getElementById('certStep2');
-
-  shahadaBtn.addEventListener('click', function(){
-    certOverlay.classList.add('show');
-    certForm.style.display = '';
-    certStep2.style.display = 'none';
-    document.getElementById('firstName').value = localStorage.getItem('firstName') || '';
-    document.getElementById('lastName').value = localStorage.getItem('lastName') || '';
-    setTimeout(function(){ document.getElementById('firstName').focus(); }, 400);
-  });
-
-  document.getElementById('certCancel').addEventListener('click', function(){
-    certOverlay.classList.remove('show');
-  });
-
-  certOverlay.addEventListener('click', function(e){
-    if (e.target === certOverlay) certOverlay.classList.remove('show');
-  });
-
-  document.getElementById('certConfirm').addEventListener('click', function(){
-    var first = document.getElementById('firstName').value.trim();
-    var last = document.getElementById('lastName').value.trim();
-    if (!first){ document.getElementById('firstName').focus(); return; }
-    
-    localStorage.setItem('firstName', first);
-    localStorage.setItem('lastName', last);
-
-    var now = new Date();
-    var months = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
-    
-    document.getElementById('certNameDisplay').textContent = last ? (first + ' ' + last) : first;
-    document.getElementById('certDateAr').textContent = now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
-    document.getElementById('certNumber').textContent = 'SHA-' + now.getFullYear() + '-' + Math.floor(100000 + Math.random() * 900000);
-    document.getElementById('certRank').textContent = '#1';
-    document.getElementById('certRank').style.display = 'block';
-
-    certForm.style.display = 'none';
-    certStep2.style.display = 'block';
-    launchConfetti();
-    shahadaBtn.textContent = '✓ مبارك عليك، تقبّل الله';
-  });
-
-  document.getElementById('certClose').addEventListener('click', function(){
-    certOverlay.classList.remove('show');
-  });
-
-  document.getElementById('certDownload').addEventListener('click', async function(){
-    var btn = this;
-    var orig = btn.textContent;
-    btn.textContent = 'جارٍ...';
-    btn.disabled = true;
-    try {
-      var canvas = await html2canvas(document.getElementById('certificate'), {
-        backgroundColor: '#fdfcf7',
-        scale: 2.5,
-        useCORS: true
-      });
-      var link = document.createElement('a');
-      link.download = 'shahada-certificate.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    } catch(e){ alert('تعذّر التحميل'); }
-    btn.textContent = orig;
-    btn.disabled = false;
-  });
-
-  document.getElementById('certShareWa').addEventListener('click', function(){
-    var name = document.getElementById('certNameDisplay').textContent;
-    var text = '🤍 الحمد لله — نطقتُ الشهادتين\n\nأشهد أن لا إله إلا الله، وأشهد أن محمداً رسول الله\n\nصاحب الشهادة: ' + name + '\n\nhttps://www.mohammedouachemi.work.gd';
-    window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
-  });
-
-  document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape') certOverlay.classList.remove('show');
-  });
-
+  function renderCards(){
+    var lang = localStorage.getItem('lang') || 'ar';
+    if (!window.HOME_I18N[lang]) lang = 'ar';
+    var t = window.HOME_I18N[lang];
 })();
 </script>
 
