@@ -70,3 +70,79 @@
   <!-- زخرفة سفلية -->
   <text x="600" y="590" font-family="Amiri, serif" font-size="26" fill="#c9a961" text-anchor="middle" opacity="0.7">❁ ❁ ❁</text>
 </svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1b4332"/>
+      <stop offset="50%" stop-color="#2d6a4f"/>
+      <stop offset="100%" stop-color="#0d2818"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f4e4bc"/>
+      <stop offset="50%" stop-color="#e6c988"/>
+      <stop offset="100%" stop-color="#c9a961"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#52b788" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#52b788" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- خلفية دائرية -->
+  <circle cx="512" cy="512" r="500" fill="url(#bgGrad)"/>
+  <circle cx="512" cy="512" r="500" fill="url(#glow)"/>
+  
+  <!-- حلقة ذهبية خارجية -->
+  <circle cx="512" cy="512" r="480" fill="none" stroke="url(#goldGrad)" stroke-width="6"/>
+  <circle cx="512" cy="512" r="460" fill="none" stroke="url(#goldGrad)" stroke-width="2" stroke-dasharray="4,8" opacity="0.6"/>
+
+  <!-- نقش هندسي إسلامي في الخلفية -->
+  <g opacity="0.15" stroke="#e6c988" stroke-width="1.5" fill="none">
+    <!-- نجمة ثمانية كبيرة -->
+    <path d="M 512 200 L 640 328 L 768 200 L 824 256 L 768 384 L 824 512 L 768 640 L 824 768 L 768 824 L 640 768 L 512 824 L 384 768 L 256 824 L 200 768 L 256 640 L 200 512 L 256 384 L 200 256 L 256 200 L 384 256 Z" opacity="0.3"/>
+    <!-- دائرة داخلية -->
+    <circle cx="512" cy="512" r="200"/>
+    <circle cx="512" cy="512" r="260"/>
+  </g>
+
+  <!-- قوس القبة (المسجد) -->
+  <g fill="url(#goldGrad)">
+    <!-- القبة الكبيرة -->
+    <path d="M 512 340 Q 512 280 562 270 Q 612 280 612 340 L 612 400 L 412 400 L 412 340 Q 412 280 462 270 Q 512 280 512 340 Z" opacity="0.95"/>
+    <!-- الهلال على القبة -->
+    <circle cx="512" cy="245" r="30" fill="none" stroke="url(#goldGrad)" stroke-width="6"/>
+    <path d="M 512 220 Q 520 245 512 270" fill="url(#goldGrad)"/>
+  </g>
+  
+  <!-- المآذن الجانبية -->
+  <g fill="url(#goldGrad)">
+    <rect x="340" y="380" width="24" height="180" rx="3"/>
+    <ellipse cx="352" cy="375" rx="14" ry="10"/>
+    <rect x="660" y="380" width="24" height="180" rx="3"/>
+    <ellipse cx="672" cy="375" rx="14" ry="10"/>
+  </g>
+
+  <!-- نص البسملة -->
+  <text x="512" y="540" font-family="Amiri, serif" font-size="70" fill="url(#goldGrad)" text-anchor="middle" font-weight="700">﷽</text>
+
+  <!-- خط فاصل -->
+  <line x1="300" y1="590" x2="420" y2="590" stroke="url(#goldGrad)" stroke-width="2"/>
+  <line x1="604" y1="590" x2="724" y2="590" stroke="url(#goldGrad)" stroke-width="2"/>
+  <circle cx="512" cy="590" r="8" fill="url(#goldGrad)"/>
+
+  <!-- العنوان العربي -->
+  <text x="512" y="690" font-family="Amiri, serif" font-size="88" fill="url(#goldGrad)" text-anchor="middle" font-weight="700" letter-spacing="2">بيتك الجديد</text>
+
+  <!-- العنوان الإنجليزي -->
+  <text x="512" y="760" font-family="Inter, sans-serif" font-size="32" fill="#a3c9b0" text-anchor="middle" letter-spacing="14" font-weight="300">WELCOME HOME</text>
+
+  <!-- الوصف -->
+  <text x="512" y="810" font-family="Amiri, serif" font-size="24" fill="#c9a961" text-anchor="middle" opacity="0.85">۞ موقع إسلامي شامل ۞</text>
+
+  <!-- الزخرفة السفلية -->
+  <text x="512" y="870" font-family="Amiri, serif" font-size="26" fill="url(#goldGrad)" text-anchor="middle">❁ ❁ ❁</text>
+
+  <!-- الرابط -->
+  <text x="512" y="910" font-family="Inter, sans-serif" font-size="18" fill="#8a9691" text-anchor="middle" letter-spacing="2">www.mohammedouachemi.work.gd</text>
+</svg>
