@@ -1,0 +1,831 @@
+cd ~/shahada-mars
+
+cat > journey.html << 'ENDOFFILE'
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>رحلتي · My Journey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Reem+Kufi:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+.journey-hero{text-align:center;padding:3rem 1rem 2rem;position:relative;z-index:2}
+.journey-hero .arabesque{font-family:var(--f-q);font-size:2rem;color:var(--au500);opacity:.7;margin-bottom:.5rem}
+.journey-hero h1{font-family:var(--f-d);font-size:clamp(1.9rem,5.5vw,2.8rem);font-weight:700;background:linear-gradient(135deg,var(--g700),var(--au500));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+.journey-hero p{font-family:var(--f-l);font-size:.85rem;color:var(--i400);direction:ltr;letter-spacing:.05em}
+.hello{font-family:var(--f-q);font-size:clamp(1.1rem,3vw,1.3rem);color:var(--g800);margin-top:1.5rem}
+[data-theme="dark"] .hello{color:var(--g200)}
+.hello strong{color:var(--au600);font-weight:700}
+[data-theme="dark"] .hello strong{color:var(--au400)}
+
+/* Big days counter */
+.days-counter{background:linear-gradient(160deg,var(--g800),var(--g900));border-radius:var(--r-xl);padding:clamp(2rem,5vw,3rem);text-align:center;color:#fff;position:relative;overflow:hidden;margin-bottom:2rem;box-shadow:var(--sh-lg)}
+.days-counter::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='.6' opacity='.3'%3E%3Cpath d='M40 10 L70 40 L40 70 L10 40 Z'/%3E%3Ccircle cx='40' cy='40' r='20'/%3E%3C/g%3E%3C/svg%3E");opacity:.08}
+.days-counter>*{position:relative;z-index:1}
+.dc-label{font-family:var(--f-l);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:var(--au300);margin-bottom:.8rem;direction:ltr}
+.dc-number{font-family:var(--f-d);font-size:clamp(3.5rem,14vw,6rem);font-weight:700;line-height:1;letter-spacing:-.03em;background:linear-gradient(180deg,#fff 0%,var(--au200) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;direction:ltr}
+.dc-unit{font-family:var(--f-d);font-size:1.2rem;color:rgba(255,255,255,.8);margin-top:.4rem}
+.dc-sub{font-family:var(--f-q);font-size:.95rem;color:var(--au300);margin-top:1.2rem;line-height:1.7;max-width:500px;margin-left:auto;margin-right:auto}
+
+/* Stats grid */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;margin-bottom:2rem}
+.stat-mini{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-m);padding:1.2rem;text-align:center;transition:all .3s var(--e);box-shadow:var(--sh-sm)}
+[data-theme="dark"] .stat-mini{border-color:rgba(82,183,136,.12)}
+.stat-mini:hover{transform:translateY(-3px);border-color:var(--g400);box-shadow:var(--sh-md)}
+.stat-mini .icon{font-size:1.8rem;line-height:1;margin-bottom:.5rem}
+.stat-mini .val{font-family:var(--f-d);font-size:1.8rem;font-weight:700;color:var(--g700);line-height:1;direction:ltr;margin-bottom:.3rem}
+[data-theme="dark"] .stat-mini .val{color:var(--g400)}
+.stat-mini .lbl{font-size:.75rem;color:var(--i500);font-family:var(--f-l);letter-spacing:.05em}
+
+/* Sections */
+.journey-section{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-l);padding:clamp(1.5rem,4vw,2.2rem);margin-bottom:1.5rem;box-shadow:var(--sh-md);transition:all .3s var(--e)}
+[data-theme="dark"] .journey-section{border-color:rgba(82,183,136,.12)}
+.js-title{font-family:var(--f-d);font-size:1.25rem;font-weight:700;color:var(--i900);margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem;padding-bottom:.7rem;border-bottom:1px solid var(--i200)}
+[data-theme="dark"] .js-title{border-color:var(--i300)}
+.js-title .emoji{font-size:1.4rem}
+
+/* Today's checklist */
+.prayer-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.6rem;margin-bottom:1.5rem}
+.prayer-item{display:flex;align-items:center;gap:.7rem;padding:1rem;background:var(--i100);border-radius:var(--r-m);cursor:pointer;transition:all .3s var(--e);border:2px solid transparent;user-select:none}
+[data-theme="dark"] .prayer-item{background:rgba(82,183,136,.05)}
+.prayer-item:hover{border-color:var(--g300)}
+.prayer-item.done{background:linear-gradient(135deg,var(--g500),var(--g700));color:#fff;border-color:var(--g600)}
+.prayer-item.done .check{background:#fff;color:var(--g700)}
+.prayer-item .check{width:26px;height:26px;border-radius:50%;background:var(--i200);display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:var(--i400);flex-shrink:0;transition:all .3s var(--e)}
+.prayer-item.done .check::after{content:'✓'}
+.prayer-item .name{font-family:var(--f-d);font-weight:600;font-size:.95rem;flex:1}
+
+/* Counters */
+.counters-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.counter-box{background:var(--i100);border-radius:var(--r-m);padding:1.2rem;text-align:center}
+[data-theme="dark"] .counter-box{background:rgba(82,183,136,.05)}
+.counter-box .lbl{font-size:.8rem;color:var(--i500);margin-bottom:.6rem;font-family:var(--f-b)}
+.counter-box .val{font-family:var(--f-d);font-size:2.2rem;font-weight:700;color:var(--g700);line-height:1;margin-bottom:.8rem;direction:ltr}
+[data-theme="dark"] .counter-box .val{color:var(--g400)}
+.counter-controls{display:flex;gap:.4rem;justify-content:center}
+.counter-btn{width:36px;height:36px;border-radius:50%;border:none;background:var(--g600);color:#fff;font-size:1.2rem;font-weight:700;cursor:pointer;transition:all .2s var(--e);font-family:var(--f-b);display:flex;align-items:center;justify-content:center}
+.counter-btn:hover{background:var(--g700);transform:scale(1.1)}
+.counter-btn:active{transform:scale(.95)}
+.counter-btn.minus{background:var(--i400)}
+.counter-btn.minus:hover{background:var(--i500)}
+
+/* Week calendar */
+.week-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:.5rem;margin-top:1rem}
+.day-cell{aspect-ratio:1;border-radius:var(--r-m);background:var(--i100);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem;border:2px solid transparent;transition:all .3s var(--e);cursor:pointer;position:relative}
+[data-theme="dark"] .day-cell{background:rgba(82,183,136,.05)}
+.day-cell.today{border-color:var(--au500)}
+.day-cell.complete{background:linear-gradient(135deg,var(--g500),var(--g700));color:#fff}
+.day-cell.partial{background:linear-gradient(135deg,var(--g100),var(--g200));color:var(--g800)}
+.day-cell .dw{font-size:.7rem;color:var(--i400);font-family:var(--f-l);font-weight:600}
+.day-cell.complete .dw{color:rgba(255,255,255,.85)}
+.day-cell .score{font-family:var(--f-d);font-size:1.1rem;font-weight:700;color:var(--g700)}
+.day-cell.complete .score{color:#fff}
+.day-cell.partial .score{color:var(--g800)}
+.day-cell .progress{position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--g500);border-radius:0 0 var(--r-m) var(--r-m)}
+
+/* Achievements */
+.badges-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:.7rem;margin-top:1rem}
+.badge{background:var(--i100);border-radius:var(--r-m);padding:1rem .5rem;text-align:center;transition:all .3s var(--e);border:2px solid transparent;position:relative;overflow:hidden}
+[data-theme="dark"] .badge{background:rgba(82,183,136,.05)}
+.badge .emoji{font-size:2rem;line-height:1;margin-bottom:.4rem;display:block;filter:grayscale(1);opacity:.35;transition:all .4s var(--e)}
+.badge .name{font-size:.72rem;color:var(--i500);font-family:var(--f-b);font-weight:600;line-height:1.3}
+.badge.unlocked{background:linear-gradient(135deg,var(--au200),var(--au400));border-color:var(--au500);box-shadow:0 8px 20px rgba(201,169,97,.3)}
+.badge.unlocked .emoji{filter:none;opacity:1;animation:badgePop .5s var(--e)}
+.badge.unlocked .name{color:var(--g900);font-weight:700}
+[data-theme="dark"] .badge.unlocked .name{color:var(--g900)}
+@keyframes badgePop{0%{transform:scale(.5)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
+
+/* Journal */
+.journal-list{display:flex;flex-direction:column;gap:.7rem;margin-bottom:1rem}
+.journal-entry{background:var(--i100);border-radius:var(--r-m);padding:1rem 1.2rem;position:relative;border-right:3px solid var(--au400)}
+[data-theme="dark"] .journal-entry{background:rgba(82,183,136,.05)}
+.journal-entry .je-date{font-family:var(--f-l);font-size:.75rem;color:var(--au600);margin-bottom:.4rem;direction:ltr;display:flex;justify-content:space-between;align-items:center}
+.journal-entry .je-text{font-size:.95rem;color:var(--i700);line-height:1.8;white-space:pre-wrap;word-break:break-word}
+[data-theme="dark"] .journal-entry .je-text{color:var(--i500)}
+.journal-entry .je-del{background:transparent;border:none;color:var(--i400);cursor:pointer;font-size:1rem;padding:.2rem;transition:color .2s}
+.journal-entry .je-del:hover{color:var(--red-dark,#c62828)}
+.journal-new{display:flex;gap:.5rem;align-items:flex-start}
+.journal-new textarea{flex:1;padding:.9rem 1.1rem;background:var(--i100);border:1.5px solid transparent;border-radius:var(--r-m);font-family:var(--f-b);font-size:.95rem;color:var(--i900);resize:vertical;min-height:80px;outline:none;transition:all .3s var(--e)}
+[data-theme="dark"] .journal-new textarea{background:rgba(24,34,27,.5);color:#fff}
+.journal-new textarea:focus{border-color:var(--g500);background:var(--paper);box-shadow:0 0 0 4px rgba(82,183,136,.15)}
+.journal-new button{padding:1rem 1.4rem;background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;border:none;border-radius:var(--r-m);font-family:var(--f-b);font-size:.9rem;font-weight:700;cursor:pointer;transition:all .3s var(--e);white-space:nowrap}
+.journal-new button:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(45,106,79,.3)}
+
+/* Onboarding modal */
+.onboard-overlay{position:fixed;inset:0;background:rgba(13,40,24,.85);backdrop-filter:blur(12px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;visibility:hidden;transition:opacity .4s var(--e),visibility .4s;overflow-y:auto}
+.onboard-overlay.show{opacity:1;visibility:visible}
+.onboard-box{background:var(--cream);border-radius:var(--r-xl);padding:2rem;max-width:460px;width:100%;box-shadow:var(--sh-lg);transform:scale(.9);transition:transform .5s var(--eb);margin:auto}
+.onboard-overlay.show .onboard-box{transform:scale(1)}
+.onboard-box h2{font-family:var(--f-d);font-size:1.5rem;color:var(--i900);text-align:center;margin-bottom:.5rem}
+.onboard-box .sub{text-align:center;color:var(--i500);font-size:.9rem;margin-bottom:1.8rem;line-height:1.7}
+.onboard-box label{display:block;font-size:.82rem;font-weight:600;color:var(--i700);margin-bottom:.4rem;font-family:var(--f-l)}
+.onboard-box input{width:100%;padding:.9rem 1.1rem;background:var(--i100);border:1.5px solid transparent;border-radius:var(--r-s);font-family:var(--f-b);font-size:1rem;color:var(--i900);margin-bottom:1.1rem;outline:none;transition:all .3s var(--e)}
+.onboard-box input:focus{border-color:var(--g500);background:var(--paper);box-shadow:0 0 0 4px rgba(82,183,136,.15)}
+.onboard-box button{width:100%;padding:1rem;background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;border:none;border-radius:var(--r-pill);font-family:var(--f-b);font-size:1rem;font-weight:700;cursor:pointer;transition:all .3s var(--e);box-shadow:0 12px 30px rgba(45,106,79,.3)}
+.onboard-box button:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(45,106,79,.4)}
+
+/* Action buttons */
+.actions-bar{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin:2rem 0}
+.action-btn{padding:.7rem 1.3rem;border:1.5px solid var(--i200);background:var(--paper);border-radius:var(--r-pill);color:var(--i700);font-family:var(--f-b);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .3s var(--e);display:inline-flex;align-items:center;gap:.5rem;text-decoration:none}
+[data-theme="dark"] .action-btn{background:rgba(24,34,27,.5);border-color:var(--i300);color:var(--i500)}
+.action-btn:hover{border-color:var(--g500);background:var(--g50);color:var(--g800);transform:translateY(-2px)}
+[data-theme="dark"] .action-btn:hover{background:rgba(82,183,136,.15);color:var(--g300)}
+.action-btn.primary{background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;border-color:transparent}
+.action-btn.primary:hover{box-shadow:0 12px 28px rgba(45,106,79,.4)}
+.action-btn.danger{border-color:rgba(229,115,115,.4);color:#c62828}
+.action-btn.danger:hover{background:rgba(229,115,115,.1);border-color:#e57373}
+
+/* Toast */
+.toast-ach{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%) translateY(-150%);background:linear-gradient(135deg,var(--au500),var(--au600));color:#fff;padding:1rem 1.5rem;border-radius:var(--r-pill);box-shadow:0 20px 50px rgba(201,169,97,.5);z-index:10000;font-weight:700;font-family:var(--f-b);transition:transform .6s var(--eb);display:flex;align-items:center;gap:.7rem;max-width:90vw}
+.toast-ach.show{transform:translateX(-50%) translateY(0)}
+.toast-ach .t-icon{font-size:1.5rem}
+
+@media(max-width:600px){
+  .week-cal{gap:.3rem}
+  .day-cell .score{font-size:.95rem}
+  .badges-grid{grid-template-columns:repeat(auto-fill,minmax(85px,1fr));gap:.5rem}
+  .badge{padding:.8rem .3rem}
+  .badge .emoji{font-size:1.6rem}
+  .badge .name{font-size:.65rem}
+  .journal-new{flex-direction:column}
+  .journal-new button{width:100%}
+}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <a href="index.html" style="text-decoration:none;padding:.6rem 1.1rem;background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-pill);color:var(--i800);font-family:var(--f-b);font-size:.85rem;font-weight:600;box-shadow:var(--sh-md)">🏠 الرئيسية</a>
+</div>
+<button class="theme-toggle" id="themeToggle">
+  <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+</button>
+
+<main class="container">
+
+<section class="journey-hero">
+  <div class="arabesque">❁ ✦ ❁</div>
+  <h1>رحلتي في الإسلام</h1>
+  <p>My Journey with Islam</p>
+  <div class="hello" id="helloText"></div>
+</section>
+
+<!-- Days Counter -->
+<div class="days-counter">
+  <div class="dc-label">Days since Shahada</div>
+  <div class="dc-number" id="daysNumber">0</div>
+  <div class="dc-unit" id="daysUnit">يوم في الإسلام</div>
+  <div class="dc-sub">﴿ وَأَنَّ هَٰذَا صِرَاطِي مُسْتَقِيمًا فَاتَّبِعُوهُ ﴾ — الأنعام: 153</div>
+</div>
+
+<!-- Quick Stats -->
+<div class="stats-grid">
+  <div class="stat-mini"><div class="icon">🕌</div><div class="val" id="statPrayers">0</div><div class="lbl">صلوات</div></div>
+  <div class="stat-mini"><div class="icon">📿</div><div class="val" id="statDhikr">0</div><div class="lbl">أذكار</div></div>
+  <div class="stat-mini"><div class="icon">📖</div><div class="val" id="statQuran">0</div><div class="lbl">صفحات قرآن</div></div>
+  <div class="stat-mini"><div class="icon">🔥</div><div class="val" id="statStreak">0</div><div class="lbl">يوم متواصل</div></div>
+</div>
+
+<!-- Today's Tracker -->
+<div class="journey-section">
+  <h2 class="js-title"><span class="emoji">📅</span> <span>يومي — <span id="todayDate"></span></span></h2>
+
+  <div class="prayer-list" id="prayerList">
+    <div class="prayer-item" data-prayer="fajr"><span class="check"></span><span class="name">الفجر</span></div>
+    <div class="prayer-item" data-prayer="dhuhr"><span class="check"></span><span class="name">الظهر</span></div>
+    <div class="prayer-item" data-prayer="asr"><span class="check"></span><span class="name">العصر</span></div>
+    <div class="prayer-item" data-prayer="maghrib"><span class="check"></span><span class="name">المغرب</span></div>
+    <div class="prayer-item" data-prayer="isha"><span class="check"></span><span class="name">العشاء</span></div>
+  </div>
+
+  <div class="counters-row">
+    <div class="counter-box">
+      <div class="lbl">📿 أذكار اليوم</div>
+      <div class="val" id="dhikrToday">0</div>
+      <div class="counter-controls">
+        <button class="counter-btn minus" data-action="dhikr-minus">−</button>
+        <button class="counter-btn" data-action="dhikr-plus">+</button>
+      </div>
+    </div>
+    <div class="counter-box">
+      <div class="lbl">📖 صفحات القرآن</div>
+      <div class="val" id="quranToday">0</div>
+      <div class="counter-controls">
+        <button class="counter-btn minus" data-action="quran-minus">−</button>
+        <button class="counter-btn" data-action="quran-plus">+</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Week Calendar -->
+<div class="journey-section">
+  <h2 class="js-title"><span class="emoji">🗓️</span> <span>أسبوعي</span></h2>
+  <div class="week-cal" id="weekCal"></div>
+</div>
+
+<!-- Achievements -->
+<div class="journey-section">
+  <h2 class="js-title"><span class="emoji">🏆</span> <span>إنجازاتي <span id="badgeCount" style="font-family:var(--f-l);font-size:.9rem;color:var(--i400);font-weight:500"></span></span></h2>
+  <div class="badges-grid" id="badgesGrid"></div>
+</div>
+
+<!-- Journal -->
+<div class="journey-section">
+  <h2 class="js-title"><span class="emoji">📝</span> <span>دفتر يومياتي</span></h2>
+  <div class="journal-new">
+    <textarea id="journalInput" placeholder="اكتب هنا أفكارك، أسئلتك، مشاعرك، أو دعاء اليوم..."></textarea>
+    <button id="journalAddBtn">أضف</button>
+  </div>
+  <div class="journal-list" id="journalList"></div>
+</div>
+
+<!-- Actions -->
+<div class="actions-bar">
+  <button class="action-btn primary" id="shareCardBtn">📤 مشاركة إحصائياتي</button>
+  <button class="action-btn" id="exportBtn">💾 تصدير بياناتي</button>
+  <label class="action-btn" for="importInput">📥 استيراد</label>
+  <input type="file" id="importInput" accept=".json" style="display:none">
+  <button class="action-btn" id="editInfoBtn">✏️ تعديل بياناتي</button>
+  <button class="action-btn danger" id="resetBtn">🗑️ حذف كل شيء</button>
+</div>
+
+<footer class="footer">
+  <div class="footer-dua">اللهم أعنا على ذكرك وشكرك وحسن عبادتك</div>
+  <div class="footer-owner">صاحب الموقع: <strong>واشمي محمد</strong></div>
+</footer>
+
+</main>
+
+<div class="share-container"></div>
+
+<!-- Onboarding Modal -->
+<div class="onboard-overlay" id="onboardOverlay">
+  <div class="onboard-box">
+    <h2>ابدأ رحلتك 🌟</h2>
+    <p class="sub">سجّل اسمك وتاريخ إسلامك لتبدأ رحلتك مع الله</p>
+    <label for="onboardName">اسمك (اختياري)</label>
+    <input type="text" id="onboardName" placeholder="مثال: محمد" maxlength="30">
+    <label for="onboardDate">تاريخ إسلامك</label>
+    <input type="date" id="onboardDate">
+    <button id="onboardSave">ابدأ رحلتي ✨</button>
+  </div>
+</div>
+
+<!-- Achievement Toast -->
+<div class="toast-ach" id="toastAch">
+  <span class="t-icon" id="toastAchIcon">🏆</span>
+  <span id="toastAchText">إنجاز جديد!</span>
+</div>
+
+<script src="share.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  // ═══ Theme ═══
+  var s=localStorage.getItem('theme');
+  var d=window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme',s||(d?'dark':'light'));
+  document.getElementById('themeToggle').addEventListener('click',function(){
+    var c=document.documentElement.getAttribute('data-theme');
+    var n=c==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',n);
+    localStorage.setItem('theme',n);
+  });
+
+  // ═══ State ═══
+  var STORAGE_KEY='journey_data_v1';
+
+  function loadData(){
+    try{
+      var raw=localStorage.getItem(STORAGE_KEY);
+      return raw?JSON.parse(raw):null;
+    }catch(e){return null;}
+  }
+  function saveData(data){
+    try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}catch(e){}
+  }
+  function todayKey(d){
+    d=d||new Date();
+    return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  }
+  function daysBetween(a,b){
+    var oneDay=24*60*60*1000;
+    return Math.floor((b-a)/oneDay);
+  }
+
+  var data = loadData();
+
+  // ═══ Onboarding ═══
+  var onboardOverlay=document.getElementById('onboardOverlay');
+  function showOnboard(){
+    onboardOverlay.classList.add('show');
+    document.getElementById('onboardDate').value=todayKey();
+  }
+  function hideOnboard(){ onboardOverlay.classList.remove('show'); }
+
+  document.getElementById('onboardSave').addEventListener('click',function(){
+    var name=document.getElementById('onboardName').value.trim();
+    var date=document.getElementById('onboardDate').value;
+    if(!date){ alert('اختر تاريخ إسلامك'); return; }
+    data={
+      name:name||'',
+      startDate:date,
+      dailyLog:{},
+      badges:[],
+      journal:[]
+    };
+    saveData(data);
+    hideOnboard();
+    renderAll();
+  });
+
+  if(!data){ showOnboard(); }
+
+  document.getElementById('editInfoBtn').addEventListener('click',function(){
+    if(!data) return;
+    document.getElementById('onboardName').value=data.name||'';
+    document.getElementById('onboardDate').value=data.startDate||todayKey();
+    onboardOverlay.classList.add('show');
+  });
+  // Override save to update existing
+  document.getElementById('onboardSave').addEventListener('click',function(){
+    if(!data) return;
+    data.name=document.getElementById('onboardName').value.trim();
+    data.startDate=document.getElementById('onboardDate').value;
+    saveData(data);
+    hideOnboard();
+    renderAll();
+  });
+
+  // ═══ Badges ═══
+  var ALL_BADGES = [
+    {id:'first_day',   emoji:'🌱', name:'أول يوم'},
+    {id:'first_prayer',emoji:'🕌', name:'أول صلاة'},
+    {id:'five_prayers',emoji:'⭐', name:'5 صلوات في يوم'},
+    {id:'week_strong', emoji:'🌿', name:'أسبوع كامل'},
+    {id:'100_dhikr',   emoji:'📿', name:'100 ذكر'},
+    {id:'first_quran', emoji:'📖', name:'أول صفحة'},
+    {id:'first_journal',emoji:'✍️',name:'أول تدوينة'},
+    {id:'month_strong',emoji:'🌳', name:'شهر كامل'},
+    {id:'100_prayers', emoji:'💯', name:'100 صلاة'},
+    {id:'1000_dhikr',  emoji:'🔮', name:'1000 ذكر'},
+    {id:'one_juz',     emoji:'📚', name:'جزء من القرآن'},
+    {id:'30_streak',   emoji:'🔥', name:'30 يوم متواصل'},
+    {id:'100_days',    emoji:'🏅', name:'100 يوم'},
+    {id:'1000_days',   emoji:'👑', name:'1000 يوم'}
+  ];
+
+  function checkBadges(){
+    if(!data) return [];
+    var unlocked=[];
+    var totalPrayers=0, totalDhikr=0, totalQuran=0;
+    Object.keys(data.dailyLog).forEach(function(k){
+      var d=data.dailyLog[k];
+      totalPrayers+=(d.prayers||[]).length;
+      totalDhikr+=d.dhikr||0;
+      totalQuran+=d.quranPages||0;
+    });
+
+    var days=0;
+    if(data.startDate){
+      days=daysBetween(new Date(data.startDate), new Date())+1;
+    }
+
+    function unlock(id){
+      if(data.badges.indexOf(id)===-1){
+        data.badges.push(id);
+        unlocked.push(id);
+      }
+    }
+
+    if(days>=1) unlock('first_day');
+    if(totalPrayers>=1) unlock('first_prayer');
+    if(Object.keys(data.dailyLog).some(function(k){return (data.dailyLog[k].prayers||[]).length>=5;})) unlock('five_prayers');
+    if(days>=7) unlock('week_strong');
+    if(totalDhikr>=100) unlock('100_dhikr');
+    if(totalQuran>=1) unlock('first_quran');
+    if(data.journal.length>=1) unlock('first_journal');
+    if(days>=30) unlock('month_strong');
+    if(totalPrayers>=100) unlock('100_prayers');
+    if(totalDhikr>=1000) unlock('1000_dhikr');
+    if(totalQuran>=20) unlock('one_juz');
+    if(days>=100) unlock('100_days');
+    if(days>=1000) unlock('1000_days');
+
+    // Streak badge
+    var streak=calculateStreak();
+    if(streak>=30) unlock('30_streak');
+
+    if(unlocked.length){
+      saveData(data);
+      unlocked.forEach(function(id,idx){
+        var b=ALL_BADGES.find(function(x){return x.id===id;});
+        if(b){
+          setTimeout(function(){ showAchToast(b.emoji,b.name); }, idx*800);
+        }
+      });
+    }
+  }
+
+  function calculateStreak(){
+    if(!data) return 0;
+    var streak=0;
+    var cur=new Date();
+    while(true){
+      var k=todayKey(cur);
+      var entry=data.dailyLog[k];
+      var complete=entry && (entry.prayers||[]).length>=3;
+      if(complete){ streak++; }
+      else if(streak>0 || daysBetween(cur,new Date())>1) break;
+      else if(todayKey(cur)!==todayKey() && !complete) break;
+      cur.setDate(cur.getDate()-1);
+      if(streak>1000) break;
+    }
+    return streak;
+  }
+
+  function showAchToast(emoji,name){
+    var t=document.getElementById('toastAch');
+    document.getElementById('toastAchIcon').textContent=emoji;
+    document.getElementById('toastAchText').textContent='🏆 إنجاز جديد: '+name;
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); },3500);
+  }
+
+  // ═══ Toggle prayer ═══
+  function togglePrayer(prayerId){
+    if(!data) return;
+    var k=todayKey();
+    if(!data.dailyLog[k]) data.dailyLog[k]={prayers:[],dhikr:0,quranPages:0};
+    var arr=data.dailyLog[k].prayers;
+    var i=arr.indexOf(prayerId);
+    if(i===-1) arr.push(prayerId);
+    else arr.splice(i,1);
+    saveData(data);
+    renderAll();
+
+    if(arr.length===5){
+      // Confetti when all 5 prayers done
+      if(typeof launchConfetti==='function') launchConfetti();
+      else if(window.__confettiReady) window.__confettiReady();
+    }
+  }
+
+  // ═══ Counter actions ═══
+  function updateCounter(field,delta){
+    if(!data) return;
+    var k=todayKey();
+    if(!data.dailyLog[k]) data.dailyLog[k]={prayers:[],dhikr:0,quranPages:0};
+    var cur=data.dailyLog[k][field]||0;
+    data.dailyLog[k][field]=Math.max(0,cur+delta);
+    saveData(data);
+    renderAll();
+  }
+
+  // ═══ Journal ═══
+  function addJournal(){
+    if(!data) return;
+    var input=document.getElementById('journalInput');
+    var text=input.value.trim();
+    if(!text) return;
+    var entry={
+      id:Date.now().toString(36),
+      date:new Date().toISOString(),
+      text:text
+    };
+    data.journal.unshift(entry);
+    saveData(data);
+    input.value='';
+    renderAll();
+  }
+  function deleteJournal(id){
+    if(!data) return;
+    if(!confirm('حذف هذه التدوينة؟')) return;
+    data.journal=data.journal.filter(function(e){return e.id!==id;});
+    saveData(data);
+    renderAll();
+  }
+
+  document.getElementById('journalAddBtn').addEventListener('click',addJournal);
+
+  // ═══ Render ═══
+  function renderAll(){
+    if(!data){ return; }
+
+    // Hello
+    var helloEl=document.getElementById('helloText');
+    if(data.name){
+      helloEl.innerHTML='السلام عليكم، <strong>'+escapeHtml(data.name)+'</strong> 🤍';
+    } else {
+      helloEl.innerHTML='السلام عليكم 🤍';
+    }
+
+    // Days
+    var days=0;
+    if(data.startDate){
+      days=daysBetween(new Date(data.startDate), new Date())+1;
+    }
+    if(days<1) days=1;
+    animateNumber(document.getElementById('daysNumber'),0,days,1200);
+
+    // Today date
+    document.getElementById('todayDate').textContent=new Date().toLocaleDateString('ar-EG',{weekday:'long',day:'numeric',month:'long'});
+
+    // Today's data
+    var k=todayKey();
+    var today=data.dailyLog[k]||{prayers:[],dhikr:0,quranPages:0};
+
+    // Prayers
+    document.querySelectorAll('.prayer-item').forEach(function(el){
+      var p=el.getAttribute('data-prayer');
+      el.classList.toggle('done',(today.prayers||[]).indexOf(p)!==-1);
+    });
+
+    // Counters
+    document.getElementById('dhikrToday').textContent=today.dhikr||0;
+    document.getElementById('quranToday').textContent=today.quranPages||0;
+
+    // Totals
+    var totalPrayers=0,totalDhikr=0,totalQuran=0;
+    Object.keys(data.dailyLog).forEach(function(key){
+      var d=data.dailyLog[key];
+      totalPrayers+=(d.prayers||[]).length;
+      totalDhikr+=d.dhikr||0;
+      totalQuran+=d.quranPages||0;
+    });
+    document.getElementById('statPrayers').textContent=totalPrayers;
+    document.getElementById('statDhikr').textContent=totalDhikr;
+    document.getElementById('statQuran').textContent=totalQuran;
+    document.getElementById('statStreak').textContent=calculateStreak();
+
+    // Week calendar
+    renderWeek();
+
+    // Badges
+    renderBadges();
+
+    // Journal
+    renderJournal();
+  }
+
+  function renderWeek(){
+    var cal=document.getElementById('weekCal');
+    cal.innerHTML='';
+    var dayNames=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+    var shortNames=['أحد','اثن','ثلا','أرب','خمي','جمع','سبت'];
+    var today=new Date();
+    var todayK=todayKey();
+
+    for(var i=6;i>=0;i--){
+      var d=new Date(today);
+      d.setDate(d.getDate()-i);
+      var key=todayKey(d);
+      var entry=data.dailyLog[key]||{prayers:[],dhikr:0,quranPages:0};
+      var pCount=(entry.prayers||[]).length;
+      var cell=document.createElement('div');
+      cell.className='day-cell';
+      if(key===todayK) cell.classList.add('today');
+      if(pCount>=5) cell.classList.add('complete');
+      else if(pCount>0) cell.classList.add('partial');
+      cell.innerHTML='<div class="dw">'+shortNames[d.getDay()]+'</div><div class="score">'+pCount+'/5</div>';
+      cell.title=dayNames[d.getDay()]+' — '+key;
+      cal.appendChild(cell);
+    }
+  }
+
+  function renderBadges(){
+    var grid=document.getElementById('badgesGrid');
+    grid.innerHTML='';
+    var count=0;
+    ALL_BADGES.forEach(function(b){
+      var unlocked=data.badges.indexOf(b.id)!==-1;
+      if(unlocked) count++;
+      var el=document.createElement('div');
+      el.className='badge'+(unlocked?' unlocked':'');
+      el.innerHTML='<span class="emoji">'+b.emoji+'</span><span class="name">'+b.name+'</span>';
+      grid.appendChild(el);
+    });
+    document.getElementById('badgeCount').textContent='('+count+'/'+ALL_BADGES.length+')';
+  }
+
+  function renderJournal(){
+    var list=document.getElementById('journalList');
+    list.innerHTML='';
+    if(!data.journal.length){
+      list.innerHTML='<div style="text-align:center;color:var(--i400);padding:1rem;font-size:.9rem">لا توجد تدوينات بعد — اكتب أول خاطرة 🤍</div>';
+      return;
+    }
+    data.journal.slice(0,20).forEach(function(e){
+      var el=document.createElement('div');
+      el.className='journal-entry';
+      var d=new Date(e.date);
+      var dateStr=d.toLocaleDateString('ar-EG',{day:'numeric',month:'long',year:'numeric'})+' · '+d.toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'});
+      el.innerHTML='<div class="je-date"><span>'+dateStr+'</span><button class="je-del" data-id="'+e.id+'" title="حذف">✕</button></div><div class="je-text">'+escapeHtml(e.text)+'</div>';
+      list.appendChild(el);
+    });
+    list.querySelectorAll('.je-del').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        deleteJournal(this.getAttribute('data-id'));
+      });
+    });
+  }
+
+  function animateNumber(el,from,to,duration){
+    duration=duration||1000;
+    var start=performance.now();
+    function tick(now){
+      var p=Math.min((now-start)/duration,1);
+      var eased=1-Math.pow(1-p,3);
+      var val=Math.floor(from+(to-from)*eased);
+      el.textContent=val.toLocaleString('en-US');
+      if(p<1) requestAnimationFrame(tick);
+      else el.textContent=to.toLocaleString('en-US');
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];});
+  }
+
+  // ═══ Event listeners ═══
+  document.querySelectorAll('.prayer-item').forEach(function(el){
+    el.addEventListener('click',function(){
+      togglePrayer(this.getAttribute('data-prayer'));
+    });
+  });
+  document.querySelectorAll('[data-action]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var a=this.getAttribute('data-action');
+      if(a==='dhikr-plus') updateCounter('dhikr',1);
+      if(a==='dhikr-minus') updateCounter('dhikr',-1);
+      if(a==='quran-plus') updateCounter('quranPages',1);
+      if(a==='quran-minus') updateCounter('quranPages',-1);
+    });
+  });
+
+  // ═══ Export / Import / Reset ═══
+  document.getElementById('exportBtn').addEventListener('click',function(){
+    if(!data) return;
+    var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;
+    a.download='my-journey-'+todayKey()+'.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  document.getElementById('importInput').addEventListener('change',function(e){
+    var file=e.target.files[0];
+    if(!file) return;
+    var reader=new FileReader();
+    reader.onload=function(ev){
+      try{
+        var imported=JSON.parse(ev.target.result);
+        if(!imported.dailyLog||!imported.startDate) throw new Error('صيغة غير صحيحة');
+        if(confirm('استبدال بياناتك الحالية بالبيانات المستوردة؟')){
+          data=imported;
+          if(!data.badges) data.badges=[];
+          if(!data.journal) data.journal=[];
+          saveData(data);
+          renderAll();
+        }
+      }catch(err){
+        alert('ملف غير صالح: '+err.message);
+      }
+    };
+    reader.readAsText(file);
+  });
+
+  document.getElementById('resetBtn').addEventListener('click',function(){
+    if(!confirm('حذف كل بياناتك؟ لا يمكن التراجع.')) return;
+    if(!confirm('تأكيد أخير: حذف كل شيء نهائياً؟')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    data=null;
+    location.reload();
+  });
+
+  // ═══ Share Card ═══
+  document.getElementById('shareCardBtn').addEventListener('click',async function(){
+    if(!data) return;
+    var btn=this;
+    var orig=btn.textContent;
+    btn.textContent='⏳ جاري الإنشاء...';
+    btn.disabled=true;
+
+    try{
+      var card=buildShareCard();
+      document.body.appendChild(card);
+      var canvas=await html2canvas(card,{backgroundColor:null,scale:2,useCORS:true,logging:false});
+      document.body.removeChild(card);
+      var link=document.createElement('a');
+      link.download='my-journey-'+todayKey()+'.png';
+      link.href=canvas.toDataURL('image/png');
+      link.click();
+    }catch(e){
+      alert('تعذّر إنشاء البطاقة');
+    }
+    btn.textContent=orig;
+    btn.disabled=false;
+  });
+
+  function buildShareCard(){
+    var days=daysBetween(new Date(data.startDate), new Date())+1;
+    if(days<1) days=1;
+    var totalPrayers=0,totalDhikr=0,totalQuran=0;
+    Object.keys(data.dailyLog).forEach(function(k){
+      var d=data.dailyLog[k];
+      totalPrayers+=(d.prayers||[]).length;
+      totalDhikr+=d.dhikr||0;
+      totalQuran+=d.quranPages||0;
+    });
+    var badgeCount=data.badges.length;
+    var card=document.createElement('div');
+    card.style.cssText='position:fixed;left:-9999px;top:0;width:600px;padding:50px 40px;background:linear-gradient(160deg,#1b4332,#0d2818);color:#fff;font-family:Cairo,sans-serif;text-align:center;border-radius:32px;direction:rtl';
+    card.innerHTML=
+      '<div style="font-family:Amiri,serif;font-size:1.2rem;color:#f4e4bc;margin-bottom:10px">﷽</div>'+
+      '<div style="font-family:Reem Kufi,serif;font-size:2rem;font-weight:700;background:linear-gradient(180deg,#fff,#e6c988);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px">رحلتي في الإسلام</div>'+
+      '<div style="font-family:Inter,sans-serif;font-size:.75rem;color:rgba(255,255,255,.5);letter-spacing:.2em;margin-bottom:30px">MY JOURNEY</div>'+
+      (data.name?'<div style="font-family:Amiri,serif;font-size:1.1rem;color:#e6c988;margin-bottom:20px">'+escapeHtml(data.name)+'</div>':'')+
+      '<div style="background:rgba(255,255,255,.06);border-radius:24px;padding:30px;margin-bottom:20px;border:1px solid rgba(230,201,136,.2)">'+
+        '<div style="font-family:Inter,sans-serif;font-size:.7rem;color:#e6c988;letter-spacing:.2em;margin-bottom:8px">DAYS SINCE SHAHADA</div>'+
+        '<div style="font-family:Reem Kufi,serif;font-size:4.5rem;font-weight:700;line-height:1;background:linear-gradient(180deg,#fff,#e6c988);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">'+days+'</div>'+
+        '<div style="font-family:Amiri,serif;font-size:1rem;color:rgba(255,255,255,.7);margin-top:5px">يوم في الإسلام</div>'+
+      '</div>'+
+      '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px">'+
+        '<div style="background:rgba(255,255,255,.05);border-radius:16px;padding:18px 10px">'+
+          '<div style="font-size:1.6rem">🕌</div>'+
+          '<div style="font-family:Reem Kufi,serif;font-size:1.6rem;font-weight:700;color:#e6c988;line-height:1">'+totalPrayers+'</div>'+
+          '<div style="font-size:.7rem;color:rgba(255,255,255,.5);margin-top:5px">صلاة</div>'+
+        '</div>'+
+        '<div style="background:rgba(255,255,255,.05);border-radius:16px;padding:18px 10px">'+
+          '<div style="font-size:1.6rem">📿</div>'+
+          '<div style="font-family:Reem Kufi,serif;font-size:1.6rem;font-weight:700;color:#e6c988;line-height:1">'+totalDhikr+'</div>'+
+          '<div style="font-size:.7rem;color:rgba(255,255,255,.5);margin-top:5px">ذكر</div>'+
+        '</div>'+
+        '<div style="background:rgba(255,255,255,.05);border-radius:16px;padding:18px 10px">'+
+          '<div style="font-size:1.6rem">🏆</div>'+
+          '<div style="font-family:Reem Kufi,serif;font-size:1.6rem;font-weight:700;color:#e6c988;line-height:1">'+badgeCount+'</div>'+
+          '<div style="font-size:.7rem;color:rgba(255,255,255,.5);margin-top:5px">إنجاز</div>'+
+        '</div>'+
+      '</div>'+
+      '<div style="font-family:Amiri,serif;font-size:.95rem;color:#f4e4bc;line-height:1.8;margin-bottom:20px">﴿ وَأَنَّ هَٰذَا صِرَاطِي مُسْتَقِيمًا فَاتَّبِعُوهُ ﴾</div>'+
+      '<div style="font-family:Inter,sans-serif;font-size:.75rem;color:rgba(255,255,255,.4);letter-spacing:.1em">islamic-sxqp.onrender.com</div>';
+    return card;
+  }
+
+  // ═══ Init ═══
+  renderAll();
+  checkBadges();
+
+})();
+</script>
+</body>
+</html>
+ENDOFFILE
+
+echo "✅ journey.html — تم إنشاء الصفحة"
+
+# ═══ ربط الصفحة في الرئيسية ═══
+cat > link-journey.js << 'EOF_LINK'
+const fs = require('fs');
+let html = fs.readFileSync('index.html', 'utf8');
+if (!html.includes('journey.html')) {
+  const anchors = [
+    '<a href="about-god.html">🌌 تعريف الله</a>',
+    '<a href="names.html">✨ أسماء الله</a>',
+    '<a href="names.html">✨ أسماء الله الحسنى</a>'
+  ];
+  for (const a of anchors) {
+    if (html.includes(a)) {
+      html = html.replace(a, a + '\n    <a href="journey.html">🎯 رحلتي</a>');
+      break;
+    }
+  }
+  fs.writeFileSync('index.html', html);
+  console.log('✅ تم ربط journey.html في الرئيسية');
+} else {
+  console.log('ℹ️ الرابط موجود مسبقاً');
+}
+EOF_LINK
+
+node link-journey.js && rm link-journey.js
+
+# ═══ رفع على GitHub ═══
+git add .
+git commit -m "Add: My Journey page (personal Islamic tracker with badges)"
+git push
+
+echo ""
+echo "════════════════════════════════════════"
+echo "  ✅ تم إضافة صفحة رحلتي بنجاح"
+echo "  ⏳ انتظر 60-90 ثانية"
+echo "  🔗 https://islamic-sxqp.onrender.com/journey.html"
+echo "════════════════════════════════════════"
