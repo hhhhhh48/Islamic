@@ -41,17 +41,7 @@ async function submitShahada(payload){try{const r=await fetch('/api/shahada',{me
 loadCount();
 
 /* ═══ Certificate ═══ */
-const shahadaBtn=document.getElementById('shahadaBtn');const certOverlay=document.getElementById('certOverlay');const certForm=document.getElementById('certForm');const certificate=document.getElementById('certificate');const certNameDisplay=document.getElementById('certNameDisplay');const certDateAr=document.getElementById('certDateAr');const certDateEn=document.getElementById('certDateEn');const certNumber=document.getElementById('certNumber');const certRank=document.getElementById('certRank');const toast=document.getElementById('toast');
-function formatDateAr(date){const m=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];return date.getDate()+' '+m[date.getMonth()]+' '+date.getFullYear();}
-function formatDateEn(date){return date.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});}
-function genCertNumber(){const y=new Date().getFullYear();return 'SHA-'+y+'-'+Math.floor(100000+Math.random()*900000);}
-shahadaBtn.addEventListener('click',e=>{const ripple=document.createElement('span');ripple.className='ripple';const rect=shahadaBtn.getBoundingClientRect();const size=Math.max(rect.width,rect.height);ripple.style.width=ripple.style.height=size+'px';ripple.style.left=(e.clientX-rect.left-size/2)+'px';ripple.style.top=(e.clientY-rect.top-size/2)+'px';shahadaBtn.appendChild(ripple);setTimeout(()=>ripple.remove(),800);certOverlay.classList.add('show');certForm.style.display='';certificate.style.display='none';document.getElementById('firstName').value=localStorage.getItem('firstName')||'';document.getElementById('lastName').value=localStorage.getItem('lastName')||'';setTimeout(()=>document.getElementById('firstName').focus(),400);});
-document.getElementById('certCancel').addEventListener('click',()=>certOverlay.classList.remove('show'));
-certOverlay.addEventListener('click',e=>{if(e.target===certOverlay)certOverlay.classList.remove('show');});
-document.getElementById('certConfirm').addEventListener('click',async()=>{const first=document.getElementById('firstName').value.trim();const last=document.getElementById('lastName').value.trim();if(!first){document.getElementById('firstName').focus();return;}localStorage.setItem('firstName',first);localStorage.setItem('lastName',last);const result=await submitShahada({firstName:first,lastName:last});animateNumber(counterNum,currentCount,result.count);currentCount=result.count;renderCountries(result.countries||[]);updateCounterSub();const now=new Date();const fullName=last?(first+' '+last):first;certNameDisplay.textContent=fullName;certDateAr.textContent=formatDateAr(now);certDateEn.textContent=formatDateEn(now);certNumber.textContent=genCertNumber();const rank=result.rank||result.count;const rankTpl=t('cert_rank')||'Your rank: #{n}';certRank.textContent=rankTpl.replace('{n}',rank.toLocaleString('en-US'));certForm.style.display='none';certificate.style.display='';launchConfetti();toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),4200);shahadaBtn.classList.add('done');shahadaBtn.querySelector('span').textContent=t('cta_btn_done')||'✓';});
-document.getElementById('certClose').addEventListener('click',()=>certOverlay.classList.remove('show'));
-document.getElementById('certDownload').addEventListener('click',async()=>{const btn=document.getElementById('certDownload');const orig=btn.textContent;btn.textContent='...';btn.disabled=true;try{const canvas=await html2canvas(certificate,{backgroundColor:null,scale:2,useCORS:true});const link=document.createElement('a');link.download='shahada-'+certNameDisplay.textContent.replace(/\s+/g,'-')+'.png';link.href=canvas.toDataURL('image/png');link.click();}catch(err){alert('Error');}finally{btn.textContent=orig;btn.disabled=false;}});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')certOverlay.classList.remove('show');});
+const shahadaBtn=document.getElementById('shahadaBtn');
 setLanguage(currentLang);
 
 
@@ -97,3 +87,156 @@ function speakShahada(){
     audio.onerror();
   });
 }
+
+
+/* ═══════════════════════════════════════════════════════
+   CERTIFICATE — Premium Flow
+   ═══════════════════════════════════════════════════════ */
+(function() {
+  var shahadaBtn = document.getElementById('shahadaBtn');
+  var certOverlay = document.getElementById('certOverlay');
+  var certForm = document.getElementById('certForm');
+  var certStep2 = document.getElementById('certStep2');
+  var certificate = document.getElementById('certificate');
+  var certNameDisplay = document.getElementById('certNameDisplay');
+  var certDateAr = document.getElementById('certDateAr');
+  var certDateEn = document.getElementById('certDateEn');
+  var certNumber = document.getElementById('certNumber');
+  var certRank = document.getElementById('certRank');
+  var toast = document.getElementById('toast');
+
+  if (!shahadaBtn || !certOverlay) return;
+
+  function formatDateAr(date) {
+    var m = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+    return date.getDate() + ' ' + m[date.getMonth()] + ' ' + date.getFullYear() + ' م';
+  }
+  function genCertNumber() {
+    var y = new Date().getFullYear();
+    return 'SHA-' + y + '-' + Math.floor(100000 + Math.random() * 900000);
+  }
+
+  shahadaBtn.addEventListener('click', function(e) {
+    var ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    var rect = shahadaBtn.getBoundingClientRect();
+    var size = Math.max(rect.width, rect.height);
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+    shahadaBtn.appendChild(ripple);
+    setTimeout(function(){ ripple.remove(); }, 800);
+    
+    certOverlay.classList.add('show');
+    certForm.style.display = '';
+    certStep2.style.display = 'none';
+    document.getElementById('firstName').value = localStorage.getItem('firstName') || '';
+    document.getElementById('lastName').value = localStorage.getItem('lastName') || '';
+    setTimeout(function(){ document.getElementById('firstName').focus(); }, 400);
+  });
+
+  document.getElementById('certCancel').addEventListener('click', function() {
+    certOverlay.classList.remove('show');
+  });
+  certOverlay.addEventListener('click', function(e) {
+    if (e.target === certOverlay) certOverlay.classList.remove('show');
+  });
+
+  document.getElementById('certConfirm').addEventListener('click', async function() {
+    var first = document.getElementById('firstName').value.trim();
+    var last = document.getElementById('lastName').value.trim();
+    if (!first) { document.getElementById('firstName').focus(); return; }
+    
+    localStorage.setItem('firstName', first);
+    localStorage.setItem('lastName', last);
+
+    // Submit to backend
+    var result = { count: 0, rank: 0, countries: [] };
+    try {
+      var r = await fetch('/api/shahada', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({firstName: first, lastName: last})
+      });
+      if (r.ok) result = await r.json();
+    } catch(e){}
+
+    if (typeof counterNum !== 'undefined' && counterNum) {
+      animateNumber(counterNum, 0, result.count || 0);
+    }
+    if (typeof renderCountries === 'function') {
+      renderCountries(result.countries || []);
+    }
+
+    var now = new Date();
+    var fullName = last ? (first + ' ' + last) : first;
+    
+    certNameDisplay.textContent = fullName;
+    certDateAr.textContent = formatDateAr(now);
+    if (certDateEn) certDateEn.textContent = now.toLocaleDateString('en-GB', {year:'numeric', month:'short', day:'numeric'});
+    certNumber.textContent = genCertNumber();
+    
+    var rank = result.rank || result.count || 1;
+    certRank.textContent = '#' + rank.toLocaleString('en-US');
+    certRank.style.display = 'block';
+
+    certForm.style.display = 'none';
+    certStep2.style.display = 'block';
+    certStep2.style.width = '100%';
+
+    if (typeof launchConfetti === 'function') launchConfetti();
+    else if (typeof fireConfetti === 'function') fireConfetti();
+
+    if (toast) {
+      toast.classList.add('show');
+      setTimeout(function(){ toast.classList.remove('show'); }, 4200);
+    }
+
+    shahadaBtn.classList.add('done');
+    var btnSpan = shahadaBtn.querySelector('span');
+    if (btnSpan) btnSpan.textContent = '✓ مبارك عليك';
+  });
+
+  document.getElementById('certClose').addEventListener('click', function() {
+    certOverlay.classList.remove('show');
+  });
+
+  // Download
+  document.getElementById('certDownload').addEventListener('click', async function() {
+    var btn = this;
+    var orig = btn.innerHTML;
+    btn.innerHTML = '⏳ جاري التحميل...';
+    btn.disabled = true;
+    try {
+      var canvas = await html2canvas(certificate, {
+        backgroundColor: '#fdfcf7',
+        scale: 2.5,
+        useCORS: true,
+        logging: false
+      });
+      var link = document.createElement('a');
+      link.download = 'shahada-certificate-' + (certNameDisplay.textContent.replace(/\s+/g, '-')) + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } catch(e) {
+      alert('تعذّر تحميل الشهادة');
+    }
+    btn.innerHTML = orig;
+    btn.disabled = false;
+  });
+
+  // Share WhatsApp
+  document.getElementById('certShareWa').addEventListener('click', function() {
+    var name = certNameDisplay.textContent;
+    var text = '🤍 الحمد لله — نطقتُ الشهادتين\n\n' +
+               'أشهد أن لا إله إلا الله، وأشهد أن محمداً رسول الله\n\n' +
+               'صاحب الشهادة: ' + name + '\n\n' +
+               'الموقع: https://www.mohammedouachemi.work.gd';
+    window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') certOverlay.classList.remove('show');
+  });
+
+})();
