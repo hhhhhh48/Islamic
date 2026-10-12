@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حياتي بالأرقام · My Life in Numbers</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&family=Reem+Kufi:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+.num-hero{text-align:center;padding:3rem 1rem 2rem;position:relative;z-index:2}
+.num-hero .arabesque{font-family:var(--f-q);font-size:2rem;color:var(--au500);opacity:.7;margin-bottom:.5rem}
+.num-hero h1{font-family:var(--f-d);font-size:clamp(1.9rem,5.5vw,2.8rem);font-weight:700;background:linear-gradient(135deg,var(--g700),var(--au500));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+.num-hero p{font-family:var(--f-l);font-size:.85rem;color:var(--i400);direction:ltr;letter-spacing:.05em}
+.num-hero .subtitle-ar{font-family:var(--f-q);font-size:1.05rem;color:var(--i600);margin-top:1rem;line-height:1.9;max-width:640px;margin-left:auto;margin-right:auto}
+[data-theme="dark"] .num-hero .subtitle-ar{color:var(--i400)}
+
+.input-card{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-l);padding:clamp(1.5rem,4vw,2rem);margin-bottom:2rem;box-shadow:var(--sh-md)}
+[data-theme="dark"] .input-card{border-color:rgba(82,183,136,.15)}
+.input-card h3{font-family:var(--f-d);font-size:1.15rem;color:var(--g800);margin-bottom:1rem}
+[data-theme="dark"] .input-card h3{color:var(--g300)}
+.input-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.input-row label{display:block;font-size:.8rem;font-weight:600;color:var(--i700);margin-bottom:.4rem;font-family:var(--f-l)}
+.input-row input{width:100%;padding:.8rem 1rem;background:var(--i100);border:1.5px solid transparent;border-radius:var(--r-s);font-family:var(--f-b);font-size:.95rem;color:var(--i900);outline:none;transition:all .3s var(--e)}
+[data-theme="dark"] .input-row input{background:rgba(24,34,27,.5);color:#fff;border-color:var(--i300)}
+.input-row input:focus{border-color:var(--g500);background:var(--paper);box-shadow:0 0 0 4px rgba(82,183,136,.15)}
+
+.big-stat{background:linear-gradient(160deg,var(--g800),var(--g900));border-radius:var(--r-xl);padding:clamp(2rem,5vw,3rem);text-align:center;color:#fff;margin-bottom:1.5rem;position:relative;overflow:hidden;box-shadow:var(--sh-lg)}
+.big-stat::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='.6' opacity='.3'%3E%3Cpath d='M40 10 L70 40 L40 70 L10 40 Z'/%3E%3Ccircle cx='40' cy='40' r='20'/%3E%3C/g%3E%3C/svg%3E");opacity:.08}
+.big-stat>*{position:relative;z-index:1}
+.bs-label{font-family:var(--f-l);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:var(--au300);margin-bottom:.8rem;direction:ltr}
+.bs-number{font-family:var(--f-d);font-size:clamp(3.5rem,14vw,6rem);font-weight:700;line-height:1;letter-spacing:-.03em;background:linear-gradient(180deg,#fff 0%,var(--au200) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;direction:ltr}
+.bs-unit{font-family:var(--f-d);font-size:1.2rem;color:rgba(255,255,255,.85);margin-top:.4rem}
+
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.9rem;margin-bottom:1.5rem}
+.stat-card{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-m);padding:1.3rem 1rem;text-align:center;transition:all .3s var(--e);box-shadow:var(--sh-sm)}
+[data-theme="dark"] .stat-card{border-color:rgba(82,183,136,.12)}
+.stat-card:hover{transform:translateY(-3px);border-color:var(--g400);box-shadow:var(--sh-md)}
+.stat-card .icon{font-size:2rem;line-height:1;margin-bottom:.5rem}
+.stat-card .val{font-family:var(--f-d);font-size:1.8rem;font-weight:700;color:var(--g700);line-height:1;direction:ltr;margin-bottom:.3rem}
+[data-theme="dark"] .stat-card .val{color:var(--g400)}
+.stat-card .lbl{font-size:.78rem;color:var(--i500);font-family:var(--f-b);line-height:1.4}
+
+.milestone-list{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-l);padding:1.5rem;margin-bottom:1.5rem;box-shadow:var(--sh-sm)}
+[data-theme="dark"] .milestone-list{border-color:rgba(82,183,136,.15)}
+.milestone-list h3{font-family:var(--f-d);font-size:1.1rem;color:var(--g800);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+[data-theme="dark"] .milestone-list h3{color:var(--g300)}
+.ms-item{display:flex;align-items:center;gap:.8rem;padding:.9rem 1rem;background:var(--i100);border-radius:var(--r-m);margin-bottom:.5rem;border-right:3px solid var(--g400);transition:all .3s var(--e)}
+[data-theme="dark"] .ms-item{background:rgba(82,183,136,.05)}
+.ms-item.done{background:linear-gradient(135deg,var(--g50),rgba(201,169,97,.06));border-right-color:var(--au500)}
+[data-theme="dark"] .ms-item.done{background:rgba(82,183,136,.1)}
+.ms-item .ms-icon{font-size:1.5rem}
+.ms-item .ms-text{flex:1;font-size:.92rem;color:var(--i700);font-weight:500}
+[data-theme="dark"] .ms-item .ms-text{color:var(--i500)}
+.ms-item .ms-status{font-family:var(--f-l);font-size:.72rem;font-weight:700;padding:.25rem .6rem;border-radius:var(--r-pill);background:var(--i200);color:var(--i500);direction:ltr}
+[data-theme="dark"] .ms-item .ms-status{background:var(--i300);color:var(--i500)}
+.ms-item.done .ms-status{background:linear-gradient(135deg,var(--au400),var(--au500));color:#fff}
+
+.actions-num{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin:2rem 0}
+.act-btn{padding:.85rem 1.5rem;border:none;border-radius:var(--r-pill);font-family:var(--f-b);font-size:.9rem;font-weight:700;cursor:pointer;transition:all .3s var(--e);display:inline-flex;align-items:center;gap:.5rem}
+.act-btn.primary{background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;box-shadow:0 12px 28px rgba(45,106,79,.35)}
+.act-btn.primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(45,106,79,.5)}
+.act-btn.ghost{background:var(--paper);color:var(--i700);border:1.5px solid var(--i200)}
+[data-theme="dark"] .act-btn.ghost{background:rgba(24,34,27,.5);border-color:var(--i300);color:var(--i500)}
+.act-btn.ghost:hover{border-color:var(--g400);color:var(--g700)}
+
+@media(max-width:600px){.input-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <a href="index.html" style="text-decoration:none;padding:.6rem 1.1rem;background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-pill);color:var(--i800);font-family:var(--f-b);font-size:.85rem;font-weight:600;box-shadow:var(--sh-md)">🏠 الرئيسية</a>
+</div>
+<button class="theme-toggle" id="themeToggle">
+  <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+</button>
+
+<main class="container">
+
+<section class="num-hero">
+  <div class="arabesque">❁ ✦ ❁</div>
+  <h1>حياتي بالأرقام</h1>
+  <p>My Life in Numbers</p>
+  <p class="subtitle-ar">﴿ وَكُلَّ شَيْءٍ أَحْصَيْنَاهُ فِي إِمَامٍ مُّبِينٍ ﴾ — كم يوماً أنت مسلم؟ كم صلاة صليت؟ كم سجدة سجدت؟</p>
+</section>
+
+<div class="input-card">
+  <h3>📅 أدخل بياناتك</h3>
+  <div class="input-row">
+    <div>
+      <label for="nameInput">اسمك (اختياري)</label>
+      <input type="text" id="nameInput" placeholder="اسمك" maxlength="30">
+    </div>
+    <div>
+      <label for="dateInput">تاريخ إسلامك</label>
+      <input type="date" id="dateInput">
+    </div>
+  </div>
+  <div style="margin-top:.8rem">
+    <label style="display:block;font-size:.8rem;font-weight:600;color:var(--i700);margin-bottom:.4rem;font-family:var(--f-l)">متوسط عدد الصلوات في اليوم</label>
+    <select id="prayersSelect" style="width:100%;padding:.8rem 1rem;background:var(--i100);border:1.5px solid transparent;border-radius:var(--r-s);font-family:var(--f-b);font-size:.95rem;color:var(--i900);outline:none;cursor:pointer">
+      <option value="5">5 صلوات (منتظم)</option>
+      <option value="3">3 صلوات (متوسط)</option>
+      <option value="1">1 صلاة</option>
+    </select>
+  </div>
+</div>
+
+<div class="big-stat">
+  <div class="bs-label">Days since Shahada</div>
+  <div class="bs-number" id="bigDays">0</div>
+  <div class="bs-unit" id="bigUnit">يوم في الإسلام</div>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="icon">🕌</div>
+    <div class="val" id="statPrayers">0</div>
+    <div class="lbl">صلاة صلّيتها</div>
+  </div>
+  <div class="stat-card">
+    <div class="icon">🧎</div>
+    <div class="val" id="statSujud">0</div>
+    <div class="lbl">سجدة سجدتها</div>
+  </div>
+  <div class="stat-card">
+    <div class="icon">📖</div>
+    <div class="val" id="statQuran">0</div>
+    <div class="lbl">صفحة قرآن تقريباً</div>
+  </div>
+  <div class="stat-card">
+    <div class="icon">📿</div>
+    <div class="val" id="statDhikr">0</div>
+    <div class="lbl">تسبيحة تقريباً</div>
+  </div>
+  <div class="stat-card">
+    <div class="icon">🌙</div>
+    <div class="val" id="statRamadan">0</div>
+    <div class="lbl">رمضان مرّ عليك</div>
+  </div>
+  <div class="stat-card">
+    <div class="icon">🕋</div>
+    <div class="val" id="statHajj">0</div>
+    <div class="lbl">يوم حتى حجّك الأول*</div>
+  </div>
+  <div class="stat-card">
+    <div class="icon">⏰</div>
+    <div class="val" id="statHours">0</div>
+    <div class="lbl">ساعة في الصلاة</div>
+  </div>
+  <div class="stat-card">
+    <div class="icon">💫</div>
+    <div class="val" id="statHeartbeats">0</div>
+    <div class="lbl">نبضة قلب شهدت إسلامك</div>
+  </div>
+</div>
+
+<div class="milestone-list">
+  <h3>🏆 إنجازاتك الزمنية</h3>
+  <div id="milestonesList"></div>
+</div>
+
+<div class="actions-num">
+  <button class="act-btn primary" id="shareNumBtn">📸 مشاركة إحصائياتي</button>
+  <button class="act-btn ghost" id="refreshBtn">🔄 تحديث</button>
+</div>
+
+<footer class="footer">
+  <div class="footer-dua">اللهم بارك لنا في أعمارنا واجعلها في طاعتك</div>
+  <div class="footer-owner">صاحب الموقع: <strong>واشمي محمد</strong></div>
+</footer>
+
+</main>
+
+<div class="share-container"></div>
+
+<script src="share.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  var s = localStorage.getItem('theme');
+  var d = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', s || (d ? 'dark' : 'light'));
+  document.getElementById('themeToggle').addEventListener('click', function(){
+    var c = document.documentElement.getAttribute('data-theme');
+    var n = c === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', n);
+    localStorage.setItem('theme', n);
+  });
+
+  // Load saved data
+  var KEY = 'numbers_data_v1';
+  var saved = null;
+  try { saved = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch(e){}
+  if(saved){
+    document.getElementById('nameInput').value = saved.name || '';
+    document.getElementById('dateInput').value = saved.date || '';
+    if(saved.prayers) document.getElementById('prayersSelect').value = saved.prayers;
+  }
+
+  // Try to load from journey page if available
+  try {
+    var jd = JSON.parse(localStorage.getItem('journey_data_v1') || 'null');
+    if(jd && jd.startDate && !document.getElementById('dateInput').value){
+      document.getElementById('dateInput').value = jd.startDate;
+      if(jd.name && !document.getElementById('nameInput').value){
+        document.getElementById('nameInput').value = jd.name;
+      }
+    }
+  } catch(e){}
+
+  var nameInput = document.getElementById('nameInput');
+  var dateInput = document.getElementById('dateInput');
+  var prayersSelect = document.getElementById('prayersSelect');
+
+  function save(){
+    try {
+      localStorage.setItem(KEY, JSON.stringify({
+        name: nameInput.value,
+        date: dateInput.value,
+        prayers: prayersSelect.value
+      }));
+    } catch(e){}
+  }
+
+  function calc(){
+    var dateStr = dateInput.value;
+    if(!dateStr){
+      // Default: today
+      dateStr = new Date().toISOString().split('T')[0];
+      dateInput.value = dateStr;
+    }
+    var start = new Date(dateStr);
+    var now = new Date();
+    var days = Math.max(1, Math.floor((now - start) / (24*60*60*1000)) + 1);
+
+    var avgPrayers = parseInt(prayersSelect.value) || 5;
+    var totalPrayers = days * avgPrayers;
+    var totalSujud = totalPrayers * 4; // متوسط 4 سجدات لكل صلاة
+    var totalQuran = Math.floor(days * 0.5); // نصف صفحة يومياً
+    var totalDhikr = days * 33; // 33 تسبيحة يومياً
+    var totalHours = Math.floor(totalPrayers * 8 / 60); // 8 دقائق لكل صلاة
+    var heartbeats = days * 24 * 60 * 72; // 72 نبضة في الدقيقة
+
+    // Ramadan count
+    var years = now.getFullYear() - start.getFullYear();
+    var ramadanCount = years;
+
+    // Days to Hajj (approx next year's Dhul-Hijjah)
+    var nextHajj = new Date(now.getFullYear() + 1, 4, 15); // Approx
+    var daysToHajj = Math.max(0, Math.floor((nextHajj - now) / (24*60*60*1000)));
+
+    // Update UI
+    animateNum('bigDays', days);
+    animateNum('statPrayers', totalPrayers);
+    animateNum('statSujud', totalSujud);
+    animateNum('statQuran', totalQuran);
+    animateNum('statDhikr', totalDhikr);
+    animateNum('statRamadan', ramadanCount);
+    animateNum('statHajj', daysToHajj);
+    animateNum('statHours', totalHours);
+    animateNum('statHeartbeats', heartbeats);
+
+    // Milestones
+    renderMilestones(days);
+
+    return {days: days, prayers: totalPrayers, sujud: totalSujud, hours: totalHours, name: nameInput.value};
+  }
+
+  function animateNum(id, target){
+    var el = document.getElementById(id);
+    var start = parseInt(el.textContent.replace(/,/g,'')) || 0;
+    var dur = 1200;
+    var t0 = performance.now();
+    function tick(t){
+      var p = Math.min((t - t0) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      var val = Math.floor(start + (target - start) * eased);
+      el.textContent = val.toLocaleString('en-US');
+      if(p < 1) requestAnimationFrame(tick);
+      else el.textContent = target.toLocaleString('en-US');
+    }
+    requestAnimationFrame(tick);
+  }
+
+  var MILESTONES = [
+    {days: 1,    icon: '🌱', text: 'يومك الأول في الإسلام'},
+    {days: 7,    icon: '🌿', text: 'أسبوع من النور'},
+    {days: 30,   icon: '🌳', text: 'شهر من الإيمان'},
+    {days: 100,  icon: '💯', text: 'مئة يوم مسلم'},
+    {days: 365,  icon: '🎂', text: 'سنة كاملة من الإسلام'},
+    {days: 1000, icon: '👑', text: 'ألف يوم في الإسلام'},
+    {days: 3650, icon: '💎', text: 'عشر سنوات — إنجاز عظيم'}
+  ];
+
+  function renderMilestones(days){
+    var wrap = document.getElementById('milestonesList');
+    wrap.innerHTML = '';
+    MILESTONES.forEach(function(m){
+      var done = days >= m.days;
+      var item = document.createElement('div');
+      item.className = 'ms-item' + (done ? ' done' : '');
+      item.innerHTML =
+        '<span class="ms-icon">' + m.icon + '</span>' +
+        '<span class="ms-text">' + m.text + '</span>' +
+        '<span class="ms-status">' + (done ? '✓ مكتمل' : 'بعد ' + (m.days - days) + ' يوم') + '</span>';
+      wrap.appendChild(item);
+    });
+  }
+
+  nameInput.addEventListener('input', function(){ save(); calc(); });
+  dateInput.addEventListener('change', function(){ save(); calc(); });
+  prayersSelect.addEventListener('change', function(){ save(); calc(); });
+
+  document.getElementById('refreshBtn').addEventListener('click', calc);
+
+  // Share card
+  document.getElementById('shareNumBtn').addEventListener('click', async function(){
+    var btn = this;
+    var orig = btn.innerHTML;
+    btn.innerHTML = '⏳ جاري الإنشاء...';
+    btn.disabled = true;
+
+    var stats = calc();
+
+    try {
+      var card = document.createElement('div');
+      card.style.cssText = 'position:fixed;left:-9999px;top:0;width:600px;padding:50px 40px;background:linear-gradient(160deg,#1b4332,#0d2818);color:#fff;font-family:Cairo,sans-serif;text-align:center;border-radius:32px;direction:rtl';
+
+      var nameHtml = stats.name ? '<div style="font-family:Amiri,serif;font-size:1.1rem;color:#e6c988;margin-bottom:15px">' + escapeHtml(stats.name) + '</div>' : '';
+
+      function statBox(icon, val, lbl){
+        return '<div style="background:rgba(255,255,255,.06);border-radius:18px;padding:16px 8px">' +
+          '<div style="font-size:1.4rem">' + icon + '</div>' +
+          '<div style="font-family:Reem Kufi,serif;font-size:1.4rem;font-weight:700;color:#e6c988;line-height:1;margin-top:6px">' + val.toLocaleString('en-US') + '</div>' +
+          '<div style="font-size:.68rem;color:rgba(255,255,255,.55);margin-top:5px">' + lbl + '</div>' +
+        '</div>';
+      }
+
+      card.innerHTML =
+        '<div style="font-family:Amiri,serif;font-size:1.2rem;color:#f4e4bc;margin-bottom:8px">﷽</div>' +
+        '<div style="font-family:Reem Kufi,serif;font-size:1.8rem;font-weight:700;background:linear-gradient(180deg,#fff,#e6c988);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px">حياتي بالأرقام</div>' +
+        '<div style="font-family:Inter,sans-serif;font-size:.7rem;color:rgba(255,255,255,.5);letter-spacing:.2em;margin-bottom:20px">MY LIFE IN NUMBERS</div>' +
+        nameHtml +
+        '<div style="background:rgba(255,255,255,.08);border-radius:24px;padding:28px;margin-bottom:20px;border:1px solid rgba(230,201,136,.2)">' +
+          '<div style="font-family:Inter,sans-serif;font-size:.7rem;color:#e6c988;letter-spacing:.2em;margin-bottom:8px">DAYS SINCE SHAHADA</div>' +
+          '<div style="font-family:Reem Kufi,serif;font-size:4.5rem;font-weight:700;line-height:1;background:linear-gradient(180deg,#fff,#e6c988);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">' + stats.days.toLocaleString('en-US') + '</div>' +
+          '<div style="font-family:Amiri,serif;font-size:1rem;color:rgba(255,255,255,.7);margin-top:5px">يوم في الإسلام</div>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">' +
+          statBox('🕌', stats.prayers, 'صلاة') +
+          statBox('🧎', stats.sujud, 'سجدة') +
+          statBox('⏰', stats.hours, 'ساعة في الصلاة') +
+          statBox('💫', stats.days * 24 * 60 * 72, 'نبضة قلب') +
+        '</div>' +
+        '<div style="font-family:Amiri,serif;font-size:.95rem;color:#f4e4bc;line-height:1.8;margin-top:22px">﴿ وَكُلَّ شَيْءٍ أَحْصَيْنَاهُ فِي إِمَامٍ مُّبِينٍ ﴾</div>' +
+        '<div style="font-family:Inter,sans-serif;font-size:.72rem;color:rgba(255,255,255,.4);margin-top:14px;letter-spacing:.1em">islamic-sxqp.onrender.com/numbers.html</div>';
+
+      document.body.appendChild(card);
+      var canvas = await html2canvas(card, { backgroundColor:null, scale:2, useCORS:true });
+      document.body.removeChild(card);
+
+      var link = document.createElement('a');
+      link.download = 'my-numbers-' + Date.now() + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } catch(e) {
+      alert('تعذّر إنشاء البطاقة');
+    }
+    btn.innerHTML = orig;
+    btn.disabled = false;
+  });
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; });
+  }
+
+  // Init
+  calc();
+
+})();
+</script>
+</body>
+</html>
