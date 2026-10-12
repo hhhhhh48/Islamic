@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>شجرة الإيمان · Faith Tree</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Reem+Kufi:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+.tree-hero{text-align:center;padding:3rem 1rem 2rem;position:relative;z-index:2}
+.tree-hero .arabesque{font-family:var(--f-q);font-size:2rem;color:var(--au500);opacity:.7;margin-bottom:.5rem}
+.tree-hero h1{font-family:var(--f-d);font-size:clamp(1.9rem,5.5vw,2.8rem);font-weight:700;background:linear-gradient(135deg,var(--g700),var(--au500));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+.tree-hero p{font-family:var(--f-l);font-size:.85rem;color:var(--i400);direction:ltr}
+.tree-hero .subtitle-ar{font-family:var(--f-q);font-size:1.05rem;color:var(--i600);margin-top:1rem;line-height:1.9;max-width:640px;margin-left:auto;margin-right:auto}
+[data-theme="dark"] .tree-hero .subtitle-ar{color:var(--i400)}
+
+/* ═══ Tree Stage Card ═══ */
+.tree-stage-card{background:linear-gradient(160deg,#0f2a1a 0%,#1b4332 50%,#0d2818 100%);border-radius:var(--r-xl);padding:clamp(1.5rem,4vw,2rem);margin-bottom:2rem;position:relative;overflow:hidden;box-shadow:var(--sh-lg);border:1px solid rgba(230,201,136,.15)}
+.tree-stage-card::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='.6' opacity='.3'%3E%3Cpath d='M40 10 L70 40 L40 70 L10 40 Z'/%3E%3Ccircle cx='40' cy='40' r='20'/%3E%3C/g%3E%3C/svg%3E");opacity:.06}
+.tree-stage-card>*{position:relative;z-index:1}
+
+.tree-canvas-wrap{position:relative;display:flex;justify-content:center;align-items:flex-end;height:min(60vh,420px);margin-bottom:1.5rem;overflow:hidden}
+#treeCanvas{width:100%;height:100%;max-width:520px;display:block}
+.tree-canvas-wrap::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:30px;background:radial-gradient(ellipse at center, rgba(82,183,136,.35), transparent 70%);filter:blur(8px)}
+
+/* Stars background */
+.stars-bg{position:absolute;inset:0;pointer-events:none;opacity:.4}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 3s infinite ease-in-out}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+
+/* Stage info */
+.stage-info{text-align:center;color:#fff}
+.stage-info .stage-emoji{font-size:2.5rem;line-height:1;display:block;margin-bottom:.4rem;filter:drop-shadow(0 0 20px rgba(230,201,136,.5))}
+.stage-info .stage-name{font-family:var(--f-d);font-size:1.5rem;font-weight:700;background:linear-gradient(180deg,#fff,#e6c988);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.3rem}
+.stage-info .stage-sub{font-size:.85rem;color:rgba(255,255,255,.6);font-family:var(--f-l);direction:ltr}
+
+/* Progress bar */
+.progress-wrap{margin-top:1.5rem;padding:0 1rem}
+.progress-bar{height:12px;background:rgba(255,255,255,.08);border-radius:var(--r-pill);overflow:hidden;position:relative;box-shadow:inset 0 2px 4px rgba(0,0,0,.3)}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--g400),var(--au400),var(--au500));border-radius:var(--r-pill);width:0%;transition:width 1s var(--e);position:relative;box-shadow:0 0 12px rgba(230,201,136,.6)}
+.progress-fill::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);animation:shine 2s infinite}
+@keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.progress-info{display:flex;justify-content:space-between;color:rgba(255,255,255,.7);font-family:var(--f-l);font-size:.8rem;margin-top:.6rem;direction:ltr}
+
+/* Points display */
+.points-display{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:1.5rem}
+.points-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-m);padding:.9rem .5rem;text-align:center;backdrop-filter:blur(8px)}
+.points-box .val{font-family:var(--f-d);font-size:1.5rem;font-weight:700;color:var(--au300);line-height:1;direction:ltr}
+.points-box .lbl{font-size:.72rem;color:rgba(255,255,255,.6);margin-top:.3rem}
+
+/* ═══ Deeds Grid ═══ */
+.section-card{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-l);padding:clamp(1.5rem,4vw,2.2rem);margin-bottom:1.5rem;box-shadow:var(--sh-md)}
+[data-theme="dark"] .section-card{border-color:rgba(82,183,136,.12)}
+.section-title{font-family:var(--f-d);font-size:1.25rem;font-weight:700;color:var(--i900);margin-bottom:.3rem;display:flex;align-items:center;gap:.6rem}
+.section-title .emoji{font-size:1.4rem}
+.section-sub{font-size:.85rem;color:var(--i400);margin-bottom:1.5rem}
+
+.deeds-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.8rem}
+.deed-card{background:var(--i100);border:2px solid transparent;border-radius:var(--r-m);padding:1.1rem .9rem;text-align:center;cursor:pointer;transition:all .3s var(--e);user-select:none;position:relative;overflow:hidden}
+[data-theme="dark"] .deed-card{background:rgba(82,183,136,.06)}
+.deed-card:hover{border-color:var(--g400);transform:translateY(-3px);box-shadow:var(--sh-sm)}
+.deed-card:active{transform:translateY(0) scale(.97)}
+.deed-card .deed-icon{font-size:2rem;line-height:1;margin-bottom:.5rem;display:block}
+.deed-card .deed-name{font-family:var(--f-d);font-size:.95rem;font-weight:600;color:var(--i800);margin-bottom:.4rem;line-height:1.3}
+.deed-card .deed-points{display:inline-block;background:linear-gradient(135deg,var(--au400),var(--au500));color:#fff;padding:.2rem .7rem;border-radius:var(--r-pill);font-family:var(--f-l);font-size:.75rem;font-weight:700;direction:ltr}
+[data-theme="dark"] .deed-card .deed-points{color:var(--g900)}
+.deed-card .deed-count{position:absolute;top:.4rem;left:.6rem;background:var(--g600);color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--f-l);font-size:.7rem;font-weight:700;opacity:0;transition:opacity .3s}
+.deed-card .deed-count.active{opacity:1}
+
+/* Floating animation */
+.deed-card.float{animation:deedFloat .6s var(--eb)}
+@keyframes deedFloat{0%{transform:translateY(0) scale(1)}30%{transform:translateY(-12px) scale(1.08)}100%{transform:translateY(0) scale(1)}}
+
+/* ═══ Stages Timeline ═══ */
+.stages-timeline{display:flex;gap:.5rem;overflow-x:auto;padding:.5rem 0;scrollbar-width:thin}
+.stages-timeline::-webkit-scrollbar{height:6px}
+.stages-timeline::-webkit-scrollbar-thumb{background:var(--g400);border-radius:3px}
+.stage-chip{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:.3rem;padding:.9rem .8rem;min-width:90px;background:var(--i100);border:2px solid transparent;border-radius:var(--r-m);opacity:.4;transition:all .3s var(--e)}
+[data-theme="dark"] .stage-chip{background:rgba(82,183,136,.05)}
+.stage-chip.current{opacity:1;border-color:var(--au500);background:linear-gradient(135deg,var(--au200),var(--au400));box-shadow:0 8px 20px rgba(201,169,97,.3)}
+.stage-chip.unlocked{opacity:1;background:var(--g50);border-color:var(--g300)}
+[data-theme="dark"] .stage-chip.unlocked{background:rgba(82,183,136,.12)}
+.stage-chip .sc-emoji{font-size:1.6rem;line-height:1}
+.stage-chip .sc-name{font-family:var(--f-d);font-size:.72rem;font-weight:600;color:var(--i700);text-align:center;line-height:1.2}
+.stage-chip.current .sc-name{color:var(--g900);font-weight:700}
+.stage-chip .sc-pts{font-family:var(--f-l);font-size:.65rem;color:var(--i400);direction:ltr}
+
+/* ═══ Weekly Challenge ═══ */
+.challenge-box{background:linear-gradient(135deg,rgba(82,183,136,.08),rgba(201,169,97,.06));border-right:4px solid var(--au500);border-radius:var(--r-m);padding:1.3rem 1.5rem;margin-bottom:1rem}
+.challenge-box .ch-title{font-family:var(--f-d);font-size:1.1rem;font-weight:700;color:var(--g800);margin-bottom:.5rem}
+[data-theme="dark"] .challenge-box .ch-title{color:var(--g300)}
+.challenge-box .ch-desc{font-size:.9rem;color:var(--i600);line-height:1.7;margin-bottom:.8rem}
+[data-theme="dark"] .challenge-box .ch-desc{color:var(--i500)}
+.challenge-box .ch-progress{height:8px;background:rgba(0,0,0,.08);border-radius:var(--r-pill);overflow:hidden;margin-bottom:.4rem}
+[data-theme="dark"] .challenge-box .ch-progress{background:rgba(255,255,255,.08)}
+.challenge-box .ch-fill{height:100%;background:linear-gradient(90deg,var(--g500),var(--au500));border-radius:var(--r-pill);transition:width .8s var(--e)}
+.challenge-box .ch-stats{display:flex;justify-content:space-between;font-family:var(--f-l);font-size:.78rem;color:var(--i400);direction:ltr}
+
+/* ═══ Actions ═══ */
+.actions-bar{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin:2rem 0}
+.action-btn{padding:.7rem 1.3rem;border:1.5px solid var(--i200);background:var(--paper);border-radius:var(--r-pill);color:var(--i700);font-family:var(--f-b);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .3s var(--e);display:inline-flex;align-items:center;gap:.5rem}
+[data-theme="dark"] .action-btn{background:rgba(24,34,27,.5);border-color:var(--i300);color:var(--i500)}
+.action-btn:hover{border-color:var(--g500);background:var(--g50);color:var(--g800);transform:translateY(-2px)}
+[data-theme="dark"] .action-btn:hover{background:rgba(82,183,136,.15);color:var(--g300)}
+.action-btn.primary{background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;border-color:transparent}
+.action-btn.primary:hover{box-shadow:0 12px 28px rgba(45,106,79,.4)}
+.action-btn.danger{border-color:rgba(229,115,115,.4);color:#c62828}
+
+/* Floating points animation */
+.float-pts{position:fixed;font-family:var(--f-d);font-weight:700;font-size:1.3rem;color:var(--au500);pointer-events:none;z-index:9999;animation:floatUp 1.2s var(--e) forwards}
+@keyframes floatUp{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-80px) scale(1.4);opacity:0}}
+
+/* Toast */
+.toast-ach{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%) translateY(-150%);background:linear-gradient(135deg,var(--au500),var(--au600));color:#fff;padding:1rem 1.5rem;border-radius:var(--r-pill);box-shadow:0 20px 50px rgba(201,169,97,.5);z-index:10000;font-weight:700;font-family:var(--f-b);transition:transform .6s var(--eb);display:flex;align-items:center;gap:.7rem;max-width:90vw}
+.toast-ach.show{transform:translateX(-50%) translateY(0)}
+.toast-ach .t-icon{font-size:1.5rem}
+
+@media(max-width:600px){
+  .tree-canvas-wrap{height:min(45vh,320px)}
+  .points-box .val{font-size:1.2rem}
+  .deeds-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.6rem}
+  .stage-chip{min-width:80px;padding:.7rem .6rem}
+}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <a href="index.html" style="text-decoration:none;padding:.6rem 1.1rem;background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-pill);color:var(--i800);font-family:var(--f-b);font-size:.85rem;font-weight:600;box-shadow:var(--sh-md)">🏠 الرئيسية</a>
+</div>
+<button class="theme-toggle" id="themeToggle">
+  <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+</button>
+
+<main class="container">
+
+<section class="tree-hero">
+  <div class="arabesque">❁ ✦ ❁</div>
+  <h1>شجرة الإيمان</h1>
+  <p>Faith Tree — Every good deed makes it grow</p>
+  <p class="subtitle-ar">﴿ مَثَلُ كَلِمَةٍ طَيِّبَةٍ كَشَجَرَةٍ طَيِّبَةٍ أَصْلُهَا ثَابِتٌ وَفَرْعُهَا فِي السَّمَاءِ ﴾ — إبراهيم: 24</p>
+</section>
+
+<!-- ═══ Tree Display ═══ -->
+<div class="tree-stage-card">
+  <div class="tree-canvas-wrap">
+    <div class="stars-bg" id="starsBg"></div>
+    <svg id="treeCanvas" viewBox="0 0 400 400" preserveAspectRatio="xMidYMax meet"></svg>
+  </div>
+
+  <div class="stage-info">
+    <span class="stage-emoji" id="stageEmoji">🌱</span>
+    <div class="stage-name" id="stageName">بذرة صغيرة</div>
+    <div class="stage-sub" id="stageSub">Seed — just beginning</div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-info">
+      <span id="progressCurrent">0</span>
+      <span id="progressNext">10</span>
+    </div>
+  </div>
+
+  <div class="points-display">
+    <div class="points-box">
+      <div class="val" id="totalPoints">0</div>
+      <div class="lbl">مجموع النقاط</div>
+    </div>
+    <div class="points-box">
+      <div class="val" id="todayPoints">0</div>
+      <div class="lbl">نقاط اليوم</div>
+    </div>
+    <div class="points-box">
+      <div class="val" id="weekPoints">0</div>
+      <div class="lbl">هذا الأسبوع</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Deeds Grid ═══ -->
+<div class="section-card">
+  <h2 class="section-title"><span class="emoji">🤲</span> أعمالي الصالحة</h2>
+  <p class="section-sub">اضغط على أي عمل لتسجيله — الشجرة تنمو مع كل عمل صالح</p>
+  <div class="deeds-grid" id="deedsGrid"></div>
+</div>
+
+<!-- ═══ Stages Timeline ═══ -->
+<div class="section-card">
+  <h2 class="section-title"><span class="emoji">🌿</span> مراحل نمو الشجرة</h2>
+  <p class="section-sub">شاهد مراحل نمو شجرتك — من بذرة إلى شجرة نور</p>
+  <div class="stages-timeline" id="stagesTimeline"></div>
+</div>
+
+<!-- ═══ Weekly Challenge ═══ -->
+<div class="section-card">
+  <h2 class="section-title"><span class="emoji">🏆</span> تحدي هذا الأسبوع</h2>
+  <div id="weeklyChallenges"></div>
+</div>
+
+<!-- ═══ Actions ═══ -->
+<div class="actions-bar">
+  <button class="action-btn primary" id="shareTreeBtn">📸 مشاركة شجرتي</button>
+  <button class="action-btn" id="historyBtn">📜 سجل أعمالي</button>
+  <button class="action-btn" id="exportTreeBtn">💾 تصدير</button>
+  <label class="action-btn" for="importTreeInput">📥 استيراد</label>
+  <input type="file" id="importTreeInput" accept=".json" style="display:none">
+  <button class="action-btn danger" id="resetTreeBtn">🗑️ حذف الكل</button>
+</div>
+
+<footer class="footer">
+  <div class="footer-dua">اللهم اجعل أعمالنا خالصة لوجهك الكريم</div>
+  <div class="footer-owner">صاحب الموقع: <strong>واشمي محمد</strong></div>
+</footer>
+
+</main>
+
+<div class="share-container"></div>
+
+<!-- History Modal -->
+<div class="onboard-overlay" id="historyOverlay" style="position:fixed;inset:0;background:rgba(13,40,24,.85);backdrop-filter:blur(12px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s;overflow-y:auto">
+  <div style="background:var(--cream);border-radius:var(--r-xl);padding:2rem;max-width:500px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:var(--sh-lg);margin:auto">
+    <h2 style="font-family:var(--f-d);font-size:1.4rem;color:var(--i900);margin-bottom:.5rem;text-align:center">📜 سجل أعمالي</h2>
+    <p style="text-align:center;color:var(--i500);font-size:.85rem;margin-bottom:1.5rem">آخر 50 عمل صالح سجلته</p>
+    <div id="historyList"></div>
+    <button id="historyCloseBtn" style="width:100%;padding:1rem;margin-top:1rem;background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;border:none;border-radius:var(--r-pill);font-family:var(--f-b);font-size:1rem;font-weight:700;cursor:pointer">إغلاق</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast-ach" id="toastAch">
+  <span class="t-icon" id="toastAchIcon">🌱</span>
+  <span id="toastAchText">الشجرة تنمو!</span>
+</div>
+
+<script src="share.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  // ═══ Theme ═══
+  var s=localStorage.getItem('theme');
+  var d=window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme',s||(d?'dark':'light'));
+  document.getElementById('themeToggle').addEventListener('click',function(){
+    var c=document.documentElement.getAttribute('data-theme');
+    var n=c==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',n);
+    localStorage.setItem('theme',n);
+  });
+
+  // ═══ Deeds Config ═══
+  var DEEDS = [
+    {id:'prayer',     icon:'🕌', name:'صلاة في وقتها',   pts:10},
+    {id:'quran',      icon:'📖', name:'صفحة قرآن',       pts:5},
+    {id:'dhikr',      icon:'📿', name:'100 تسبيحة',       pts:3},
+    {id:'sadaqah',    icon:'🤲', name:'صدقة',            pts:20},
+    {id:'plant',      icon:'🌱', name:'سقي نبات',         pts:1},
+    {id:'smile',      icon:'😊', name:'ابتسامة في وجه أخيك', pts:2},
+    {id:'help',       icon:'🤝', name:'مساعدة محتاج',    pts:15},
+    {id:'parents',    icon:'👨‍👩‍👧', name:'بر الوالدين', pts:25},
+    {id:'iftar',      icon:'🍽️', name:'إفطار صائم',      pts:30},
+    {id:'teach',      icon:'📚', name:'تعليم علم نافع',   pts:50}
+  ];
+
+  // ═══ Stages Config ═══
+  var STAGES = [
+    {pts:0,     emoji:'🌱', name:'بذرة صغيرة',  en:'Seed'},
+    {pts:10,    emoji:'🌿', name:'برعم',         en:'Sprout'},
+    {pts:30,    emoji:'🌿', name:'نبتة',         en:'Plant'},
+    {pts:100,   emoji:'🌳', name:'شجرة صغيرة',   en:'Small Tree'},
+    {pts:300,   emoji:'🌳', name:'شجرة قوية',    en:'Strong Tree'},
+    {pts:700,   emoji:'🌳', name:'شجرة كبيرة',   en:'Big Tree'},
+    {pts:1500,  emoji:'🌸', name:'شجرة مزهرة',   en:'Flowering Tree'},
+    {pts:3000,  emoji:'🍎', name:'شجرة مثمرة',   en:'Fruitful Tree'},
+    {pts:10000, emoji:'🌟', name:'شجرة نور',     en:'Tree of Light'}
+  ];
+
+  // ═══ State ═══
+  var KEY = 'faith_tree_v1';
+  function loadData(){
+    try{
+      var raw = localStorage.getItem(KEY);
+      return raw ? JSON.parse(raw) : null;
+    }catch(e){ return null; }
+  }
+  function saveData(){ try{ localStorage.setItem(KEY, JSON.stringify(data)); }catch(e){} }
+
+  function todayKey(d){
+    d = d || new Date();
+    return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  }
+
+  var data = loadData();
+  if(!data){
+    data = {
+      totalPoints: 0,
+      deeds: {},        // { deedId: total_count }
+      history: [],      // [{ deedId, ts, pts }]
+      todayDeeds: {},   // { 'YYYY-MM-DD': { deedId: count } }
+      startDate: todayKey()
+    };
+  }
+  if(!data.history) data.history = [];
+  if(!data.todayDeeds) data.todayDeeds = {};
+  if(!data.deeds) data.deeds = {};
+
+  // ═══ Stars ═══
+  (function initStars(){
+    var bg = document.getElementById('starsBg');
+    var count = 40;
+    var html = '';
+    for(var i=0;i<count;i++){
+      var size = Math.random()*2 + 1;
+      var x = Math.random()*100;
+      var y = Math.random()*100;
+      var delay = Math.random()*3;
+      html += '<div class="star" style="width:'+size+'px;height:'+size+'px;left:'+x+'%;top:'+y+'%;animation-delay:'+delay+'s"></div>';
+    }
+    bg.innerHTML = html;
+  })();
+
+  // ═══ SVG Tree Renderer ═══
+  function renderTree(points){
+    var svg = document.getElementById('treeCanvas');
+    var stage = getCurrentStage(points);
+    var nextStage = getNextStage(points);
+    var stageIndex = STAGES.indexOf(stage);
+    var progress = nextStage ? (points - stage.pts) / (nextStage.pts - stage.pts) : 1;
+    if(progress < 0) progress = 0;
+    if(progress > 1) progress = 1;
+
+    // Number of leaves based on stage + progress
+    var leafCount = Math.min(3 + Math.floor(stageIndex * 5 + progress * 3), 40);
+    var hasFruit = stageIndex >= 7;
+    var hasFlowers = stageIndex >= 6;
+    var hasGlow = stageIndex >= 8;
+
+    var html = '';
+
+    // Glow at highest stage
+    if(hasGlow){
+      html += '<defs>' +
+        '<radialGradient id="glowGrad" cx="50%" cy="40%" r="50%">' +
+          '<stop offset="0%" stop-color="#e6c988" stop-opacity=".5"/>' +
+          '<stop offset="100%" stop-color="#e6c988" stop-opacity="0"/>' +
+        '</radialGradient>' +
+      '</defs>';
+      html += '<circle cx="200" cy="180" r="180" fill="url(#glowGrad)"/>';
+    }
+
+    // Ground
+    html += '<ellipse cx="200" cy="380" rx="140" ry="12" fill="#2d6a4f" opacity=".3"/>';
+    html += '<ellipse cx="200" cy="378" rx="100" ry="6" fill="#1b4332" opacity=".4"/>';
+
+    if(stageIndex === 0){
+      // Seed only
+      html += '<ellipse cx="200" cy="360" rx="12" ry="16" fill="#8b6f47"/>';
+      html += '<path d="M 200 344 Q 195 335 188 330" stroke="#52b788" stroke-width="2.5" fill="none" stroke-linecap="round"/>';
+      html += '<ellipse cx="188" cy="330" rx="6" ry="4" fill="#74c69d" transform="rotate(-30 188 330)"/>';
+    } else {
+      // Trunk height based on stage
+      var trunkH = Math.min(60 + stageIndex * 35, 240);
+      var trunkW = Math.min(8 + stageIndex * 2, 22);
+      var trunkTop = 360 - trunkH;
+
+      // Roots
+      html += '<path d="M '+ (200-trunkW) +' 360 Q '+(200-trunkW*3)+' 375 '+(200-trunkW*4)+' 372" stroke="#5d4a2e" stroke-width="3" fill="none" stroke-linecap="round"/>';
+      html += '<path d="M '+ (200+trunkW) +' 360 Q '+(200+trunkW*3)+' 375 '+(200+trunkW*4)+' 372" stroke="#5d4a2e" stroke-width="3" fill="none" stroke-linecap="round"/>';
+
+      // Trunk
+      html += '<path d="M '+(200-trunkW)+' 360 Q '+(200-trunkW*.7)+' '+((360+trunkTop)/2)+' '+(200-trunkW*.4)+' '+trunkTop+
+              ' L '+(200+trunkW*.4)+' '+trunkTop+' Q '+(200+trunkW*.7)+' '+((360+trunkTop)/2)+' '+(200+trunkW)+' 360 Z" fill="#5d4a2e"/>';
+      // Trunk highlight
+      html += '<path d="M '+(200-trunkW*.4)+' 360 Q '+(200-trunkW*.2)+' '+((360+trunkTop)/2)+' '+200+' '+trunkTop+
+              '" stroke="#7a6340" stroke-width="1.5" fill="none" opacity=".6"/>';
+
+      // Branches (for stages >= 3)
+      if(stageIndex >= 3){
+        var branchY = trunkTop + 30;
+        html += '<path d="M '+(200-trunkW*.6)+' '+branchY+' Q '+(200-60)+' '+(branchY-30)+' '+(200-80)+' '+(branchY-60)+'" stroke="#5d4a2e" stroke-width="4" fill="none" stroke-linecap="round"/>';
+        html += '<path d="M '+(200+trunkW*.6)+' '+(branchY+20)+' Q '+(200+50)+' '+(branchY-20)+' '+(200+75)+' '+(branchY-55)+'" stroke="#5d4a2e" stroke-width="4" fill="none" stroke-linecap="round"/>';
+      }
+      if(stageIndex >= 5){
+        html += '<path d="M '+(200-trunkW*.4)+' '+(trunkTop+60)+' Q '+(200-100)+' '+(trunkTop+30)+' '+(200-110)+' '+(trunkTop+5)+'" stroke="#5d4a2e" stroke-width="3" fill="none" stroke-linecap="round"/>';
+        html += '<path d="M '+(200+trunkW*.4)+' '+(trunkTop+80)+' Q '+(200+95)+' '+(trunkTop+50)+' '+(200+105)+' '+(trunkTop+15)+'" stroke="#5d4a2e" stroke-width="3" fill="none" stroke-linecap="round"/>';
+      }
+
+      // Leaves (canopy)
+      var canopyR = Math.min(20 + stageIndex * 12, 95);
+      var canopyY = trunkTop - 20;
+      var leafPositions = [
+        [0, 0], [-0.5, -0.3], [0.5, -0.3], [-0.3, -0.6], [0.3, -0.6],
+        [0, -0.8], [-0.7, 0.1], [0.7, 0.1], [-0.4, -0.9], [0.4, -0.9],
+        [-0.2, 0.3], [0.2, 0.3], [-0.8, -0.2], [0.8, -0.2], [0, 0.4],
+        [-0.6, -0.7], [0.6, -0.7], [-0.15, -1], [0.15, -1], [0, -0.5]
+      ];
+      for(var i=0;i<Math.min(leafCount, leafPositions.length);i++){
+        var lp = leafPositions[i];
+        var lx = 200 + lp[0] * canopyR;
+        var ly = canopyY + lp[1] * canopyR;
+        var lr = 14 + Math.random()*8;
+        var color = i % 3 === 0 ? '#52b788' : (i % 3 === 1 ? '#40916c' : '#74c69d');
+        html += '<circle cx="'+lx.toFixed(1)+'" cy="'+ly.toFixed(1)+'" r="'+lr.toFixed(1)+'" fill="'+color+'" opacity=".85"/>';
+      }
+
+      // Flowers
+      if(hasFlowers){
+        var flowerPositions = [[-0.4, -0.5], [0.5, -0.3], [0.2, -0.7], [-0.6, -0.1]];
+        for(var j=0;j<flowerPositions.length;j++){
+          var fp = flowerPositions[j];
+          var fx = 200 + fp[0] * canopyR;
+          var fy = canopyY + fp[1] * canopyR;
+          html += '<circle cx="'+fx+'" cy="'+fy+'" r="5" fill="#f4a4c0"/>';
+          html += '<circle cx="'+fx+'" cy="'+fy+'" r="2.5" fill="#fff"/>';
+        }
+      }
+
+      // Fruits
+      if(hasFruit){
+        var fruitPositions = [[-0.3, -0.2], [0.4, -0.5], [0.1, -0.6]];
+        for(var k=0;k<fruitPositions.length;k++){
+          var frp = fruitPositions[k];
+          var frx = 200 + frp[0] * canopyR;
+          var fry = canopyY + frp[1] * canopyR;
+          html += '<circle cx="'+frx+'" cy="'+fry+'" r="7" fill="#e6c988"/>';
+          html += '<circle cx="'+(frx-2)+'" cy="'+(fry-2)+'" r="2" fill="#fff" opacity=".5"/>';
+        }
+      }
+
+      // Glow particles
+      if(hasGlow){
+        for(var g=0;g<12;g++){
+          var gx = 200 + (Math.random()-0.5)*250;
+          var gy = canopyY + (Math.random()-0.5)*220;
+          html += '<circle cx="'+gx+'" cy="'+gy+'" r="2.5" fill="#e6c988" opacity=".8"><animate attributeName="opacity" values="0.2;1;0.2" dur="'+(2+Math.random()*2)+'s" repeatCount="indefinite"/></circle>';
+        }
+      }
+    }
+
+    svg.innerHTML = html;
+
+    // Update stage info
+    document.getElementById('stageEmoji').textContent = stage.emoji;
+    document.getElementById('stageName').textContent = stage.name;
+    document.getElementById('stageSub').textContent = stage.en;
+  }
+
+  function getCurrentStage(points){
+    var result = STAGES[0];
+    for(var i=0;i<STAGES.length;i++){
+      if(points >= STAGES[i].pts) result = STAGES[i];
+      else break;
+    }
+    return result;
+  }
+  function getNextStage(points){
+    for(var i=0;i<STAGES.length;i++){
+      if(points < STAGES[i].pts) return STAGES[i];
+    }
+    return null;
+  }
+
+  // ═══ Render Deeds ═══
+  function renderDeeds(){
+    var grid = document.getElementById('deedsGrid');
+    grid.innerHTML = '';
+    var tk = todayKey();
+    var todayCounts = data.todayDeeds[tk] || {};
+
+    DEEDS.forEach(function(deed){
+      var card = document.createElement('div');
+      card.className = 'deed-card';
+      card.setAttribute('data-deed', deed.id);
+      var count = todayCounts[deed.id] || 0;
+      card.innerHTML =
+        '<span class="deed-count'+(count>0?' active':'')+'">'+(count>0?count:'')+'</span>' +
+        '<span class="deed-icon">'+deed.icon+'</span>' +
+        '<div class="deed-name">'+deed.name+'</div>' +
+        '<span class="deed-points">+'+deed.pts+'</span>';
+      card.addEventListener('click', function(e){ addDeed(deed, e); });
+      grid.appendChild(card);
+    });
+  }
+
+  // ═══ Add Deed ═══
+  function addDeed(deed, evt){
+    var tk = todayKey();
+    if(!data.todayDeeds[tk]) data.todayDeeds[tk] = {};
+    data.todayDeeds[tk][deed.id] = (data.todayDeeds[tk][deed.id] || 0) + 1;
+    data.deeds[deed.id] = (data.deeds[deed.id] || 0) + 1;
+    data.totalPoints += deed.pts;
+    data.history.unshift({ deedId: deed.id, pts: deed.pts, ts: new Date().toISOString() });
+    if(data.history.length > 200) data.history = data.history.slice(0, 200);
+
+    var prevStage = getCurrentStage(data.totalPoints - deed.pts);
+    var newStage = getCurrentStage(data.totalPoints);
+
+    saveData();
+
+    // Animate card
+    var card = evt ? evt.currentTarget : null;
+    if(card){
+      card.classList.add('float');
+      setTimeout(function(){ card.classList.remove('float'); }, 600);
+    }
+
+    // Floating points
+    showFloatingPoints('+'+deed.pts, evt ? evt.clientX : null, evt ? evt.clientY : null);
+
+    // Re-render
+    renderAll();
+
+    // Stage up notification
+    if(newStage !== prevStage){
+      setTimeout(function(){
+        showToast(newStage.emoji, 'شجرتك نمت! ' + newStage.name);
+        if(typeof launchConfetti === 'function') launchConfetti();
+        else fireConfetti();
+      }, 500);
+    }
+  }
+
+  function showFloatingPoints(text, x, y){
+    var el = document.createElement('div');
+    el.className = 'float-pts';
+    el.textContent = text;
+    if(x == null){
+      x = window.innerWidth / 2;
+      y = window.innerHeight / 2;
+    }
+    el.style.left = (x - 20) + 'px';
+    el.style.top = (y - 20) + 'px';
+    document.body.appendChild(el);
+    setTimeout(function(){ el.remove(); }, 1300);
+  }
+
+  function showToast(emoji, text){
+    var t = document.getElementById('toastAch');
+    document.getElementById('toastAchIcon').textContent = emoji;
+    document.getElementById('toastAchText').textContent = text;
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, 3500);
+  }
+
+  // ═══ Simple Confetti ═══
+  function fireConfetti(){
+    var canvas = document.getElementById('confetti-canvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    var colors = ['#52b788','#c9a961','#74c69d','#fff','#40916c','#e6c988'];
+    var parts = [];
+    for(var i=0;i<120;i++){
+      parts.push({
+        x: Math.random()*canvas.width, y: -20-Math.random()*200,
+        w: 6+Math.random()*8, h: 8+Math.random()*10,
+        vx: (Math.random()-.5)*3, vy: 2+Math.random()*4,
+        rot: Math.random()*Math.PI*2, vrot:(Math.random()-.5)*.2,
+        color: colors[Math.floor(Math.random()*colors.length)],
+        shape: Math.random()>.5?'circle':'rect', op:.9
+      });
+    }
+    var frame = 0;
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      parts.forEach(function(p){
+        p.x += p.vx; p.y += p.vy; p.vy += .08; p.rot += p.vrot;
+        ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+        ctx.globalAlpha = p.op; ctx.fillStyle = p.color;
+        if(p.shape==='circle'){ctx.beginPath();ctx.arc(0,0,p.w/2,0,Math.PI*2);ctx.fill();}
+        else{ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);}
+        ctx.restore();
+      });
+      frame++;
+      if(frame<220) requestAnimationFrame(draw);
+      else ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+    draw();
+  }
+
+  // ═══ Render Stages Timeline ═══
+  function renderStages(){
+    var wrap = document.getElementById('stagesTimeline');
+    wrap.innerHTML = '';
+    var current = getCurrentStage(data.totalPoints);
+    STAGES.forEach(function(st){
+      var chip = document.createElement('div');
+      chip.className = 'stage-chip';
+      if(st === current) chip.classList.add('current');
+      else if(data.totalPoints >= st.pts) chip.classList.add('unlocked');
+      chip.innerHTML =
+        '<span class="sc-emoji">'+st.emoji+'</span>' +
+        '<div class="sc-name">'+st.name+'</div>' +
+        '<span class="sc-pts">'+st.pts+' pts</span>';
+      wrap.appendChild(chip);
+    });
+  }
+
+  // ═══ Render Weekly Challenges ═══
+  function renderWeeklyChallenges(){
+    var wrap = document.getElementById('weeklyChallenges');
+    var weekStart = new Date();
+    weekStart.setDate(weekStart.getDate() - weekStart.getDay());
+    var weekPoints = getWeekPoints();
+
+    var challenges = [
+      {id:'weekly_prayer', emoji:'🕌', title:'أكمل 35 صلاة هذا الأسبوع', target:35, current: getWeekDeed('prayer')},
+      {id:'weekly_quran',  emoji:'📖', title:'اقرأ 10 صفحات قرآن',       target:10, current: getWeekDeed('quran')},
+      {id:'weekly_sadaqah',emoji:'🤲', title:'تصدّق 3 مرات',              target:3,  current: getWeekDeed('sadaqah')},
+      {id:'weekly_parents',emoji:'👨‍👩‍👧', title:'بِرّ والديك 7 مرات',       target:7,  current: getWeekDeed('parents')}
+    ];
+
+    var html = '';
+    challenges.forEach(function(ch){
+      var pct = Math.min((ch.current / ch.target) * 100, 100);
+      var done = ch.current >= ch.target;
+      html += '<div class="challenge-box" style="'+(done?'border-right-color:var(--g500)':'')+'">' +
+        '<div class="ch-title">'+ch.emoji+' '+ch.title+' '+(done?' ✓':'')+'</div>' +
+        '<div class="ch-progress"><div class="ch-fill" style="width:'+pct+'%"></div></div>' +
+        '<div class="ch-stats"><span>'+ch.current+' / '+ch.target+'</span><span>'+Math.round(pct)+'%</span></div>' +
+      '</div>';
+    });
+
+    wrap.innerHTML = html;
+  }
+
+  function getWeekPoints(){
+    var weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    return data.history.filter(function(h){
+      return new Date(h.ts) >= weekAgo;
+    }).reduce(function(sum, h){ return sum + h.pts; }, 0);
+  }
+
+  function getWeekDeed(deedId){
+    var weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    return data.history.filter(function(h){
+      return h.deedId === deedId && new Date(h.ts) >= weekAgo;
+    }).length;
+  }
+
+  // ═══ Render All ═══
+  function renderAll(){
+    renderTree(data.totalPoints);
+    renderDeeds();
+    renderStages();
+    renderWeeklyChallenges();
+
+    // Points
+    document.getElementById('totalPoints').textContent = data.totalPoints.toLocaleString('en-US');
+    var tk = todayKey();
+    var todayPts = 0;
+    var todayCounts = data.todayDeeds[tk] || {};
+    Object.keys(todayCounts).forEach(function(id){
+      var deed = DEEDS.find(function(d){ return d.id === id; });
+      if(deed) todayPts += deed.pts * todayCounts[id];
+    });
+    document.getElementById('todayPoints').textContent = todayPts;
+    document.getElementById('weekPoints').textContent = getWeekPoints();
+
+    // Progress bar
+    var current = getCurrentStage(data.totalPoints);
+    var next = getNextStage(data.totalPoints);
+    var pct = 100;
+    if(next){
+      pct = ((data.totalPoints - current.pts) / (next.pts - current.pts)) * 100;
+    }
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressCurrent').textContent = data.totalPoints + ' pts';
+    document.getElementById('progressNext').textContent = next ? (next.pts + ' pts — ' + next.name) : 'أعلى مرحلة 🌟';
+  }
+
+  // ═══ History Modal ═══
+  document.getElementById('historyBtn').addEventListener('click', function(){
+    var overlay = document.getElementById('historyOverlay');
+    var list = document.getElementById('historyList');
+    if(!data.history.length){
+      list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--i400)">لا يوجد سجل بعد 🤍</div>';
+    } else {
+      var html = '';
+      data.history.slice(0, 50).forEach(function(h){
+        var deed = DEEDS.find(function(d){ return d.id === h.deedId; });
+        if(!deed) return;
+        var dt = new Date(h.ts);
+        var dateStr = dt.toLocaleDateString('ar-EG',{day:'numeric',month:'short'})+' '+dt.toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'});
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:.7rem .9rem;background:var(--i100);border-radius:var(--r-s);margin-bottom:.4rem;font-size:.9rem">' +
+          '<span>'+deed.icon+' '+deed.name+'</span>' +
+          '<span style="font-family:var(--f-l);color:var(--au600);font-weight:700">+'+h.pts+'</span>' +
+          '<span style="font-family:var(--f-l);font-size:.72rem;color:var(--i400);direction:ltr">'+dateStr+'</span>' +
+        '</div>';
+      });
+      list.innerHTML = html;
+    }
+    overlay.style.opacity = '1';
+    overlay.style.visibility = 'visible';
+  });
+  document.getElementById('historyCloseBtn').addEventListener('click', function(){
+    var overlay = document.getElementById('historyOverlay');
+    overlay.style.opacity = '0';
+    overlay.style.visibility = 'hidden';
+  });
+
+  // ═══ Share Tree ═══
+  document.getElementById('shareTreeBtn').addEventListener('click', async function(){
+    var btn = this;
+    var orig = btn.textContent;
+    btn.textContent = '⏳ جاري الإنشاء...';
+    btn.disabled = true;
+    try {
+      var card = buildShareCard();
+      document.body.appendChild(card);
+      var canvas = await html2canvas(card, { backgroundColor:null, scale:2, useCORS:true });
+      document.body.removeChild(card);
+      var link = document.createElement('a');
+      link.download = 'faith-tree-'+todayKey()+'.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } catch(e) {
+      alert('تعذّر إنشاء البطاقة');
+    }
+    btn.textContent = orig;
+    btn.disabled = false;
+  });
+
+  function buildShareCard(){
+    var stage = getCurrentStage(data.totalPoints);
+    var next = getNextStage(data.totalPoints);
+    var card = document.createElement('div');
+    card.style.cssText = 'position:fixed;left:-9999px;top:0;width:600px;padding:50px 40px;background:linear-gradient(160deg,#1b4332,#0d2818);color:#fff;font-family:Cairo,sans-serif;text-align:center;border-radius:32px;direction:rtl';
+    var stageIndex = STAGES.indexOf(stage);
+    var treeSVG = '<svg viewBox="0 0 400 400" style="width:280px;height:280px;display:block;margin:0 auto">';
+    if(stageIndex === 0){
+      treeSVG += '<ellipse cx="200" cy="360" rx="12" ry="16" fill="#8b6f47"/>';
+      treeSVG += '<ellipse cx="188" cy="330" rx="6" ry="4" fill="#74c69d" transform="rotate(-30 188 330)"/>';
+    } else {
+      var trunkH = Math.min(60 + stageIndex * 35, 240);
+      var trunkW = Math.min(8 + stageIndex * 2, 22);
+      var trunkTop = 360 - trunkH;
+      treeSVG += '<ellipse cx="200" cy="378" rx="100" ry="6" fill="#1b4332" opacity=".6"/>';
+      treeSVG += '<path d="M '+(200-trunkW)+' 360 L '+(200-trunkW*.4)+' '+trunkTop+' L '+(200+trunkW*.4)+' '+trunkTop+' L '+(200+trunkW)+' 360 Z" fill="#5d4a2e"/>';
+      var canopyR = Math.min(20 + stageIndex * 12, 95);
+      var canopyY = trunkTop - 20;
+      for(var i=0;i<Math.min(3+Math.floor(stageIndex*5), 20);i++){
+        var ang = (i / 20) * Math.PI * 2;
+        var r = canopyR * (0.4 + Math.random()*0.6);
+        var lx = 200 + Math.cos(ang) * r;
+        var ly = canopyY + Math.sin(ang) * r * 0.8;
+        treeSVG += '<circle cx="'+lx.toFixed(0)+'" cy="'+ly.toFixed(0)+'" r="14" fill="'+(i%2?'#52b788':'#40916c')+'" opacity=".85"/>';
+      }
+    }
+    treeSVG += '</svg>';
+
+    var statsHTML = '';
+    DEEDS.slice(0, 6).forEach(function(d){
+      var cnt = data.deeds[d.id] || 0;
+      if(cnt > 0){
+        statsHTML += '<div style="display:inline-block;background:rgba(255,255,255,.08);border-radius:14px;padding:8px 14px;margin:4px;font-size:.85rem">'+d.icon+' '+cnt+'</div>';
+      }
+    });
+
+    card.innerHTML =
+      '<div style="font-family:Amiri,serif;font-size:1.2rem;color:#f4e4bc;margin-bottom:8px">﷽</div>' +
+      '<div style="font-family:Reem Kufi,serif;font-size:1.9rem;font-weight:700;background:linear-gradient(180deg,#fff,#e6c988);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px">شجرة الإيمان</div>' +
+      '<div style="font-family:Inter,sans-serif;font-size:.7rem;color:rgba(255,255,255,.5);letter-spacing:.25em;margin-bottom:20px">FAITH TREE</div>' +
+      treeSVG +
+      '<div style="font-family:Reem Kufi,serif;font-size:1.7rem;font-weight:700;color:#e6c988;margin-top:15px">'+stage.emoji+' '+stage.name+'</div>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px">' +
+        '<div style="background:rgba(255,255,255,.06);border-radius:18px;padding:16px">' +
+          '<div style="font-family:Reem Kufi,serif;font-size:2rem;font-weight:700;color:#e6c988">'+data.totalPoints.toLocaleString('en-US')+'</div>' +
+          '<div style="font-size:.75rem;color:rgba(255,255,255,.55);margin-top:4px">مجموع النقاط</div>' +
+        '</div>' +
+        '<div style="background:rgba(255,255,255,.06);border-radius:18px;padding:16px">' +
+          '<div style="font-family:Reem Kufi,serif;font-size:2rem;font-weight:700;color:#e6c988">'+data.history.length+'</div>' +
+          '<div style="font-size:.75rem;color:rgba(255,255,255,.55);margin-top:4px">عمل صالح</div>' +
+        '</div>' +
+      '</div>' +
+      (statsHTML?'<div style="margin-top:20px">'+statsHTML+'</div>':'') +
+      '<div style="font-family:Amiri,serif;font-size:.95rem;color:#f4e4bc;line-height:1.8;margin-top:22px">﴿ أَصْلُهَا ثَابِتٌ وَفَرْعُهَا فِي السَّمَاءِ ﴾</div>' +
+      '<div style="font-family:Inter,sans-serif;font-size:.7rem;color:rgba(255,255,255,.4);margin-top:14px;letter-spacing:.1em">islamic-sxqp.onrender.com/tree.html</div>';
+    return card;
+  }
+
+  // ═══ Export / Import / Reset ═══
+  document.getElementById('exportTreeBtn').addEventListener('click', function(){
+    var blob = new Blob([JSON.stringify(data,null,2)], { type:'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'faith-tree-'+todayKey()+'.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  document.getElementById('importTreeInput').addEventListener('change', function(e){
+    var file = e.target.files[0];
+    if(!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev){
+      try {
+        var imported = JSON.parse(ev.target.result);
+        if(typeof imported.totalPoints !== 'number') throw new Error('صيغة غير صحيحة');
+        if(confirm('استبدال بياناتك الحالية؟')){
+          data = imported;
+          if(!data.history) data.history = [];
+          if(!data.todayDeeds) data.todayDeeds = {};
+          if(!data.deeds) data.deeds = {};
+          saveData();
+          renderAll();
+        }
+      } catch(err){ alert('ملف غير صالح'); }
+    };
+    reader.readAsText(file);
+  });
+
+  document.getElementById('resetTreeBtn').addEventListener('click', function(){
+    if(!confirm('حذف الشجرة كلها؟ لا يمكن التراجع.')) return;
+    if(!confirm('تأكيد أخير: حذف كل النقاط والأعمال؟')) return;
+    localStorage.removeItem(KEY);
+    location.reload();
+  });
+
+  // ═══ Init ═══
+  renderAll();
+
+  // First visit toast
+  if(data.totalPoints === 0){
+    setTimeout(function(){
+      showToast('🌱', 'ازرع أول عمل صالح لتنمو شجرتك');
+    }, 1200);
+  }
+
+})();
+</script>
+</body>
+</html>
