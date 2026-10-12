@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>خريطة الدول الإسلامية · Muslim World Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&family=Reem+Kufi:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.wm-hero{text-align:center;padding:3rem 1rem 2rem;position:relative;z-index:2;background:radial-gradient(circle at center,rgba(82,183,136,.10),transparent 70%);border-radius:var(--r-xl);margin-bottom:2rem}
+.wm-hero .arab{font-family:var(--f-q);font-size:2.5rem;color:var(--au500);opacity:.7;margin-bottom:1rem}
+.wm-hero h1{font-family:var(--f-d);font-size:clamp(1.9rem,5.5vw,3rem);font-weight:700;background:linear-gradient(135deg,var(--g700),var(--au500));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+.wm-hero .en-sub{font-family:var(--f-l);font-size:.85rem;color:var(--i400);letter-spacing:.15em;direction:ltr;margin-bottom:1.5rem}
+.wm-hero .verse{font-family:var(--f-q);font-size:clamp(1rem,2.7vw,1.2rem);color:var(--g800);line-height:2;max-width:720px;margin:0 auto;padding:1.3rem;background:var(--g50);border-radius:var(--r-m);border-right:4px solid var(--g500)}
+[data-theme="dark"] .wm-hero .verse{background:rgba(82,183,136,.08);color:var(--g200)}
+
+/* Stats */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem;margin-bottom:1.5rem}
+.stat-box{background:linear-gradient(160deg,var(--g800),var(--g900));border-radius:var(--r-m);padding:1.2rem 1rem;text-align:center;color:#fff;box-shadow:var(--sh-md)}
+.stat-box .sv{font-family:var(--f-d);font-size:2rem;font-weight:700;background:linear-gradient(180deg,#fff,#e6c988);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;direction:ltr;line-height:1}
+.stat-box .sl{font-size:.78rem;color:rgba(255,255,255,.7);margin-top:.4rem}
+
+/* Toolbar */
+.toolbar{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-l);padding:1.2rem;margin-bottom:1.5rem;box-shadow:var(--sh-md);position:sticky;top:1rem;z-index:30}
+[data-theme="dark"] .toolbar{border-color:rgba(82,183,136,.15)}
+.search-input{width:100%;padding:1rem 1.3rem;background:var(--i100);border:1.5px solid transparent;border-radius:var(--r-pill);font-family:var(--f-b);font-size:1rem;color:var(--i900);outline:none;transition:all .3s var(--e);margin-bottom:1rem}
+[data-theme="dark"] .search-input{background:rgba(24,34,27,.5);color:#fff}
+.search-input:focus{border-color:var(--g500);background:var(--paper);box-shadow:0 0 0 4px rgba(82,183,136,.15)}
+
+.filter-tabs{display:flex;gap:.4rem;flex-wrap:wrap}
+.filter-tab{padding:.6rem 1rem;background:var(--i100);border:1.5px solid transparent;border-radius:var(--r-pill);font-family:var(--f-b);font-size:.85rem;font-weight:600;color:var(--i500);cursor:pointer;transition:all .3s var(--e)}
+[data-theme="dark"] .filter-tab{background:rgba(82,183,136,.05)}
+.filter-tab:hover{border-color:var(--g400);color:var(--g700)}
+.filter-tab.active{background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;border-color:var(--g600);box-shadow:0 8px 20px rgba(45,106,79,.25)}
+
+/* Countries Grid */
+.countries-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.8rem;margin-bottom:3rem}
+.country-card{background:var(--paper);border:1.5px solid var(--i200);border-radius:var(--r-m);padding:1.2rem;transition:all .3s var(--e);position:relative;overflow:hidden}
+[data-theme="dark"] .country-card{border-color:rgba(82,183,136,.12)}
+.country-card::before{content:'';position:absolute;top:0;left:20%;right:20%;height:3px;background:linear-gradient(90deg,transparent,var(--au500),transparent);opacity:0;transition:opacity .3s}
+.country-card:hover{transform:translateY(-5px);border-color:var(--g400);box-shadow:0 16px 40px rgba(13,40,24,.10)}
+.country-card:hover::before{opacity:1}
+[data-theme="dark"] .country-card:hover{box-shadow:0 16px 40px rgba(0,0,0,.4)}
+
+.cc-head{display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem}
+.cc-flag{font-size:2.2rem;line-height:1}
+.cc-name{flex:1}
+.cc-name-ar{font-family:var(--f-d);font-size:1.15rem;font-weight:700;color:var(--g800);line-height:1.3}
+[data-theme="dark"] .cc-name-ar{color:var(--g300)}
+.cc-name-en{font-family:var(--f-l);font-size:.75rem;color:var(--i400);direction:ltr}
+
+.cc-details{padding-top:.7rem;border-top:1px dashed var(--i200);font-size:.85rem;color:var(--i600);line-height:1.7}
+[data-theme="dark"] .cc-details{color:var(--i500);border-color:var(--i300)}
+.cc-row{display:flex;justify-content:space-between;padding:.2rem 0}
+.cc-row .cr-label{color:var(--i400)}
+.cc-row .cr-value{font-weight:600;color:var(--g700);direction:ltr}
+[data-theme="dark"] .cc-row .cr-value{color:var(--g300)}
+
+.cc-badge{position:absolute;top:.7rem;left:.7rem;font-size:.7rem;font-weight:700;padding:.25rem .6rem;border-radius:var(--r-pill);background:linear-gradient(135deg,var(--g500),var(--g600));color:#fff}
+.cc-badge.ar{background:linear-gradient(135deg,var(--au500),var(--au600))}
+
+/* Empty state */
+.empty-state{grid-column:1/-1;text-align:center;padding:3rem 1rem;color:var(--i400)}
+.empty-state .es-icon{font-size:3rem;margin-bottom:1rem;opacity:.6}
+
+/* Info section */
+.info-sec{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-xl);padding:clamp(1.5rem,4vw,2rem);margin-bottom:2rem;box-shadow:var(--sh-md)}
+[data-theme="dark"] .info-sec{border-color:rgba(82,183,136,.12)}
+.info-sec h2{font-family:var(--f-d);font-size:1.3rem;color:var(--i900);margin-bottom:1rem}
+[data-theme="dark"] .info-sec h2{color:var(--g300)}
+.info-sec p{font-size:.95rem;color:var(--i600);line-height:1.9;margin-bottom:.8rem}
+[data-theme="dark"] .info-sec p{color:var(--i500)}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <a href="index.html" style="text-decoration:none;padding:.6rem 1.1rem;background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-pill);color:var(--i800);font-family:var(--f-b);font-size:.85rem;font-weight:600;box-shadow:var(--sh-md)">🏠 الرئيسية</a>
+</div>
+<button class="theme-toggle" id="themeToggle">
+  <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+</button>
+
+<main class="container">
+
+<section class="wm-hero">
+  <div class="arab">🗺️</div>
+  <h1>خريطة الدول الإسلامية</h1>
+  <div class="en-sub">Muslim World Map</div>
+  <div class="verse">﴿ وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا ﴾ — الحجرات: 13</div>
+</section>
+
+<div class="stats-row">
+  <div class="stat-box"><div class="sv" id="totalCount">0</div><div class="sl">دولة إسلامية</div></div>
+  <div class="stat-box"><div class="sv" id="totalMuslims">0</div><div class="sl">مليون مسلم</div></div>
+  <div class="stat-box"><div class="sv">57</div><div class="sl">عضو في منظمة التعاون</div></div>
+  <div class="stat-box"><div class="sv">2B+</div><div class="sl">مسلم في العالم</div></div>
+</div>
+
+<div class="toolbar">
+  <input type="text" class="search-input" id="searchInput" placeholder="🔍 ابحث عن دولة... (عربي/إنجليزي)">
+  <div class="filter-tabs">
+    <button class="filter-tab active" data-filter="all">🌍 الكل</button>
+    <button class="filter-tab" data-filter="arab">🏛️ عربية</button>
+    <button class="filter-tab" data-filter="africa">🌍 أفريقيا</button>
+    <button class="filter-tab" data-filter="asia">🌏 آسيا</button>
+    <button class="filter-tab" data-filter="majority">☪️ مسلمة</button>
+  </div>
+</div>
+
+<div class="countries-grid" id="countriesGrid"></div>
+
+<div class="info-sec">
+  <h2>📖 معلومات مهمة</h2>
+  <p><strong>عدد الدول الإسلامية:</strong> هناك 57 دولة في منظمة التعاون الإسلامي، من بينها 23 دولة إسلامية رسمياً.</p>
+  <p><strong>أكثر الدول سكاناً:</strong> إندونيسيا (أكبر دولة إسلامية سكاناً)، باكستان، الهند، بنغلاديش، نيجيريا.</p>
+  <p><strong>أكبر دولة من حيث المساحة:</strong> كازاخستان، ثم الجزائر، ثم السعودية.</p>
+  <p><strong>مكة المكرمة:</strong> أقدس مكان في الإسلام، يزورها ملايين المسلمين سنوياً للحج والعمرة.</p>
+</div>
+
+<footer class="footer">
+  <div class="footer-dua">اللهم اجمع شمل المسلمين في كل مكان، وأعز الإسلام والمسلمين</div>
+  <div class="footer-owner">صاحب الموقع: <strong>واشمي محمد</strong></div>
+</footer>
+
+</main>
+
+<div class="share-container"></div>
+
+<script src="share.js"></script>
+<script>
+(function(){
+  var s=localStorage.getItem('theme');
+  var d=window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme',s||(d?'dark':'light'));
+  document.getElementById('themeToggle').addEventListener('click',function(){
+    var c=document.documentElement.getAttribute('data-theme');
+    var n=c==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',n);
+    localStorage.setItem('theme',n);
+  });
+
+  var COUNTRIES = [
+    {flag:'🇩🇿', ar:'الجزائر', en:'Algeria', region:'arab', muslims:44, pop:45, majority:true},
+    {flag:'🇸🇦', ar:'السعودية', en:'Saudi Arabia', region:'arab', muslims:34, pop:35, majority:true},
+    {flag:'🇪🇬', ar:'مصر', en:'Egypt', region:'arab', muslims:100, pop:110, majority:true},
+    {flag:'🇲🇦', ar:'المغرب', en:'Morocco', region:'arab', muslims:36, pop:37, majority:true},
+    {flag:'🇹🇳', ar:'تونس', en:'Tunisia', region:'arab', muslims:12, pop:12, majority:true},
+    {flag:'🇱🇾', ar:'ليبيا', en:'Libya', region:'arab', muslims:7, pop:7, majority:true},
+    {flag:'🇸🇩', ar:'السودان', en:'Sudan', region:'arab', muslims:41, pop:46, majority:true},
+    {flag:'🇮🇶', ar:'العراق', en:'Iraq', region:'arab', muslims:42, pop:44, majority:true},
+    {flag:'🇸🇾', ar:'سوريا', en:'Syria', region:'arab', muslims:20, pop:22, majority:true},
+    {flag:'🇯🇴', ar:'الأردن', en:'Jordan', region:'arab', muslims:10, pop:11, majority:true},
+    {flag:'🇱🇧', ar:'لبنان', en:'Lebanon', region:'arab', muslims:3.5, pop:5.5, majority:false},
+    {flag:'🇵🇸', ar:'فلسطين', en:'Palestine', region:'arab', muslims:5, pop:5.3, majority:true},
+    {flag:'🇾🇪', ar:'اليمن', en:'Yemen', region:'arab', muslims:32, pop:34, majority:true},
+    {flag:'🇴🇲', ar:'عُمان', en:'Oman', region:'arab', muslims:4.5, pop:5, majority:true},
+    {flag:'🇦🇪', ar:'الإمارات', en:'UAE', region:'arab', muslims:8, pop:10, majority:true},
+    {flag:'🇶🇦', ar:'قطر', en:'Qatar', region:'arab', muslims:2.3, pop:3, majority:true},
+    {flag:'🇰🇼', ar:'الكويت', en:'Kuwait', region:'arab', muslims:3.5, pop:4.5, majority:true},
+    {flag:'🇧🇭', ar:'البحرين', en:'Bahrain', region:'arab', muslims:1, pop:1.5, majority:true},
+    {flag:'🇲🇷', ar:'موريتانيا', en:'Mauritania', region:'arab', muslims:4.2, pop:4.5, majority:true},
+    {flag:'🇸🇴', ar:'الصومال', en:'Somalia', region:'arab', muslims:16, pop:17, majority:true},
+    {flag:'🇩🇯', ar:'جيبوتي', en:'Djibouti', region:'arab', muslims:1, pop:1, majority:true},
+    {flag:'🇰🇲', ar:'جزر القمر', en:'Comoros', region:'arab', muslims:0.9, pop:0.9, majority:true},
+
+    {flag:'🇮🇩', ar:'إندونيسيا', en:'Indonesia', region:'asia', muslims:236, pop:275, majority:true},
+    {flag:'🇵🇰', ar:'باكستان', en:'Pakistan', region:'asia', muslims:240, pop:245, majority:true},
+    {flag:'🇧🇩', ar:'بنغلاديش', en:'Bangladesh', region:'asia', muslims:153, pop:170, majority:true},
+    {flag:'🇮🇳', ar:'الهند', en:'India', region:'asia', muslims:210, pop:1420, majority:false},
+    {flag:'🇹🇷', ar:'تركيا', en:'Turkey', region:'asia', muslims:83, pop:85, majority:true},
+    {flag:'🇮🇷', ar:'إيران', en:'Iran', region:'asia', muslims:85, pop:88, majority:true},
+    {flag:'🇦🇫', ar:'أفغانستان', en:'Afghanistan', region:'asia', muslims:40, pop:42, majority:true},
+    {flag:'🇺🇿', ar:'أوزبكستان', en:'Uzbekistan', region:'asia', muslims:33, pop:36, majority:true},
+    {flag:'🇰🇿', ar:'كازاخستان', en:'Kazakhstan', region:'asia', muslims:16, pop:19, majority:true},
+    {flag:'🇲🇾', ar:'ماليزيا', en:'Malaysia', region:'asia', muslims:20, pop:34, majority:true},
+    {flag:'🇦🇿', ar:'أذربيجان', en:'Azerbaijan', region:'asia', muslims:9.5, pop:10, majority:true},
+    {flag:'🇰🇬', ar:'قرغيزستان', en:'Kyrgyzstan', region:'asia', muslims:6, pop:7, majority:true},
+    {flag:'🇹🇯', ar:'طاجيكستان', en:'Tajikistan', region:'asia', muslims:9, pop:10, majority:true},
+    {flag:'🇹🇲', ar:'تركمانستان', en:'Turkmenistan', region:'asia', muslims:5, pop:6, majority:true},
+    {flag:'🇸🇾', ar:'سوريا', en:'Syria', region:'asia', muslims:20, pop:22, majority:true},
+    {flag:'🇾🇪', ar:'اليمن', en:'Yemen', region:'asia', muslims:32, pop:34, majority:true},
+
+    {flag:'🇳🇬', ar:'نيجيريا', en:'Nigeria', region:'africa', muslims:110, pop:220, majority:false},
+    {flag:'🇸🇳', ar:'السنغال', en:'Senegal', region:'africa', muslims:16, pop:17, majority:true},
+    {flag:'🇬🇲', ar:'غامبيا', en:'Gambia', region:'africa', muslims:2.5, pop:2.5, majority:true},
+    {flag:'🇲🇱', ar:'مالي', en:'Mali', region:'africa', muslims:20, pop:22, majority:true},
+    {flag:'🇬🇳', ar:'غينيا', en:'Guinea', region:'africa', muslims:11, pop:13, majority:true},
+    {flag:'🇳🇪', ar:'النيجر', en:'Niger', region:'africa', muslims:21, pop:24, majority:true},
+    {flag:'🇧🇫', ar:'بوركينا فاسو', en:'Burkina Faso', region:'africa', muslims:12, pop:21, majority:false},
+    {flag:'🇹🇩', ar:'تشاد', en:'Chad', region:'africa', muslims:9, pop:17, majority:false},
+    {flag:'🇱🇷', ar:'ليبيريا', en:'Liberia', region:'africa', muslims:0.9, pop:5, majority:false},
+    {flag:'🇸🇱', ar:'سيراليون', en:'Sierra Leone', region:'africa', muslims:6, pop:8, majority:false},
+    {flag:'🇬🇭', ar:'غانا', en:'Ghana', region:'africa', muslims:6, pop:32, majority:false},
+    {flag:'🇹🇿', ar:'تنزانيا', en:'Tanzania', region:'africa', muslims:20, pop:60, majority:false},
+    {flag:'🇰🇪', ar:'كينيا', en:'Kenya', region:'africa', muslims:5, pop:55, majority:false},
+    {flag:'🇪🇹', ar:'إثيوبيا', en:'Ethiopia', region:'africa', muslims:35, pop:120, majority:false},
+    {flag:'🇺🇬', ar:'أوغندا', en:'Uganda', region:'africa', muslims:6, pop:47, majority:false},
+    {flag:'🇿🇦', ar:'جنوب أفريقيا', en:'South Africa', region:'africa', muslims:1.5, pop:60, majority:false},
+    {flag:'🇧🇯', ar:'بنين', en:'Benin', region:'africa', muslims:3, pop:12, majority:false},
+    {flag:'🇹🇬', ar:'توغو', en:'Togo', region:'africa', muslims:1.5, pop:8, majority:false},
+    {flag:'🇨🇮', ar:'ساحل العاج', en:'Ivory Coast', region:'africa', muslims:11, pop:27, majority:false},
+
+    {flag:'🇦🇱', ar:'ألبانيا', en:'Albania', region:'asia', muslims:1.8, pop:2.8, majority:false},
+    {flag:'🇧🇦', ar:'البوسنة', en:'Bosnia', region:'asia', muslims:1.5, pop:3.5, majority:false},
+    {flag:'🇽🇰', ar:'كوسوفو', en:'Kosovo', region:'asia', muslims:1.8, pop:1.8, majority:true},
+    {flag:'🇲🇰', ar:'مقدونيا الشمالية', en:'North Macedonia', region:'asia', muslims:0.6, pop:2, majority:false}
+  ];
+
+  // Deduplicate
+  var seen = {};
+  COUNTRIES = COUNTRIES.filter(function(c){
+    if(seen[c.ar]) return false;
+    seen[c.ar] = true;
+    return true;
+  });
+
+  // Update stats
+  var totalMuslims = COUNTRIES.reduce(function(sum, c){ return sum + c.muslims; }, 0);
+  document.getElementById('totalCount').textContent = COUNTRIES.length;
+  document.getElementById('totalMuslims').textContent = Math.round(totalMuslims);
+
+  var currentFilter = 'all';
+  var currentSearch = '';
+
+  document.querySelectorAll('.filter-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.filter-tab').forEach(function(t){ t.classList.remove('active'); });
+      this.classList.add('active');
+      currentFilter = this.getAttribute('data-filter');
+      render();
+    });
+  });
+
+  document.getElementById('searchInput').addEventListener('input', function(){
+    currentSearch = this.value.trim().toLowerCase();
+    render();
+  });
+
+  function filter(){
+    return COUNTRIES.filter(function(c){
+      if(currentFilter === 'majority' && !c.majority) return false;
+      if(currentFilter === 'arab' && c.region !== 'arab') return false;
+      if(currentFilter === 'africa' && c.region !== 'africa') return false;
+      if(currentFilter === 'asia' && c.region !== 'asia') return false;
+      if(currentSearch){
+        var match = c.ar.toLowerCase().indexOf(currentSearch) !== -1 ||
+                    c.en.toLowerCase().indexOf(currentSearch) !== -1;
+        if(!match) return false;
+      }
+      return true;
+    }).sort(function(a, b){ return b.muslims - a.muslims; });
+  }
+
+  function render(){
+    var list = filter();
+    var grid = document.getElementById('countriesGrid');
+    
+    if(!list.length){
+      grid.innerHTML = '<div class="empty-state"><div class="es-icon">🤍</div><div>لا توجد دول مطابقة</div></div>';
+      return;
+    }
+
+    grid.innerHTML = list.map(function(c){
+      var pct = Math.round((c.muslims / c.pop) * 100);
+      return '<div class="country-card">' +
+        (c.majority ? '<span class="cc-badge">☪️ مسلمة</span>' : '<span class="cc-badge ar">أقلية</span>') +
+        '<div class="cc-head">' +
+          '<div class="cc-flag">' + c.flag + '</div>' +
+          '<div class="cc-name">' +
+            '<div class="cc-name-ar">' + c.ar + '</div>' +
+            '<div class="cc-name-en">' + c.en + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="cc-details">' +
+          '<div class="cc-row"><span class="cr-label">👥 السكان</span><span class="cr-value">' + c.pop + 'M</span></div>' +
+          '<div class="cc-row"><span class="cr-label">☪️ المسلمون</span><span class="cr-value">' + c.muslims + 'M</span></div>' +
+          '<div class="cc-row"><span class="cr-label">📊 النسبة</span><span class="cr-value">' + pct + '%</span></div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
