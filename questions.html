@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الأسئلة الصعبة · Hard Questions</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&family=Reem+Kufi:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.q-hero{text-align:center;padding:3rem 1rem 2rem;position:relative;z-index:2}
+.q-hero .arabesque{font-family:var(--f-q);font-size:2rem;color:var(--au500);opacity:.7;margin-bottom:.5rem}
+.q-hero h1{font-family:var(--f-d);font-size:clamp(1.9rem,5.5vw,2.8rem);font-weight:700;background:linear-gradient(135deg,var(--g700),var(--au500));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+.q-hero p{font-family:var(--f-l);font-size:.85rem;color:var(--i400);direction:ltr;letter-spacing:.05em}
+.q-hero .subtitle-ar{font-family:var(--f-q);font-size:1.05rem;color:var(--i600);margin-top:1rem;line-height:1.9;max-width:640px;margin-left:auto;margin-right:auto}
+[data-theme="dark"] .q-hero .subtitle-ar{color:var(--i400)}
+
+.q-tabs{display:flex;gap:.4rem;padding:.5rem;background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-pill);margin-bottom:2rem;box-shadow:var(--sh-md);position:sticky;top:1rem;z-index:30;backdrop-filter:blur(20px)}
+[data-theme="dark"] .q-tabs{border-color:rgba(82,183,136,.15)}
+.q-tab{flex:1;padding:.85rem 1rem;background:transparent;border:none;border-radius:var(--r-pill);font-family:var(--f-b);font-size:.92rem;font-weight:700;color:var(--i500);cursor:pointer;transition:all .3s var(--e);display:flex;align-items:center;justify-content:center;gap:.4rem}
+.q-tab.active{background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;box-shadow:0 8px 20px rgba(45,106,79,.25)}
+.q-tab:not(.active):hover{background:var(--g50);color:var(--g700)}
+[data-theme="dark"] .q-tab:not(.active):hover{background:rgba(82,183,136,.1);color:var(--g300)}
+.q-tab .tab-icon{font-size:1.1rem}
+
+.q-list{display:flex;flex-direction:column;gap:.8rem;margin-bottom:2rem}
+.qa-card{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-m);overflow:hidden;transition:all .4s var(--e)}
+[data-theme="dark"] .qa-card{border-color:rgba(82,183,136,.12)}
+.qa-card:hover{border-color:var(--g300);box-shadow:0 8px 24px rgba(13,40,24,.06)}
+.qa-card.open{border-color:var(--au400);box-shadow:0 12px 32px rgba(201,169,97,.15)}
+.qa-q{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.3rem;cursor:pointer;user-select:none;transition:all .3s var(--e)}
+.qa-q:hover{background:var(--i100)}
+[data-theme="dark"] .qa-q:hover{background:rgba(82,183,136,.05)}
+.qa-num{flex-shrink:0;width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--g100),var(--g200));display:flex;align-items:center;justify-content:center;color:var(--g700);font-family:var(--f-l);font-weight:700;font-size:.85rem;transition:all .3s var(--e)}
+[data-theme="dark"] .qa-num{background:rgba(82,183,136,.12);color:var(--g300)}
+.qa-card.open .qa-num{background:linear-gradient(135deg,var(--au400),var(--au500));color:#fff}
+.qa-q-text{flex:1;font-family:var(--f-d);font-size:1.02rem;font-weight:600;color:var(--i900);line-height:1.4}
+.qa-toggle{flex-shrink:0;width:26px;height:26px;position:relative}
+.qa-toggle::before,.qa-toggle::after{content:'';position:absolute;top:50%;left:50%;background:var(--g500);transition:all .4s var(--e)}
+.qa-toggle::before{width:14px;height:2.5px;transform:translate(-50%,-50%)}
+.qa-toggle::after{width:2.5px;height:14px;transform:translate(-50%,-50%)}
+.qa-card.open .qa-toggle::after{transform:translate(-50%,-50%) rotate(90deg);opacity:0}
+.qa-card.open .qa-toggle::before{background:var(--au500)}
+.qa-a{max-height:0;overflow:hidden;transition:max-height .5s var(--e),padding .4s var(--e);padding:0 1.3rem}
+.qa-card.open .qa-a{max-height:1400px;padding:0 1.3rem 1.4rem}
+.qa-a-inner{padding-top:.4rem;border-top:1px dashed var(--i200)}
+[data-theme="dark"] .qa-a-inner{border-top-color:var(--i300)}
+.qa-a-text{font-size:.98rem;color:var(--i700);line-height:1.95;margin-top:1rem}
+[data-theme="dark"] .qa-a-text{color:var(--i500)}
+.qa-a-text strong{color:var(--g700);font-weight:700}
+[data-theme="dark"] .qa-a-text strong{color:var(--g300)}
+.qa-a-text p{margin-bottom:.9rem}
+.qa-evidence{background:linear-gradient(135deg,var(--g50),rgba(201,169,97,.06));border-right:3px solid var(--g500);border-radius:var(--r-s);padding:1rem 1.2rem;margin-top:1rem;font-family:var(--f-q);font-size:1.05rem;line-height:1.95;color:var(--g800)}
+[data-theme="dark"] .qa-evidence{background:rgba(82,183,136,.08);color:var(--g200)}
+.qa-evidence .ev-ref{font-family:var(--f-l);font-size:.72rem;color:var(--au600);margin-top:.4rem;direction:ltr;text-align:right;display:block}
+[data-theme="dark"] .qa-evidence .ev-ref{color:var(--au400)}
+
+.ask-box{background:linear-gradient(135deg,rgba(82,183,136,.08),rgba(201,169,97,.06));border:1.5px solid var(--g300);border-radius:var(--r-l);padding:clamp(1.5rem,4vw,2.2rem);margin:2rem 0;text-align:center}
+[data-theme="dark"] .ask-box{background:rgba(82,183,136,.05);border-color:rgba(82,183,136,.25)}
+.ask-box h3{font-family:var(--f-d);font-size:1.3rem;color:var(--g800);margin-bottom:.5rem}
+[data-theme="dark"] .ask-box h3{color:var(--g300)}
+.ask-box p{font-size:.9rem;color:var(--i500);margin-bottom:1.3rem;line-height:1.7}
+.ask-input{width:100%;padding:1rem 1.1rem;background:var(--paper);border:1.5px solid var(--i200);border-radius:var(--r-m);font-family:var(--f-b);font-size:.95rem;color:var(--i900);resize:vertical;min-height:70px;outline:none;transition:all .3s var(--e);margin-bottom:.8rem}
+[data-theme="dark"] .ask-input{background:rgba(24,34,27,.5);color:#fff;border-color:var(--i300)}
+.ask-input:focus{border-color:var(--g500);box-shadow:0 0 0 4px rgba(82,183,136,.15)}
+.ask-btn{padding:.9rem 2rem;background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;border:none;border-radius:var(--r-pill);font-family:var(--f-b);font-size:.95rem;font-weight:700;cursor:pointer;transition:all .3s var(--e);box-shadow:0 12px 28px rgba(45,106,79,.3)}
+.ask-btn:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(45,106,79,.4)}
+.ask-success{display:none;background:var(--g100);color:var(--g800);border-radius:var(--r-m);padding:1rem;font-size:.9rem;font-weight:600;margin-top:.8rem}
+[data-theme="dark"] .ask-success{background:rgba(82,183,136,.15);color:var(--g300)}
+.ask-success.show{display:block}
+
+.qa-history{margin-top:1.5rem;text-align:right}
+.qa-history h4{font-family:var(--f-d);font-size:1rem;color:var(--i700);margin-bottom:.8rem}
+.qa-history .hist-item{background:var(--i100);border-radius:var(--r-s);padding:.8rem 1rem;margin-bottom:.5rem;font-size:.9rem;color:var(--i600);position:relative;border-right:3px solid var(--au400)}
+[data-theme="dark"] .qa-history .hist-item{background:rgba(82,183,136,.05);color:var(--i500)}
+.qa-history .hist-item .del{position:absolute;left:.5rem;top:.5rem;background:transparent;border:none;color:var(--i400);cursor:pointer;font-size:.85rem}
+.qa-history .hist-item .del:hover{color:#c62828}
+
+@media(max-width:600px){
+  .qa-q{padding:1rem 1rem;gap:.8rem}
+  .qa-num{width:34px;height:34px}
+  .qa-q-text{font-size:.95rem}
+  .q-tab{font-size:.85rem;padding:.7rem .6rem}
+}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <a href="index.html" style="text-decoration:none;padding:.6rem 1.1rem;background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-pill);color:var(--i800);font-family:var(--f-b);font-size:.85rem;font-weight:600;box-shadow:var(--sh-md)">🏠 الرئيسية</a>
+</div>
+<button class="theme-toggle" id="themeToggle">
+  <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+</button>
+
+<main class="container">
+
+<section class="q-hero">
+  <div class="arabesque">❁ ✦ ❁</div>
+  <h1>الأسئلة الصعبة</h1>
+  <p>Hard Questions — Answered Honestly</p>
+  <p class="subtitle-ar">أسئلة تحتاج جواباً واعياً — لكل سؤال دليل من القرآن والسنة، بلغة عصرية ومقنعة.</p>
+</section>
+
+<div class="q-tabs">
+  <button class="q-tab active" data-cat="new">
+    <span class="tab-icon">🌱</span>
+    <span>للمسلم الجديد</span>
+  </button>
+  <button class="q-tab" data-cat="non">
+    <span class="tab-icon">🤔</span>
+    <span>لغير المسلمين</span>
+  </button>
+</div>
+
+<div class="q-list" id="qList"></div>
+
+<div class="ask-box">
+  <h3>💭 لديك سؤال لم تجد له جواباً؟</h3>
+  <p>اكتب سؤالك وسيُحفظ في متصفحك حتى تجد الجواب، أو شاركه مع من تثق بعلمه.</p>
+  <textarea class="ask-input" id="askInput" placeholder="اكتب سؤالك هنا..."></textarea>
+  <button class="ask-btn" id="askBtn">📩 احفظ سؤالي</button>
+  <div class="ask-success" id="askSuccess">✓ تم حفظ سؤالك — ستجده في الأسفل</div>
+  <div class="qa-history" id="askHistory"></div>
+</div>
+
+<footer class="footer">
+  <div class="footer-dua">اللهم علّمنا ما ينفعنا، وانفعنا بما علّمتنا</div>
+  <div class="footer-owner">صاحب الموقع: <strong>واشمي محمد</strong></div>
+</footer>
+
+</main>
+
+<div class="share-container"></div>
+
+<script src="share.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  // Theme
+  var s = localStorage.getItem('theme');
+  var d = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', s || (d ? 'dark' : 'light'));
+  document.getElementById('themeToggle').addEventListener('click', function(){
+    var c = document.documentElement.getAttribute('data-theme');
+    var n = c === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', n);
+    localStorage.setItem('theme', n);
+  });
+
+  // ===== Questions Data =====
+  var QUESTIONS = {
+    new: [
+      {
+        q: 'أخاف من عائلتي — هل أُخبرهم بإسلامي؟',
+        a: '<p>هذا قرارك أنت، والشريعة تُراعي المصلحة. إذا خشيت أذى حقيقياً (طرد من البيت، إيذاء جسدي)، فلا حرج أن تؤجّل الإعلان حتى تُهيّئ الظروف — وهذا ما يُسمّى "التقية"، وهي رخصة شرعية عند الخوف.</p><p>الأفضل على المدى الطويل أن تُخبرهم بأسلوب لطيف: بيّن لهم أن الإسلام زادك حبّاً ورحمة بهم، وأنك لم تبتعد عنهم. وأكّد: <strong>لا تقطع صلة الرحم أبداً</strong>، فبرّ الوالدين واجب حتى لو كانا غير مسلمين.</p>',
+        ev: '﴿ وَإِن جَاهَدَاكَ عَلَىٰ أَن تُشْرِكَ بِي مَا لَيْسَ لَكَ بِهِ عِلْمٌ فَلَا تُطِعْهُمَا ۖ وَصَاحِبْهُمَا فِي الدُّنْيَا مَعْرُوفًا ﴾',
+        ref: 'لقمان: 15'
+      },
+      {
+        q: 'ماذا أفعل إذا أخطأت في الصلاة أو نسيت ركعة؟',
+        a: '<p>لا تقلق — الإسلام دين يُسر. القواعد بسيطة:</p><p><strong>1)</strong> إذا نسيت ركعة، قُم وأكملها ثم اسجد سجدتي السهو (سجدتان قبل أو بعد السلام).</p><p><strong>2)</strong> إذا نسيت ركناً (مثل الركوع)، ارجع وأكمله.</p><p><strong>3)</strong> إذا لم تحفظ الأذكار بعد، قل: "سبحان الله، والحمد لله، ولا إله إلا الله، والله أكبر".</p><p><strong>الأهم:</strong> لا تترك الصلاة بسبب الجهل — صلّ ما تعلم، وأكمل ما تجهل، وسيتحسن أداؤك مع الوقت.</p>',
+        ev: '«إِنَّ الدِّينَ يُسْرٌ، وَلَنْ يُشَادَّ الدِّينَ أَحَدٌ إِلَّا غَلَبَهُ»',
+        ref: 'صحيح البخاري'
+      },
+      {
+        q: 'هل يجب أن أُغيّر اسمي بعد الإسلام؟',
+        a: '<p>لا، ليس واجباً. الاسم الأصلي يجوز بقاؤه ما لم يكن فيه:</p><p>• معنى شركيّ (مثل: عبد المسيح، أو اسم صنم)<br>• معنى محرّم (مثل: اسم حيوان مهين)</p><p>كثير من الصحابة أسلموا وبقوا بأسمائهم. لكن <strong>يُستحب</strong> تغييره إن كان فيه شرك. إن أحببت التسمّي باسم إسلامي جديد فهذا جميل، وإن بقيت باسمك فلا حرج عليك إطلاقاً.</p>',
+        ev: '﴿ وَلَا تَنَابَزُوا بِالْأَلْقَابِ ۖ بِئْسَ الِاسْمُ الْفُسُوقُ بَعْدَ الْإِيمَانِ ﴾',
+        ref: 'الحجرات: 11'
+      },
+      {
+        q: 'كيف أتعامل مع أصدقائي السابقين؟',
+        a: '<p>لا تُقاطع أحداً. الإسلام لا يعلّمك العزلة، بل يعلّمك الحكمة.</p><p>• مع الصديق الصالح: استمر، وادعه للإسلام بأخلاقك.<br>• مع الصديق الذي يجرّك للحرام: قلّل التواصل تدريجياً، ولا تجلس في مجالس المعصية.<br>• مع الصديق الذي يسخر منك: لا ترد بالمثل، وقل: "السلام عليكم" واترك.</p><p>الأصدقاء يتغيرون تلقائياً عندما تتغير أنت — ستنجذب تلقائياً لأهل الخير.</p>',
+        ev: '«الْمَرْءُ عَلَىٰ دِينِ خَلِيلِهِ، فَلْيَنْظُرْ أَحَدُكُمْ مَنْ يُخَالِلُ»',
+        ref: 'رواه أبو داود'
+      },
+      {
+        q: 'كيف أتعامل مع الشهوات والوساوس؟',
+        a: '<p>هذا جهاد النفس — وهو من أعظم الجهاد. الخطوات العملية:</p><p><strong>1) الصوم:</strong> صم يوماً كل أسبوع، يكسر الشهوة.<br><strong>2) الصلاة بخشوع:</strong> الشيطان يهرب من القلب الذاكر.<br><strong>3) الابتعاد:</strong> أغلق ما يثيرك (مواقع، حسابات، تطبيقات).<br><strong>4) الدعاء:</strong> "اللهم اصرف عني السوء والفحشاء".<br><strong>5) الاشتغال:</strong> الفراغ أكبر مفتاح للشيطان.</p><p>وستسقط أحياناً — هذا طبيعي. <strong>تُب فوراً</strong>، وأكمل. الله لا يريدك معصوماً، يريدك توّاباً.</p>',
+        ev: '«كُلُّ ابْنِ آدَمَ خَطَّاءٌ، وَخَيْرُ الْخَطَّائِينَ التَّوَّابُونَ»',
+        ref: 'رواه الترمذي'
+      },
+      {
+        q: 'كيف أتعلم الصلاة بسرعة؟',
+        a: '<p>خطة تدريجية خلال أسبوعين:</p><p><strong>اليوم 1-3:</strong> تعلم الوضوء بالتفصيل.<br><strong>اليوم 4-7:</strong> احفظ الفاتحة + التشهد + 3 تسبيحات.<br><strong>اليوم 8-10:</strong> صلّ صلاة واحدة مركّزة يومياً.<br><strong>اليوم 11-14:</strong> أضف صلاة كل يوم حتى تكمل الخمس.</p><p>استعن بالفيديوهات التعليمية على يوتيوب —"تعلم الصلاة للمسلمين الجدد".</p><p>ولا تحمل نفسك فوق طاقتها. الله يحب أن يُتعبَّد على مهل.</p>',
+        ev: '«أَحَبُّ الأَعْمَالِ إِلَى اللَّهِ أَدْوَمُهَا وَإِنْ قَلَّ»',
+        ref: 'صحيح مسلم'
+      },
+      {
+        q: 'هل يجب أن أهاجر إلى بلد إسلامي؟',
+        a: '<p>لا، ليس واجباً. تستطيع أن تعيش مسلماً كاملاً في أي مكان بالعالم — إذا حافظت على دينك.</p><p>ما تحتاجه:</p><p>• مسجد قريب (للتعلّم والصحبة)<br>• مجموعة مسلمين (عبر الإنترنت أو الواقع)<br>• كتب تعليمية (متوفرة رقمياً)<br>• توجّه لله بالدعاء</p><p>الهجرة إن كانت تتيسّر فهي خيار طيّب، لكنها ليست شرطاً في الإسلام.</p>',
+        ev: '﴿ يَا عِبَادِ الَّذِينَ آمَنُوا اتَّقُونِ ۚ إِنَّ أَرْضِي وَاسِعَةٌ ﴾',
+        ref: 'العنكبوت: 56'
+      },
+      {
+        q: 'ماذا أفعل إذا شعرت بالوحدة والغربة؟',
+        a: '<p>هذا الشعور طبيعي جداً في بداية الطريق — كل من دخل الإسلام شعر به.</p><p>العلاج:</p><p><strong>1)</strong> اعلم أن الله معك: ﴿إِنَّ اللَّهَ مَعَ الَّذِينَ اتَّقَوا﴾.<br><strong>2)</strong> ابحث عن جماعة مسلمة (مسجد، مجموعة واتساب، منصة إسلامية).<br><strong>3)</strong> اقرأ قصص من أسلموا قبلك — ستجد فيهم عزاءً.<br><strong>4)</strong> اعتنِ بنفسك: النوم، الطعام، الرياضة.<br><strong>5)</strong> أكثر من الدعاء: "اللهم آنس وحشتي".</p>',
+        ev: '﴿ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ ﴾',
+        ref: 'الرعد: 28'
+      },
+      {
+        q: 'هل أستطيع الزواج بغير مسلمة؟',
+        a: '<p>لرجل مسلم:</p><p>• يجوز الزواج بمسلمة (بلا خلاف)<br>• يجوز الزواج بالكتابية (اليهودية أو النصرانية) بشروط: أن تؤمن بالله، وتحفظ نفسها، وأن يكون في الزواج مصلحة.<br>• <strong>يحرم</strong> الزواج بملحدة، بوذية، هندوسية، أو أي مشركة.</p><p>لمرأة مسلمة:</p><p>• <strong>يجوز</strong> الزواج بالمسلم فقط.</p><p>الأفضل للتوفيق والانسجام أن يكون الزوجان مسلمين — فهذا أقوم للحياة الأسرية.</p>',
+        ev: '﴿ وَلَا تُنكِحُوا الْمُشْرِكِينَ حَتَّىٰ يُؤْمِنُوا ﴾',
+        ref: 'البقرة: 221'
+      },
+      {
+        q: 'كيف أدعو أهلي للإسلام دون أن أنفّرهم؟',
+        a: '<p>بالقدوة أولاً، وبالكلمة ثانياً:</p><p><strong>1) كن قدوة:</strong> صلّ، تبسّم، أحسِن إليهم — هم سيرون الفرق قبل أن يسمعوا.</p><p><strong>2) لا تُجادل:</strong> الجدال يولّد العناد. ادعُ برفق.</p><p><strong>3) اهدِ كتاباً:</strong> كتاب بسيط عن الإسلام، أو فيديو قصير مؤثر.</p><p><strong>4) ادعُ لهم:</strong> في سجودك قل: "اللهم اهدِ أهلي".</p><p><strong>5) اصبر:</strong> الدعوة تحتاج سنوات أحياناً. مهمتك البلاغ، والهداية من الله.</p>',
+        ev: '«فَوَاللَّهِ لَأَنْ يَهْدِيَ اللَّهُ بِكَ رَجُلًا خَيْرٌ لَكَ مِنْ حُمْرِ النَّعَمِ»',
+        ref: 'صحيح البخاري'
+      }
+    ],
+    non: [
+      {
+        q: 'لماذا الحجاب في الإسلام؟',
+        a: '<p>الحجاب ليس قيداً على المرأة، بل هو <strong>احترام وحماية</strong> لها. أفكّر معي:</p><p>• الحجاب يحمي المرأة من أن تُقاس بجسدها فقط.<br>• يجعل الناس يعرفونها بعقلها وأخلاقها.<br>• هو رمز للحياء والكرامة، وليس للقهر.</p><p>أليس من حق أي إنسان أن يقرر كيف يُقدّم نفسه؟ لماذا يُقبل أن يخلع الإنسان ملابسه، ولا يُقبل أن يسترها؟</p><p>والمسلمون أيضاً عندهم حجاب — حجاب العين، اللسان، والسلوك. فالستر ليس للمرأة فقط، بل للرجل والمرأة معاً.</p>',
+        ev: '﴿ وَقُل لِّلْمُؤْمِنَاتِ يَغْضُضْنَ مِنْ أَبْصَارِهِنَّ وَيَحْفَظْنَ فُرُوجَهُنَّ وَلَا يُبْدِينَ زِينَتَهُنَّ ﴾',
+        ref: 'النور: 31'
+      },
+      {
+        q: 'لماذا لا تأكلون لحم الخنزير؟',
+        a: '<p>لأن الله الذي خلقك أمرك بذلك. القاعدة في الإسلام: <strong>الله الخالق أعلم بما ينفعك</strong>.</p><p>وحتى علمياً، لحم الخنزير فيه مضار صحية موثّقة: ديدان، طفيليات، دهون ضارة. كثير من الأطباء ينصحون بالامتناع عنه.</p><p>ولو قلت: "لماذا يأمرنا بشيء؟" — فكل الشرائع الإلهية فيها أوامر ونواهي، والاختبار هو الالتزام. الله يختبر طاعتك: هل تعبده لأنك تحبه، أم لأنك ترى الحكمة فقط؟</p>',
+        ev: '﴿ حُرِّمَتْ عَلَيْكُمُ الْمَيْتَةُ وَالدَّمُ وَلَحْمُ الْخِنزِيرِ ﴾',
+        ref: 'المائدة: 3'
+      },
+      {
+        q: 'لماذا تعدد الزوجات في الإسلام؟',
+        a: '<p>التعدد ليس <strong>الهدف</strong> في الإسلام، بل <strong>رخصة</strong> بشروط صارمة.</p><p>الواقع: هناك حالات لا يوجد لها حل إلا التعدد:</p><p>• الحرب تُخلف أرامل كثيرات<br>• عدم قدرة الزوجة على الحمل<br>• مرض مزمن يمنع العلاقة</p><p>الإسلام أباح التعدد بشرطين:</p><p><strong>1) العدل:</strong> "فَإِنْ خِفْتُمْ أَلَّا تَعْدِلُوا فَوَاحِدَةً" — من لا يعدل بين الزوجات يحرم عليه التعدد.<br><strong>2) القدرة المالية والجسدية.</strong></p><p>فالتعدد في الإسلام ضيق جداً، وليس دعوة للشهوات. وهو تشريع رحمة بالأرامل والأيتام.</p>',
+        ev: '﴿ فَانكِحُوا مَا طَابَ لَكُم مِّنَ النِّسَاءِ مَثْنَىٰ وَثُلَاثَ وَرُبَاعَ ۖ فَإِنْ خِفْتُمْ أَلَّا تَعْدِلُوا فَوَاحِدَةً ﴾',
+        ref: 'النساء: 3'
+      },
+      {
+        q: 'ما موقف الإسلام من الإرهاب؟',
+        a: '<p>الإسلام <strong>بريء</strong> من كل من يقتل نفساً بغير حق — مسلمة أو غير مسلمة.</p><p>القرآن يقول: ﴿مَن قَتَلَ نَفْسًا بِغَيْرِ نَفْسٍ أَوْ فَسَادٍ فِي الْأَرْضِ فَكَأَنَّمَا قَتَلَ النَّاسَ جَمِيعًا﴾ — قتل نفس واحدة كقتل الإنسانية كلها!</p><p>الإرهابيون يخالفون نصوص القرآن الصريحة. هم مجرمون سياسيون استخدموا اسم الإسلام لأهداف دنيوية. <strong>الإسلام لا يُحمَل بجريرة من خالفه</strong>.</p><p>بل إن الإسلام أول من شرّع قوانين الحرب: لا تقتل امرأة، لا تقتل طفلاً، لا تقتل شيخاً، لا تقتلع شجرة، لا تحرق زرعاً.</p>',
+        ev: '﴿ وَلَا تَقْتُلُوا النَّفْسَ الَّتِي حَرَّمَ اللَّهُ إِلَّا بِالْحَقِّ ﴾',
+        ref: 'الأنعام: 151'
+      },
+      {
+        q: 'لماذا لا نرى الله؟',
+        a: '<p>نحن لا نرى أشياء كثيرة موجودة، لكننا نرى آثارها:</p><p>• الكهرباء — لا تُرى، لكن تُشغّل حياتنا.<br>• الجاذبية — لا تُرى، لكن تسقط الأشياء.<br>• العقل والأفكار — لا تُرى، لكنها تُنتج حضارة.</p><p>الله موجود، ونرى آثاره في كل شيء: في دقة الكون، في إحكام الخلية، في وعيك وأخلاقك.</p><p>أما رؤيته في الدنيا: مستحيلة لأن الله ليس كمثله شيء، وأنت محدود. لكن في الآخرة، وعد المؤمنين برؤيته — أعظم نعيم الجنة.</p>',
+        ev: '﴿ لَّا تُدْرِكُهُ الْأَبْصَارُ وَهُوَ يُدْرِكُ الْأَبْصَارَ ﴾',
+        ref: 'الأنعام: 103'
+      },
+      {
+        q: 'لماذا الشر في العالم؟',
+        a: '<p>لو خلق الله البشر مُجبَرين على الخير، لكانوا كالملائكة — بلا حرية، بلا امتحان. ولما كان للإيمان قيمة، ولا للعدل معنى.</p><p><strong>الحرية ثمنها الاختبار.</strong> الله أعطاك حرية الاختيار، وجعل الدنيا دار امتحان، والآخرة دار جزاء. من ظلم سيلقى جزاءه، ومن صبر سيلقى أجره.</p><p>وكثير من "الشرور" في حياتك تفهمها لاحقاً أنها كانت خيراً — كما يجرح الطبيب مريضه ليعالجه. حكمة الله فوق إدراكنا.</p>',
+        ev: '﴿ وَعَسَىٰ أَن تَكْرَهُوا شَيْئًا وَهُوَ خَيْرٌ لَّكُمْ ﴾',
+        ref: 'البقرة: 216'
+      },
+      {
+        q: 'لماذا محمد وليس غيره؟',
+        a: '<p>محمد ﷺ هو <strong>خاتم الأنبياء</strong> — آخر رسل الله، أرسله للناس كافة.</p><p>من دلائل نبوته:</p><p>• القرآن — أعظم معجزة، لم يستطع أحد أن يأتي بمثله منذ 14 قرناً.<br>• نبوءات تحققت في حياته وبعدها.<br>• سيرته النقية — لم يُعرف عنه كذب، ولا خيانة، ولا شهوة.<br>• أخلاقه — حتى أعداؤه شهدوا له بالصدق والأمانة.</p><p>الأنبياء قبله (إبراهيم، موسى، عيسى) دعوا إلى نفس الدين: التوحيد. ومحمد ﷺ جاء بالرسالة الأخيرة الكاملة.</p>',
+        ev: '﴿ وَمَا أَرْسَلْنَاكَ إِلَّا رَحْمَةً لِّلْعَالَمِينَ ﴾',
+        ref: 'الأنبياء: 107'
+      },
+      {
+        q: 'لماذا القرآن بالعربية؟',
+        a: '<p>لأن الله اختار اللغة العربية لهذا القرآن — لأنه:</p><p>• لغة غنية بالمفردات، تُعبّر عن أدق المعاني.<br>• لغة صرف ونحو دقيق.<br>• كانت في زمن البعثة لغة الشعر والفصاحة — البيئة الأنسب للتحدي الإعجازي.</p><p>القرآن تحدّى العرب بأفصح لغاتهم أن يأتوا بمثله، فلم يستطيعوا. ولو كان بأي لغة أخرى، لما كان هذا التحدي.</p><p>ويمكنك قراءة <strong>ترجمة معاني القرآن</strong> بأي لغة — الترجمة ليست القرآن، لكنها تُعرّفك على معانيه.</p>',
+        ev: '﴿ إِنَّا أَنزَلْنَاهُ قُرْآنًا عَرَبِيًّا لَّعَلَّكُمْ تَعْقِلُونَ ﴾',
+        ref: 'يوسف: 2'
+      },
+      {
+        q: 'أليس العلم يكفي بدون دين؟',
+        a: '<p>العلم يجيب عن <strong>"كيف"</strong>، والدين يجيب عن <strong>"لماذا"</strong>.</p><p>العلم يخبرك كيف يعمل القلب، لكنه لا يخبرك لماذا تعيش؟ لماذا تحب؟ لماذا تموت؟</p><p>كبار علماء الفيزياء (نيوتن، أينشتاين، بلانك) كانوا مؤمنين بخالق. نيوتن كتب أكثر عن اللاهوت من الفيزياء.</p><p>العلم أداة رائعة — لكنه لا يستطيع أن يُعطيك معنى. والدين هو الذي يعطي للحياة غاية، وللأخلاق أساساً، وللموت أملاً.</p>',
+        ev: '﴿ سَنُرِيهِمْ آيَاتِنَا فِي الْآفَاقِ وَفِي أَنفُسِهِمْ حَتَّىٰ يَتَبَيَّنَ لَهُمْ أَنَّهُ الْحَقُّ ﴾',
+        ref: 'فصلت: 53'
+      }
+    ]
+  };
+
+  // ===== State =====
+  var ASK_KEY = 'questions_asked_v1';
+  var currentCat = 'new';
+
+  function loadAsked(){
+    try{
+      var raw = localStorage.getItem(ASK_KEY);
+      return raw ? JSON.parse(raw) : [];
+    }catch(e){ return []; }
+  }
+  function saveAsked(list){
+    try{ localStorage.setItem(ASK_KEY, JSON.stringify(list)); }catch(e){}
+  }
+
+  // ===== Render Questions =====
+  function renderQuestions(){
+    var list = document.getElementById('qList');
+    var questions = QUESTIONS[currentCat] || [];
+    list.innerHTML = '';
+    questions.forEach(function(item, idx){
+      var card = document.createElement('div');
+      card.className = 'qa-card';
+      card.innerHTML =
+        '<div class="qa-q">' +
+          '<div class="qa-num">' + (idx + 1) + '</div>' +
+          '<div class="qa-q-text">' + item.q + '</div>' +
+          '<div class="qa-toggle"></div>' +
+        '</div>' +
+        '<div class="qa-a">' +
+          '<div class="qa-a-inner">' +
+            '<div class="qa-a-text">' + item.a + '</div>' +
+            '<div class="qa-evidence">' + item.ev + '<span class="ev-ref">' + item.ref + '</span></div>' +
+          '</div>' +
+        '</div>';
+      card.querySelector('.qa-q').addEventListener('click', function(){
+        var wasOpen = card.classList.contains('open');
+        document.querySelectorAll('.qa-card').forEach(function(c){ c.classList.remove('open'); });
+        if(!wasOpen) card.classList.add('open');
+      });
+      list.appendChild(card);
+    });
+  }
+
+  // ===== Tabs =====
+  document.querySelectorAll('.q-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.q-tab').forEach(function(t){ t.classList.remove('active'); });
+      this.classList.add('active');
+      currentCat = this.getAttribute('data-cat');
+      renderQuestions();
+    });
+  });
+
+  // ===== Ask Feature =====
+  function renderAsked(){
+    var list = loadAsked();
+    var wrap = document.getElementById('askHistory');
+    if(!list.length){ wrap.innerHTML = ''; return; }
+    var html = '<h4>📝 أسئلتي المحفوظة (' + list.length + ')</h4>';
+    list.forEach(function(item){
+      html += '<div class="hist-item">' +
+        '<button class="del" data-id="' + item.id + '">✕</button>' +
+        '<div style="padding-left:1.5rem">' + escapeHtml(item.text) + '</div>' +
+        '<div style="font-family:var(--f-l);font-size:.7rem;color:var(--i400);margin-top:.3rem;direction:ltr">' + new Date(item.ts).toLocaleDateString('en-GB') + '</div>' +
+      '</div>';
+    });
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('.del').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var id = this.getAttribute('data-id');
+        var list = loadAsked().filter(function(x){ return x.id !== id; });
+        saveAsked(list);
+        renderAsked();
+      });
+    });
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; });
+  }
+
+  document.getElementById('askBtn').addEventListener('click', function(){
+    var input = document.getElementById('askInput');
+    var text = input.value.trim();
+    if(!text) return;
+    var list = loadAsked();
+    list.unshift({
+      id: Date.now().toString(36),
+      text: text,
+      ts: new Date().toISOString()
+    });
+    if(list.length > 30) list = list.slice(0, 30);
+    saveAsked(list);
+    input.value = '';
+    var suc = document.getElementById('askSuccess');
+    suc.classList.add('show');
+    setTimeout(function(){ suc.classList.remove('show'); }, 2500);
+    renderAsked();
+  });
+
+  // ===== Init =====
+  renderQuestions();
+  renderAsked();
+
+})();
+</script>
+</body>
+</html>
