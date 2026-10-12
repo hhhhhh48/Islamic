@@ -87,23 +87,23 @@
 </section>
 
 <div class="input-card">
-  <h3>📅 أدخل بياناتك</h3>
+  <h3 data-ni18n="input_title">📅 أدخل بياناتك</h3>
   <div class="input-row">
     <div>
-      <label for="nameInput">اسمك (اختياري)</label>
-      <input type="text" id="nameInput" placeholder="اسمك" maxlength="30">
+      <label for="nameInput" data-ni18n="your_name">اسمك (اختياري)</label>
+      <input type="text" id="nameInput" data-ni18n-ph="your_name_ph" placeholder="اسمك" maxlength="30">
     </div>
     <div>
-      <label for="dateInput">تاريخ إسلامك</label>
+      <label for="dateInput" data-ni18n="islam_date">تاريخ إسلامك</label>
       <input type="date" id="dateInput">
     </div>
   </div>
   <div style="margin-top:.8rem">
     <label style="display:block;font-size:.8rem;font-weight:600;color:var(--i700);margin-bottom:.4rem;font-family:var(--f-l)">متوسط عدد الصلوات في اليوم</label>
-    <select id="prayersSelect" style="width:100%;padding:.8rem 1rem;background:var(--i100);border:1.5px solid transparent;border-radius:var(--r-s);font-family:var(--f-b);font-size:.95rem;color:var(--i900);outline:none;cursor:pointer">
-      <option value="5">5 صلوات (منتظم)</option>
-      <option value="3">3 صلوات (متوسط)</option>
-      <option value="1">1 صلاة</option>
+    <select id="prayersSelect" data-ni18n="prayers_avg" style="width:100%;padding:.8rem 1rem;background:var(--i100);border:1.5px solid transparent;border-radius:var(--r-s);font-family:var(--f-b);font-size:.95rem;color:var(--i900);outline:none;cursor:pointer">
+      <option value="5" data-ni18n="prayers_5">5 صلوات (منتظم)</option>
+      <option value="3" data-ni18n="prayers_3">3 صلوات (متوسط)</option>
+      <option value="1" data-ni18n="prayers_1">1 صلاة</option>
     </select>
   </div>
 </div>
@@ -118,53 +118,53 @@
   <div class="stat-card">
     <div class="icon">🕌</div>
     <div class="val" id="statPrayers">0</div>
-    <div class="lbl">صلاة صلّيتها</div>
+    <div class="lbl" data-ni18n="stat_prayers">صلاة صلّيتها</div>
   </div>
   <div class="stat-card">
     <div class="icon">🧎</div>
     <div class="val" id="statSujud">0</div>
-    <div class="lbl">سجدة سجدتها</div>
+    <div class="lbl" data-ni18n="stat_sujud">سجدة سجدتها</div>
   </div>
   <div class="stat-card">
     <div class="icon">📖</div>
     <div class="val" id="statQuran">0</div>
-    <div class="lbl">صفحة قرآن تقريباً</div>
+    <div class="lbl" data-ni18n="stat_quran">صفحة قرآن تقريباً</div>
   </div>
   <div class="stat-card">
     <div class="icon">📿</div>
     <div class="val" id="statDhikr">0</div>
-    <div class="lbl">تسبيحة تقريباً</div>
+    <div class="lbl" data-ni18n="stat_dhikr">تسبيحة تقريباً</div>
   </div>
   <div class="stat-card">
     <div class="icon">🌙</div>
     <div class="val" id="statRamadan">0</div>
-    <div class="lbl">رمضان مرّ عليك</div>
+    <div class="lbl" data-ni18n="stat_ramadan">رمضان مرّ عليك</div>
   </div>
   <div class="stat-card">
     <div class="icon">🕋</div>
     <div class="val" id="statHajj">0</div>
-    <div class="lbl">يوم حتى حجّك الأول*</div>
+    <div class="lbl" data-ni18n="stat_hajj">يوم حتى حجّك الأول*</div>
   </div>
   <div class="stat-card">
     <div class="icon">⏰</div>
     <div class="val" id="statHours">0</div>
-    <div class="lbl">ساعة في الصلاة</div>
+    <div class="lbl" data-ni18n="stat_hours">ساعة في الصلاة</div>
   </div>
   <div class="stat-card">
     <div class="icon">💫</div>
     <div class="val" id="statHeartbeats">0</div>
-    <div class="lbl">نبضة قلب شهدت إسلامك</div>
+    <div class="lbl" data-ni18n="stat_heartbeats">نبضة قلب شهدت إسلامك</div>
   </div>
 </div>
 
 <div class="milestone-list">
-  <h3>🏆 إنجازاتك الزمنية</h3>
+  <h3 data-ni18n="milestones_title">🏆 إنجازاتك الزمنية</h3>
   <div id="milestonesList"></div>
 </div>
 
 <div class="actions-num">
-  <button class="act-btn primary" id="shareNumBtn">📸 مشاركة إحصائياتي</button>
-  <button class="act-btn ghost" id="refreshBtn">🔄 تحديث</button>
+  <button class="act-btn primary" id="shareNumBtn"><span data-ni18n="share_btn">📸 مشاركة إحصائياتي</span></button>
+  <button class="act-btn ghost" id="refreshBtn"><span data-ni18n="refresh_btn">🔄 تحديث</span></button>
 </div>
 
 <footer class="footer">
@@ -385,5 +385,51 @@
 </script>
 <script src="pages-i18n.js"></script>
 <script src="stamp.js"></script>
+<script src="numbers-i18n.js"></script>
+<script>
+(function(){
+  function applyNum(){
+    var lang = localStorage.getItem('lang') || 'ar';
+    var t = window.NUM_I18N[lang] || window.NUM_I18N.ar;
+    var rtl = ['ar','ur','fa','ku','ps','he'].indexOf(lang) !== -1;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = rtl ? 'rtl' : 'ltr';
+    document.querySelectorAll('[data-ni18n]').forEach(function(el){
+      var k = el.getAttribute('data-ni18n');
+      if(t[k]) el.textContent = t[k];
+    });
+    document.querySelectorAll('[data-ni18n-ph]').forEach(function(el){
+      var k = el.getAttribute('data-ni18n-ph');
+      if(t[k]) el.placeholder = t[k];
+    });
+  }
+  applyNum();
+  document.addEventListener('click', function(e){
+    if(e.target.closest('.lang-select') || e.target.closest('a[href]')) return;
+  });
+  setInterval(function(){
+    if(document.getElementById('numLangSelect')) return;
+    var bar = document.querySelector('.lang-bar');
+    if(!bar || bar.querySelector('#numLangSelect')) return;
+    var langs = {ar:'🇸🇦 العربية',en:'🇬🇧 English',fr:'🇫🇷 Français',es:'🇪🇸 Español',de:'🇩🇪 Deutsch',tr:'🇹🇷 Türkçe',ur:'🇵🇰 اردو',id:'🇮🇩 Indonesia',ru:'🇷🇺 Русский',zh:'🇨🇳 中文'};
+    var sel = document.createElement('select');
+    sel.id = 'numLangSelect';
+    sel.className = 'lang-select';
+    Object.keys(langs).forEach(function(c){
+      var o = document.createElement('option');
+      o.value = c; o.textContent = langs[c];
+      sel.appendChild(o);
+    });
+    sel.value = localStorage.getItem('lang') || 'ar';
+    sel.addEventListener('change', function(){
+      localStorage.setItem('lang', this.value);
+      applyNum();
+    });
+    var firstA = bar.querySelector('a');
+    if(firstA) bar.insertBefore(sel, firstA);
+    else bar.appendChild(sel);
+  }, 300);
+})();
+</script>
 </body>
 </html>
