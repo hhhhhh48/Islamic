@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دليل الحج والعمرة · Hajj & Umrah Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&family=Reem+Kufi:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.hj-hero{text-align:center;padding:3rem 1rem 2rem;position:relative;z-index:2;background:radial-gradient(circle at center,rgba(82,183,136,.10),transparent 70%);border-radius:var(--r-xl);margin-bottom:2rem}
+.hj-hero .arab{font-family:var(--f-q);font-size:2.5rem;color:var(--au500);opacity:.7;margin-bottom:1rem}
+.hj-hero h1{font-family:var(--f-d);font-size:clamp(1.9rem,5.5vw,3rem);font-weight:700;background:linear-gradient(135deg,var(--g700),var(--au500));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+.hj-hero .en-sub{font-family:var(--f-l);font-size:.85rem;color:var(--i400);letter-spacing:.15em;direction:ltr;margin-bottom:1.5rem}
+.hj-hero .verse{font-family:var(--f-q);font-size:clamp(1rem,2.7vw,1.2rem);color:var(--g800);line-height:2;max-width:720px;margin:0 auto 1rem;padding:1.3rem;background:var(--g50);border-radius:var(--r-m);border-right:4px solid var(--g500)}
+[data-theme="dark"] .hj-hero .verse{background:rgba(82,183,136,.08);color:var(--g200)}
+.hj-hero .intro{font-size:1rem;color:var(--i600);line-height:1.9;max-width:680px;margin:1rem auto 0}
+[data-theme="dark"] .hj-hero .intro{color:var(--i500)}
+
+.sec{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-xl);padding:clamp(1.6rem,4.5vw,2.6rem);margin-bottom:1.8rem;box-shadow:var(--sh-md);scroll-margin-top:80px}
+[data-theme="dark"] .sec{border-color:rgba(82,183,136,.12)}
+.sec-title{font-family:var(--f-d);font-size:clamp(1.3rem,3.8vw,1.75rem);font-weight:700;color:var(--i900);margin-bottom:1rem;line-height:1.35}
+[data-theme="dark"] .sec-title{color:var(--g300)}
+
+.toc{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-l);padding:1.5rem;margin-bottom:2rem;box-shadow:var(--sh-md)}
+[data-theme="dark"] .toc{border-color:rgba(82,183,136,.15)}
+.toc-title{font-family:var(--f-d);font-size:1rem;color:var(--g700);margin-bottom:.8rem;font-weight:600}
+.toc-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.4rem}
+.toc-list a{color:var(--i600);text-decoration:none;font-size:.9rem;padding:.4rem .7rem;border-radius:var(--r-s);transition:all .3s var(--e);display:block}
+.toc-list a:hover{background:var(--g50);color:var(--g700)}
+
+.dual-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+.info-card{background:var(--i100);border-radius:var(--r-m);padding:1.3rem;border-right:4px solid var(--g500)}
+[data-theme="dark"] .info-card{background:rgba(82,183,136,.06)}
+.info-card .ic-title{font-family:var(--f-d);font-size:1.1rem;font-weight:700;color:var(--g800);margin-bottom:.7rem}
+[data-theme="dark"] .info-card .ic-title{color:var(--g300)}
+.info-card .ic-text{font-size:.95rem;color:var(--i700);line-height:1.9}
+[data-theme="dark"] .info-card .ic-text{color:var(--i500)}
+
+.items-list{list-style:none;padding:0;margin:1rem 0}
+.items-list li{padding:.85rem 1.1rem;background:var(--i100);border-radius:var(--r-m);margin-bottom:.5rem;font-size:.95rem;color:var(--i700);line-height:1.85;border-right:3px solid var(--g400);transition:all .3s var(--e);white-space:pre-line}
+[data-theme="dark"] .items-list li{background:rgba(82,183,136,.05);color:var(--i500)}
+.items-list li:hover{transform:translateX(-4px);border-right-color:var(--au500)}
+.items-list.haram li{border-right-color:#e57373;background:rgba(229,115,115,.06)}
+[data-theme="dark"] .items-list.haram li{background:rgba(229,115,115,.1)}
+
+.steps-timeline{position:relative;padding-right:2rem;margin:1.5rem 0}
+.steps-timeline::before{content:'';position:absolute;right:8px;top:10px;bottom:10px;width:3px;background:linear-gradient(180deg,var(--g500),var(--au500))}
+.steps-timeline li{list-style:none;position:relative;padding:1rem 1.5rem;background:var(--i100);border-radius:var(--r-m);margin-bottom:.8rem;font-size:.95rem;color:var(--i700);line-height:1.85}
+[data-theme="dark"] .steps-timeline li{background:rgba(82,183,136,.05);color:var(--i500)}
+.steps-timeline li::before{content:'';position:absolute;right:-1.55rem;top:1.2rem;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--g500),var(--g700));border:3px solid var(--paper);box-shadow:0 0 0 2px var(--g500)}
+[data-theme="dark"] .steps-timeline li::before{border-color:var(--cream)}
+
+.dua-card{background:linear-gradient(135deg,var(--g50),rgba(201,169,97,.06));border-right:4px solid var(--au500);border-radius:var(--r-m);padding:1.2rem 1.5rem;margin-bottom:.8rem}
+[data-theme="dark"] .dua-card{background:rgba(82,183,136,.08)}
+.dua-card .dc-title{font-family:var(--f-d);font-size:1rem;font-weight:700;color:var(--g800);margin-bottom:.5rem}
+[data-theme="dark"] .dua-card .dc-title{color:var(--g300)}
+.dua-card .dc-text{font-family:var(--f-q);font-size:1.05rem;line-height:2;color:var(--g800)}
+[data-theme="dark"] .dua-card .dc-text{color:var(--g200)}
+
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.6rem;margin-top:1rem}
+.tip-card{background:var(--i100);border-radius:var(--r-m);padding:.9rem 1.1rem;font-size:.92rem;color:var(--i700);border-right:3px solid var(--au500);transition:all .3s var(--e)}
+[data-theme="dark"] .tip-card{background:rgba(82,183,136,.05);color:var(--i500)}
+.tip-card:hover{transform:translateX(-3px);border-right-color:var(--g500)}
+
+.final-note{background:linear-gradient(135deg,rgba(201,169,97,.15),rgba(201,169,97,.08));border:1.5px solid var(--au400);border-radius:var(--r-m);padding:1.2rem 1.5rem;margin-top:1.5rem;font-size:.92rem;color:var(--i700);line-height:1.8;text-align:center}
+[data-theme="dark"] .final-note{color:var(--i500)}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <a href="index.html" data-hi18n="home" style="text-decoration:none;padding:.6rem 1.1rem;background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-pill);color:var(--i800);font-family:var(--f-b);font-size:.85rem;font-weight:600;box-shadow:var(--sh-md)">🏠 الرئيسية</a>
+</div>
+<button class="theme-toggle" id="themeToggle">
+  <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+</button>
+
+<main class="container">
+
+<section class="hj-hero">
+  <div class="arab">🕋</div>
+  <h1 data-hi18n="hero_title"></h1>
+  <div class="en-sub" data-hi18n="hero_sub"></div>
+  <div class="verse" data-hi18n="hero_verse"></div>
+  <div class="intro" data-hi18n="hero_intro"></div>
+</section>
+
+<div class="toc">
+  <div class="toc-title">📑 محتوى الدليل</div>
+  <div class="toc-list">
+    <a href="#s1">1. تعريف</a>
+    <a href="#s2">2. شروط الوجوب</a>
+    <a href="#s3">3. المواقيت</a>
+    <a href="#s4">4. الإحرام</a>
+    <a href="#s5">5. الطواف</a>
+    <a href="#s6">6. السعي</a>
+    <a href="#s7">7. خطوات العمرة</a>
+    <a href="#s8">8. خطوات الحج</a>
+    <a href="#s9">9. الأدعية</a>
+    <a href="#s10">10. نصائح</a>
+  </div>
+</div>
+
+<article class="sec" id="s1">
+  <h2 class="sec-title" data-hi18n="s1_title"></h2>
+  <div class="dual-grid">
+    <div class="info-card"><div class="ic-title" data-hi18n="hajj_def_t"></div><div class="ic-text" data-hi18n="hajj_def"></div></div>
+    <div class="info-card"><div class="ic-title" data-hi18n="umrah_def_t"></div><div class="ic-text" data-hi18n="umrah_def"></div></div>
+  </div>
+</article>
+
+<article class="sec" id="s2">
+  <h2 class="sec-title" data-hi18n="s2_title"></h2>
+  <ul class="items-list">
+    <li data-hi18n="cond_1"></li>
+    <li data-hi18n="cond_2"></li>
+    <li data-hi18n="cond_3"></li>
+    <li data-hi18n="cond_4"></li>
+    <li data-hi18n="cond_5"></li>
+    <li data-hi18n="cond_6"></li>
+    <li data-hi18n="cond_7"></li>
+    <li data-hi18n="cond_8"></li>
+  </ul>
+</article>
+
+<article class="sec" id="s3">
+  <h2 class="sec-title" data-hi18n="s3_title"></h2>
+  <div class="dual-grid">
+    <div class="info-card"><div class="ic-title" data-hi18n="miqat_time_t"></div><div class="ic-text" data-hi18n="miqat_time"></div></div>
+    <div class="info-card">
+      <div class="ic-title" data-hi18n="miqat_place_t"></div>
+      <ul class="items-list" style="margin-top:.5rem">
+        <li data-hi18n="miqat_place_1"></li>
+        <li data-hi18n="miqat_place_2"></li>
+        <li data-hi18n="miqat_place_3"></li>
+        <li data-hi18n="miqat_place_4"></li>
+        <li data-hi18n="miqat_place_5"></li>
+        <li data-hi18n="miqat_place_6"></li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<article class="sec" id="s4">
+  <h2 class="sec-title" data-hi18n="s4_title"></h2>
+  <div class="dual-grid">
+    <div>
+      <h3 style="font-family:var(--f-d);color:var(--g700);margin-bottom:.8rem" data-hi18n="ihram_steps_title"></h3>
+      <ol class="steps-timeline">
+        <li data-hi18n="ihram_step_1"></li>
+        <li data-hi18n="ihram_step_2"></li>
+        <li data-hi18n="ihram_step_3"></li>
+        <li data-hi18n="ihram_step_4"></li>
+        <li data-hi18n="ihram_step_5"></li>
+        <li data-hi18n="ihram_step_6"></li>
+      </ol>
+    </div>
+    <div>
+      <h3 style="font-family:var(--f-d);color:#c62828;margin-bottom:.8rem" data-hi18n="ihram_forbidden_t"></h3>
+      <ul class="items-list haram">
+        <li data-hi18n="ihram_forbid_1"></li>
+        <li data-hi18n="ihram_forbid_2"></li>
+        <li data-hi18n="ihram_forbid_3"></li>
+        <li data-hi18n="ihram_forbid_4"></li>
+        <li data-hi18n="ihram_forbid_5"></li>
+        <li data-hi18n="ihram_forbid_6"></li>
+        <li data-hi18n="ihram_forbid_7"></li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<article class="sec" id="s5">
+  <h2 class="sec-title" data-hi18n="s5_title"></h2>
+  <div class="info-card" style="margin-bottom:1rem">
+    <div class="ic-text" data-hi18n="tawaf_def"></div>
+  </div>
+  <div class="dual-grid">
+    <div>
+      <h3 style="font-family:var(--f-d);color:var(--g700);margin-bottom:.8rem" data-hi18n="tawaf_conditions_t"></h3>
+      <ul class="items-list">
+        <li data-hi18n="tawaf_cond_1"></li>
+        <li data-hi18n="tawaf_cond_2"></li>
+        <li data-hi18n="tawaf_cond_3"></li>
+        <li data-hi18n="tawaf_cond_4"></li>
+        <li data-hi18n="tawaf_cond_5"></li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-family:var(--f-d);color:var(--au600);margin-bottom:.8rem" data-hi18n="tawaf_sunnah_t"></h3>
+      <ul class="items-list">
+        <li data-hi18n="tawaf_sunnah_1"></li>
+        <li data-hi18n="tawaf_sunnah_2"></li>
+        <li data-hi18n="tawaf_sunnah_3"></li>
+        <li data-hi18n="tawaf_sunnah_4"></li>
+        <li data-hi18n="tawaf_sunnah_5"></li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<article class="sec" id="s6">
+  <h2 class="sec-title" data-hi18n="s6_title"></h2>
+  <div class="info-card" style="margin-bottom:1rem">
+    <div class="ic-text" data-hi18n="sai_def"></div>
+  </div>
+  <h3 style="font-family:var(--f-d);color:var(--g700);margin-bottom:.8rem" data-hi18n="sai_steps_t"></h3>
+  <ol class="steps-timeline">
+    <li data-hi18n="sai_step_1"></li>
+    <li data-hi18n="sai_step_2"></li>
+    <li data-hi18n="sai_step_3"></li>
+    <li data-hi18n="sai_step_4"></li>
+    <li data-hi18n="sai_step_5"></li>
+    <li data-hi18n="sai_step_6"></li>
+    <li data-hi18n="sai_step_7"></li>
+  </ol>
+</article>
+
+<article class="sec" id="s7">
+  <h2 class="sec-title" data-hi18n="s7_title"></h2>
+  <ol class="steps-timeline">
+    <li data-hi18n="umrah_step_1"></li>
+    <li data-hi18n="umrah_step_2"></li>
+    <li data-hi18n="umrah_step_3"></li>
+    <li data-hi18n="umrah_step_4"></li>
+    <li data-hi18n="umrah_step_5"></li>
+    <li data-hi18n="umrah_step_6"></li>
+  </ol>
+</article>
+
+<article class="sec" id="s8">
+  <h2 class="sec-title" data-hi18n="s8_title"></h2>
+  <div class="info-card" style="margin-bottom:1rem"><div class="ic-title" data-hi18n="hajj_day_8_t"></div><div class="ic-text" data-hi18n="hajj_day_8"></div></div>
+  <div class="info-card" style="margin-bottom:1rem"><div class="ic-title" data-hi18n="hajj_day_9_t"></div><div class="ic-text" data-hi18n="hajj_day_9"></div></div>
+  <div class="info-card" style="margin-bottom:1rem"><div class="ic-title" data-hi18n="hajj_day_10_t"></div><div class="ic-text" data-hi18n="hajj_day_10"></div></div>
+  <div class="info-card" style="margin-bottom:1rem"><div class="ic-title" data-hi18n="hajj_day_11_13_t"></div><div class="ic-text" data-hi18n="hajj_day_11_13"></div></div>
+  <div class="info-card"><div class="ic-title" data-hi18n="hajj_tawaf_wada_t"></div><div class="ic-text" data-hi18n="hajj_tawaf_wada"></div></div>
+</article>
+
+<article class="sec" id="s9">
+  <h2 class="sec-title" data-hi18n="s9_title"></h2>
+  <div class="dua-card"><div class="dc-title" data-hi18n="dua_talbiyah_t"></div><div class="dc-text" data-hi18n="dua_talbiyah"></div></div>
+  <div class="dua-card"><div class="dc-title" data-hi18n="dua_tawaf_t"></div><div class="dc-text" data-hi18n="dua_tawaf"></div></div>
+  <div class="dua-card"><div class="dc-title" data-hi18n="dua_yemeni_t"></div><div class="dc-text" data-hi18n="dua_yemeni"></div></div>
+  <div class="dua-card"><div class="dc-title" data-hi18n="dua_arafah_t"></div><div class="dc-text" data-hi18n="dua_arafah"></div></div>
+  <div class="dua-card"><div class="dc-title" data-hi18n="dua_safa_t"></div><div class="dc-text" data-hi18n="dua_safa"></div></div>
+</article>
+
+<article class="sec" id="s10">
+  <h2 class="sec-title" data-hi18n="s10_title"></h2>
+  <div class="tips-grid">
+    <div class="tip-card" data-hi18n="tip_1"></div>
+    <div class="tip-card" data-hi18n="tip_2"></div>
+    <div class="tip-card" data-hi18n="tip_3"></div>
+    <div class="tip-card" data-hi18n="tip_4"></div>
+    <div class="tip-card" data-hi18n="tip_5"></div>
+    <div class="tip-card" data-hi18n="tip_6"></div>
+    <div class="tip-card" data-hi18n="tip_7"></div>
+    <div class="tip-card" data-hi18n="tip_8"></div>
+    <div class="tip-card" data-hi18n="tip_9"></div>
+    <div class="tip-card" data-hi18n="tip_10"></div>
+  </div>
+  <div class="final-note" data-hi18n="final_note"></div>
+</article>
+
+<footer class="footer">
+  <div class="footer-dua" data-hi18n="footer_dua"></div>
+  <div class="footer-owner">صاحب الموقع: <strong>واشمي محمد</strong></div>
+</footer>
+
+</main>
+
+<div class="share-container"></div>
+
+<script src="hajj-i18n.js"></script>
+<script src="share.js"></script>
+<script>
+(function(){
+  var s=localStorage.getItem('theme');
+  var d=window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme',s||(d?'dark':'light'));
+  document.getElementById('themeToggle').addEventListener('click',function(){
+    var c=document.documentElement.getAttribute('data-theme');
+    var n=c==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',n);
+    localStorage.setItem('theme',n);
+  });
+
+  var LANGS = {ar:'🇸🇦 العربية', en:'🇬🇧 English'};
+  var bar = document.querySelector('.lang-bar');
+  if(bar && !document.getElementById('hjLangSelect')){
+    var sel = document.createElement('select');
+    sel.id = 'hjLangSelect';
+    sel.className = 'lang-select';
+    Object.keys(LANGS).forEach(function(c){
+      var o = document.createElement('option');
+      o.value = c; o.textContent = LANGS[c];
+      sel.appendChild(o);
+    });
+    sel.value = localStorage.getItem('lang') || 'ar';
+    sel.addEventListener('change', function(){
+      localStorage.setItem('lang', this.value);
+      window.applyHajjI18n();
+    });
+    var firstA = bar.querySelector('a');
+    if(firstA) bar.insertBefore(sel, firstA);
+    else bar.appendChild(sel);
+  }
+
+  window.applyHajjI18n();
+
+  document.querySelectorAll('.toc-list a').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var t = document.querySelector(this.getAttribute('href'));
+      if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+})();
+</script>
+</body>
+</html>
