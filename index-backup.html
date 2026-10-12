@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بيتك الجديد · Welcome Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Reem+Kufi:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+/* ═══════════════════════════════════════════════════════
+   ROOT VARIABLES
+   ═══════════════════════════════════════════════════════ */
+:root {
+  --primary: #0d5c3a;
+  --primary-light: #2d8f5f;
+  --primary-dark: #063d24;
+  --gold: #c9a961;
+  --gold-light: #e6c988;
+  --cream: #faf8f3;
+  --ink: #0f1f17;
+  --ink-soft: #1a2e23;
+  --ink-mid: #5a6b62;
+  --ink-light: #8a9691;
+  --surface: #ffffff;
+  --border: rgba(13,92,58,.1);
+  
+  --shadow-sm: 0 2px 8px rgba(13,92,58,.08);
+  --shadow-md: 0 12px 32px rgba(13,92,58,.12);
+  --shadow-lg: 0 24px 64px rgba(13,92,58,.18);
+  
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+  
+  --ease: cubic-bezier(.22,1,.36,1);
+  --ease-bounce: cubic-bezier(.34,1.56,.64,1);
+  
+  --font-quran: 'Amiri', serif;
+  --font-display: 'Reem Kufi', 'Amiri', serif;
+  --font-body: 'Cairo', sans-serif;
+  --font-mono: 'Inter', sans-serif;
+}
+
+[data-theme="dark"] {
+  --cream: #06120c;
+  --ink: #f5f7f6;
+  --ink-soft: #e8ede9;
+  --ink-mid: #9aa89f;
+  --ink-light: #6b7a71;
+  --surface: #0f1f17;
+  --border: rgba(201,169,97,.15);
+  --shadow-md: 0 12px 32px rgba(0,0,0,.5);
+  --shadow-lg: 0 24px 64px rgba(0,0,0,.6);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.75;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background .4s var(--ease), color .4s var(--ease);
+}
+
+/* ═══════════════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════════════ */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(250, 248, 243, .88);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+  padding: .75rem 0;
+  transition: all .3s var(--ease);
+}
+
+[data-theme="dark"] .header {
+  background: rgba(6,18,12,.85);
+}
+
+.header-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 1.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  text-decoration: none;
+  color: var(--primary);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.brand-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.25rem;
+  box-shadow: 0 6px 16px rgba(13,92,58,.3);
+  position: relative;
+}
+
+.brand-logo::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 8px;
+  border: 1px solid rgba(201,169,97,.4);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ink-mid);
+  transition: all .3s var(--ease);
+}
+
+.icon-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: rotate(20deg);
+}
+
+.icon-btn svg { width: 18px; height: 18px; }
+
+.lang-select {
+  padding: .55rem .9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  outline: none;
+  transition: all .3s var(--ease);
+}
+
+.lang-select:hover { border-color: var(--gold); }
+
+/* ═══════════════════════════════════════════════════════
+   HERO — MOSQUE BACKGROUND
+   ═══════════════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8rem 1.5rem 5rem;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1519817650390-64a93db51149?w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  filter: brightness(.4) saturate(1.1);
+  z-index: 0;
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg,
+    rgba(13,92,58,.75) 0%,
+    rgba(6,61,36,.85) 50%,
+    rgba(0,0,0,.9) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  color: #fff;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem 1rem;
+  background: rgba(201,169,97,.15);
+  border: 1px solid rgba(201,169,97,.4);
+  border-radius: var(--radius-pill);
+  color: var(--gold-light);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.hero-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--gold-light);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--gold-light);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .5; transform: scale(1.4); }
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 7vw, 4rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  letter-spacing: -.02em;
+  text-shadow: 0 4px 24px rgba(0,0,0,.4);
+}
+
+.hero-title span {
+  background: linear-gradient(135deg, #fff 0%, var(--gold-light) 50%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-sub {
+  font-size: clamp(.95rem, 2vw, 1.15rem);
+  line-height: 1.85;
+  color: rgba(255,255,255,.85);
+  max-width: 620px;
+  margin: 0 auto 2rem;
+}
+
+.hero-verse {
+  font-family: var(--font-quran);
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  line-height: 2;
+  color: var(--gold-light);
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+  padding: 1.5rem;
+  background: rgba(0,0,0,.25);
+  border: 1px solid rgba(201,169,97,.3);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(10px);
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  padding: 1rem 2.2rem;
+  background: linear-gradient(135deg, var(--gold), #a67c3c);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 16px 40px rgba(201,169,97,.4);
+  transition: all .4s var(--ease);
+}
+
+.hero-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 24px 56px rgba(201,169,97,.6);
+}
+
+/* ═══════════════════════════════════════════════════════
+   SECTIONS
+   ═══════════════════════════════════════════════════════ */
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 1.5rem);
+}
+
+.section {
+  padding: clamp(3rem, 8vw, 5rem) 0;
+  position: relative;
+}
+
+.section-head {
+  text-align: center;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: .6rem;
+  letter-spacing: -.02em;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::before,
+.section-title::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.section-title::before { right: 100%; margin-right: 1rem; }
+.section-title::after { left: 100%; margin-left: 1rem; }
+
+.section-sub {
+  font-size: .95rem;
+  color: var(--ink-mid);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* ═══════════════════════════════════════════════════════
+   CARDS GRID
+   ═══════════════════════════════════════════════════════ */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   FEATURE CARD — with mosque image bg
+   ═══════════════════════════════════════════════════════ */
+.card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  transition: all .5s var(--ease);
+  isolation: isolate;
+  border: 1px solid rgba(255,255,255,.05);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform .7s var(--ease), filter .7s var(--ease);
+  z-index: -2;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    rgba(0,0,0,.15) 0%,
+    rgba(0,0,0,.55) 50%,
+    rgba(0,0,0,.9) 100%);
+  z-index: -1;
+  transition: background .5s var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 32px 72px rgba(13,92,58,.35);
+}
+
+.card:hover::before {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+.card:hover::after {
+  background: linear-gradient(180deg,
+    rgba(13,92,58,.3) 0%,
+    rgba(6,61,36,.7) 50%,
+    rgba(0,0,0,.95) 100%);
+}
+
+.card-icon {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: rgba(201,169,97,.2);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(201,169,97,.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  transition: transform .5s var(--ease-bounce);
+  z-index: 1;
+}
+
+.card:hover .card-icon {
+  transform: scale(1.15) rotate(-8deg);
+  background: rgba(201,169,97,.35);
+}
+
+.card-badge {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.2rem;
+  padding: .3rem .75rem;
+  background: linear-gradient(135deg, var(--gold), #a67c3c);
+  color: #fff;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  z-index: 1;
+  box-shadow: 0 6px 16px rgba(201,169,97,.4);
+}
+
+.card-content { position: relative; z-index: 1; }
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: .3rem;
+  letter-spacing: -.01em;
+  text-shadow: 0 2px 12px rgba(0,0,0,.4);
+}
+
+.card-desc {
+  font-size: .88rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,.85);
+  text-shadow: 0 1px 8px rgba(0,0,0,.4);
+}
+
+.card-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  margin-top: .8rem;
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all .4s var(--ease);
+}
+
+.card:hover .card-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ═══════════════════════════════════════════════════════
+   SHAHADA SECTION
+   ═══════════════════════════════════════════════════════ */
+.shahada-section {
+  position: relative;
+  border-radius: var(--radius-lg);
+  padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 4vw, 3rem);
+  text-align: center;
+  overflow: hidden;
+  margin: 2rem 0;
+  box-shadow: var(--shadow-lg);
+}
+
+.shahada-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.shahada-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg,
+    rgba(13,92,58,.92) 0%,
+    rgba(6,61,36,.95) 60%,
+    rgba(0,0,0,.98) 100%);
+  z-index: 1;
+}
+
+.shahada-inner {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+}
+
+.shahada-bismillah {
+  font-family: var(--font-quran);
+  font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+  color: var(--gold-light);
+  margin-bottom: 1rem;
+}
+
+.shahada-label {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  letter-spacing: .3em;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 1.5rem;
+}
+
+.shahada-text {
+  font-family: var(--font-quran);
+  font-size: clamp(1.4rem, 4.5vw, 2.2rem);
+  line-height: 2;
+  color: #fff;
+  padding: 2rem 1.5rem;
+  margin: 1.5rem auto 2rem;
+  max-width: 700px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(201,169,97,.3);
+  border-radius: var(--radius-md);
+  text-shadow: 0 4px 24px rgba(0,0,0,.4);
+}
+
+.shahada-translit {
+  font-family: var(--font-mono);
+  font-size: .95rem;
+  color: var(--gold-light);
+  font-style: italic;
+  margin-bottom: 2rem;
+  direction: ltr;
+  line-height: 1.7;
+}
+
+.shahada-actions {
+  display: flex;
+  gap: .8rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btn-audio {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .8rem 1.5rem;
+  background: rgba(255,255,255,.08);
+  border: 1.5px solid rgba(255,255,255,.25);
+  border-radius: var(--radius-pill);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: .9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .3s var(--ease);
+  backdrop-filter: blur(10px);
+}
+
+.btn-audio:hover {
+  background: rgba(255,255,255,.15);
+  border-color: var(--gold-light);
+  transform: translateY(-2px);
+}
+
+.btn-audio.playing {
+  background: rgba(201,169,97,.25);
+  border-color: var(--gold-light);
+}
+
+.btn-shahada {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, var(--gold), #a67c3c);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .4s var(--ease);
+  box-shadow: 0 16px 40px rgba(201,169,97,.5);
+}
+
+.btn-shahada:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 24px 56px rgba(201,169,97,.7);
+}
+
+/* ═══════════════════════════════════════════════════════
+   SHARE SECTION
+   ═══════════════════════════════════════════════════════ */
+.share-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.share-box h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--ink);
+  margin-bottom: .5rem;
+}
+
+.share-box p {
+  color: var(--ink-mid);
+  font-size: .9rem;
+  margin-bottom: 1.2rem;
+}
+
+/* ═══════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════ */
+.footer {
+  text-align: center;
+  padding: 4rem 1rem 2rem;
+  color: var(--ink-light);
+  font-size: .85rem;
+  line-height: 1.9;
+  border-top: 1px solid var(--border);
+  margin-top: 3rem;
+}
+
+.footer-dua {
+  font-family: var(--font-quran);
+  font-size: 1.1rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+[data-theme="dark"] .footer-dua { color: var(--gold-light); }
+
+.footer-owner {
+  font-family: var(--font-display);
+  color: var(--ink-mid);
+  margin-top: .8rem;
+}
+
+.footer-owner strong { color: var(--gold); }
+
+/* ═══════════════════════════════════════════════════════
+   CERTIFICATE (same as before)
+   ═══════════════════════════════════════════════════════ */
+.cert-overlay{position:fixed;inset:0;background:rgba(6,18,12,.92);backdrop-filter:blur(16px);z-index:9998;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s;overflow-y:auto}
+.cert-overlay.show{opacity:1;visibility:visible}
+.cert-form{background:#fdfcf7;border-radius:24px;padding:2rem;max-width:480px;width:100%;box-shadow:0 32px 80px rgba(0,0,0,.6);transform:scale(.9);transition:transform .5s cubic-bezier(.34,1.56,.64,1);margin:auto}
+.cert-overlay.show .cert-form{transform:scale(1)}
+.cert-form-icon{width:70px;height:70px;margin:0 auto 1rem;background:linear-gradient(135deg,#d8f3dc,#b7e4c7);border-radius:20px;display:flex;align-items:center;justify-content:center;color:#0d5c3a}
+.cert-form-icon svg{width:34px;height:34px}
+.cert-form-title{font-family:var(--font-display);font-size:1.4rem;color:#0f1f17;text-align:center;margin-bottom:.4rem}
+.cert-form-sub{text-align:center;color:#5a6b62;font-size:.88rem;line-height:1.6;margin-bottom:1.5rem}
+.cert-form label{display:block;font-family:var(--font-body);font-size:.8rem;font-weight:600;color:#1a2e23;margin-bottom:.35rem}
+.cert-form input{width:100%;padding:.85rem 1.1rem;background:#f0fdf4;border:1.5px solid transparent;border-radius:12px;font-family:var(--font-body);font-size:.95rem;color:#0f1f17;margin-bottom:1rem;outline:none;transition:all .3s}
+.cert-form input:focus{border-color:#52b788;background:#fff;box-shadow:0 0 0 4px rgba(82,183,136,.15)}
+.cert-form-actions{display:flex;gap:.6rem;margin-top:.4rem}
+.btn-cert-primary{flex:1;padding:.9rem;background:linear-gradient(135deg,#0d5c3a,#2d8f5f);color:#fff;border:none;border-radius:999px;font-family:var(--font-body);font-size:.95rem;font-weight:700;cursor:pointer;box-shadow:0 10px 24px rgba(13,92,58,.3);transition:all .3s}
+.btn-cert-primary:hover{transform:translateY(-2px)}
+.btn-cert-ghost{padding:.9rem 1.3rem;background:transparent;color:#5a6b62;border:1.5px solid #e3e7e5;border-radius:999px;font-family:var(--font-body);font-size:.9rem;font-weight:600;cursor:pointer}
+.btn-cert-ghost:hover{border-color:#8a9691;color:#2c3e35}
+
+.certificate{background:linear-gradient(135deg,#fdfcf7 0%,#f9f5ea 50%,#f5edd6 100%);border-radius:8px;box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 0 12px #fdfcf7,0 0 0 14px #c9a961,0 0 0 16px #fdfcf7,0 0 0 18px #a67c3c;padding:2.5rem 2rem;max-width:780px;width:100%;aspect-ratio:1.414/1;position:relative;overflow:hidden;direction:rtl;font-family:var(--font-quran);color:#2c1810;margin:0 auto;transform:scale(.85);transition:transform .7s cubic-bezier(.34,1.56,.64,1)}
+.cert-overlay.show .certificate{transform:scale(1)}
+.cert-inner-border{position:absolute;inset:30px;border:1.5px solid #c9a961;border-radius:4px;pointer-events:none}
+.cert-inner-border::before{content:'';position:absolute;inset:6px;border:1px dashed #d4b878;border-radius:2px}
+.cert-content{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;padding:1.5rem 2rem}
+.cert-bismillah{font-family:var(--font-quran);font-size:clamp(1.1rem,2.5vw,1.4rem);color:#0d5c3a;opacity:.85;margin-bottom:.5rem}
+.cert-main-title{font-family:var(--font-display);font-size:clamp(1.6rem,4.5vw,2.4rem);font-weight:700;background:linear-gradient(135deg,#0d5c3a 0%,#2d8f5f 50%,#0d5c3a 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin:.3rem 0}
+.cert-subtitle-en{font-family:var(--font-mono);font-size:clamp(.65rem,1.4vw,.78rem);color:#a67c3c;letter-spacing:.35em;text-transform:uppercase;margin-bottom:.8rem;direction:ltr}
+.cert-witness{font-family:var(--font-quran);font-size:clamp(.85rem,1.7vw,1rem);color:#5a4a3a;line-height:1.9;margin:.5rem 0}
+.cert-name{font-family:var(--font-display);font-size:clamp(1.6rem,4.5vw,2.4rem);font-weight:700;color:#0d5c3a;padding:.4rem 2.5rem;margin:1rem 0;display:inline-block;letter-spacing:.02em;position:relative}
+.cert-name::before,.cert-name::after{content:'';position:absolute;top:50%;width:60px;height:1.5px;background:linear-gradient(90deg,transparent,#c9a961)}
+.cert-name::before{right:100%;margin-right:.5rem}
+.cert-name::after{left:100%;margin-left:.5rem;transform:scaleX(-1)}
+.cert-body{font-family:var(--font-quran);font-size:clamp(.78rem,1.5vw,.9rem);color:#5a4a3a;line-height:1.9;margin:.8rem 0 .5rem;padding:0 1.5rem;max-width:90%}
+.cert-seal-wrap{position:relative;width:clamp(80px,12vw,105px);height:clamp(80px,12vw,105px);margin:.5rem 0}
+.cert-seal{width:100%;height:100%;position:relative;display:flex;align-items:center;justify-content:center}
+.cert-seal-ring{position:absolute;inset:0;width:100%;height:100%;animation:sealRotate 60s linear infinite}
+@keyframes sealRotate{to{transform:rotate(360deg)}}
+.cert-seal-center{position:relative;z-index:1;font-family:var(--font-quran);font-weight:700;color:#a67c3c;font-size:clamp(1.6rem,3.5vw,2rem)}
+.cert-meta{display:flex;justify-content:space-around;gap:1rem;width:100%;margin-top:.8rem;padding-top:.8rem;border-top:1px solid rgba(201,169,97,.4);font-family:var(--font-mono);font-size:clamp(.6rem,1.1vw,.72rem)}
+.cert-meta-item{text-align:center;flex:1}
+.cert-meta-item .lbl{color:#a67c3c;letter-spacing:.15em;text-transform:uppercase;font-size:.6rem;margin-bottom:.15rem}
+.cert-meta-item .val{color:#2c1810;font-family:var(--font-display);font-weight:600;font-size:clamp(.7rem,1.3vw,.85rem);direction:ltr}
+.cert-meta-item .val.ar{direction:rtl;font-family:var(--font-quran)}
+.cert-rank-badge{position:absolute;top:22px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#a67c3c,#c9a961);color:#fff;padding:.35rem 1.2rem;border-radius:999px;font-family:var(--font-display);font-weight:700;font-size:.75rem;box-shadow:0 4px 12px rgba(166,124,60,.4);display:none}
+.cert-actions{display:flex;gap:.6rem;margin-top:1.5rem;flex-wrap:wrap;justify-content:center;max-width:780px;margin-left:auto;margin-right:auto}
+.cert-action-btn{flex:1;min-width:150px;padding:.9rem 1.2rem;font-family:var(--font-body);font-size:.9rem;font-weight:700;border-radius:999px;cursor:pointer;transition:all .3s;border:none;display:inline-flex;align-items:center;justify-content:center;gap:.4rem}
+.cert-dl{background:linear-gradient(135deg,#0d5c3a,#2d8f5f);color:#fff;box-shadow:0 8px 24px rgba(13,92,58,.4)}
+.cert-dl:hover{transform:translateY(-2px)}
+.cert-share-wa{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff}
+.cert-share-wa:hover{transform:translateY(-2px)}
+.cert-close{background:rgba(255,255,255,.1);color:#fff;border:1.5px solid rgba(255,255,255,.25)!important;backdrop-filter:blur(10px)}
+.cert-close:hover{background:rgba(255,255,255,.2)}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .hero { min-height: 80vh; padding: 6rem 1rem 3rem; }
+  .card { min-height: 220px; padding: 1.2rem; }
+  .card-icon { width: 44px; height: 44px; font-size: 1.3rem; }
+  .card-title { font-size: 1.15rem; }
+  .brand { font-size: 1rem; }
+  .brand-logo { width: 34px; height: 34px; font-size: 1.1rem; }
+  .section-title::before, .section-title::after { display: none; }
+  .certificate { aspect-ratio: auto; min-height: 500px; padding: 1.5rem 1rem; box-shadow: 0 20px 50px rgba(0,0,0,.5), 0 0 0 6px #fdfcf7, 0 0 0 8px #c9a961, 0 0 0 10px #fdfcf7, 0 0 0 12px #a67c3c; }
+  .cert-name::before, .cert-name::after { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCROLL REVEAL
+   ═══════════════════════════════════════════════════════ */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.reveal.revealed { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="brand">
+      <div class="brand-logo">☪</div>
+      <span>بيتك الجديد</span>
+    </a>
+    <div class="header-actions">
+      <select class="lang-select" id="langSelect"></select>
+      <button class="icon-btn" id="themeToggle" aria-label="Theme">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">✦ موقع إسلامي شامل</div>
+    <h1 class="hero-title">أهلاً بك في <span>بيتك الجديد</span></h1>
+    <p class="hero-sub">رحلتك تبدأ من هنا. سنكون معك خطوة بخطوة من لحظة نطق الشهادة إلى أن تصبح مسلماً عالماً عاملاً.</p>
+    <div class="hero-verse">
+      ﴿ قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَىٰ أَنفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ ۚ إِنَّ اللَّهَ يَغْفِرُ الذُّنُوبَ جَمِيعًا ﴾
+      <div style="font-family:var(--font-mono);font-size:.7rem;color:var(--gold);margin-top:.5rem">الزمر: 53</div>
+    </div>
+    <a href="#shahada" class="hero-cta">🤍 أريد أن أُسلم الآن</a>
+  </div>
+</section>
+
+<!-- ═══ SECTION 1: FIRST STEPS ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title">🌟 ابدأ رحلتك</h2>
+      <p class="section-sub">أول ما يحتاجه المسلم الجديد — من التعريف بالله إلى الأذكار اليومية</p>
+    </div>
+    <div class="cards-grid">
+      <a href="god.html" class="card reveal" style="--bg-img:url('https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=800&q=80')">
+        <div class="card-icon">🌌</div>
+        <div class="card-content">
+          <h3 class="card-title">تعريف الله</h3>
+          <p class="card-desc">حجج منطقية لمن يبحث عن الحق</p>
+          <span class="card-arrow">اقرأ ← </span>
+        </div>
+      </a>
+      <a href="names.html" class="card reveal">
+        <div class="card-icon">✨</div>
+        <div class="card-badge">99</div>
+        <div class="card-content">
+          <h3 class="card-title">أسماء الله الحسنى</h3>
+          <p class="card-desc">99 اسماً حسناً بمعانيها</p>
+          <span class="card-arrow">اقرأ ← </span>
+        </div>
+      </a>
+      <a href="faq.html" class="card reveal">
+        <div class="card-icon">❓</div>
+        <div class="card-content">
+          <h3 class="card-title">الأسئلة الشائعة</h3>
+          <p class="card-desc">أجوبة للمسلم الجديد</p>
+          <span class="card-arrow">اقرأ ← </span>
+        </div>
+      </a>
+      <a href="adhkar.html" class="card reveal">
+        <div class="card-icon">📿</div>
+        <div class="card-content">
+          <h3 class="card-title">الأذكار اليومية</h3>
+          <p class="card-desc">صباح ومساء ونوم وطعام</p>
+          <span class="card-arrow">اقرأ ← </span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 2: TOOLS ═══ -->
+<section class="section" style="background: var(--surface);">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title">🎯 أدواتك الشخصية</h2>
+      <p class="section-sub">أنظمة تفاعلية لتتبع رحلتك اليومية</p>
+    </div>
+    <div class="cards-grid">
+      <a href="journey.html" class="card reveal">
+        <div class="card-icon">🎯</div>
+        <div class="card-badge">جديد</div>
+        <div class="card-content">
+          <h3 class="card-title">رحلتي</h3>
+          <p class="card-desc">تتبع تقدمك اليومي بإنجازات</p>
+          <span class="card-arrow">افتح ← </span>
+        </div>
+      </a>
+      <a href="tree.html" class="card reveal">
+        <div class="card-icon">🌳</div>
+        <div class="card-badge">مميز</div>
+        <div class="card-content">
+          <h3 class="card-title">شجرة الإيمان</h3>
+          <p class="card-desc">تنمو مع كل عمل صالح</p>
+          <span class="card-arrow">افتح ← </span>
+        </div>
+      </a>
+      <a href="first40.html" class="card reveal">
+        <div class="card-icon">📅</div>
+        <div class="card-badge">40 يوم</div>
+        <div class="card-content">
+          <h3 class="card-title">أول 40 يوم</h3>
+          <p class="card-desc">برنامج تدريجي شامل</p>
+          <span class="card-arrow">ابدأ ← </span>
+        </div>
+      </a>
+      <a href="numbers.html" class="card reveal">
+        <div class="card-icon">🔢</div>
+        <div class="card-content">
+          <h3 class="card-title">حياتي بالأرقام</h3>
+          <p class="card-desc">إحصائيات رحلتك في الإسلام</p>
+          <span class="card-arrow">افتح ← </span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 3: KNOWLEDGE ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title">📚 العلم والمعرفة</h2>
+      <p class="section-sub">تعلّم دينك من المصادر الموثوقة</p>
+    </div>
+    <div class="cards-grid">
+      <a href="prophets.html" class="card reveal">
+        <div class="card-icon">📖</div>
+        <div class="card-badge">7 قصص</div>
+        <div class="card-content">
+          <h3 class="card-title">قصص الأنبياء</h3>
+          <p class="card-desc">من آدم إلى محمد ﷺ</p>
+          <span class="card-arrow">اقرأ ← </span>
+        </div>
+      </a>
+      <a href="halal.html" class="card reveal">
+        <div class="card-icon">☪️</div>
+        <div class="card-content">
+          <h3 class="card-title">الحلال والحرام</h3>
+          <p class="card-desc">دليل شامل للمسلم</p>
+          <span class="card-arrow">اقرأ ← </span>
+        </div>
+      </a>
+      <a href="questions.html" class="card reveal">
+        <div class="card-icon">🤔</div>
+        <div class="card-content">
+          <h3 class="card-title">الأسئلة الصعبة</h3>
+          <p class="card-desc">لكل سؤال جواب</p>
+          <span class="card-arrow">اقرأ ← </span>
+        </div>
+      </a>
+      <a href="ruqyah.html" class="card reveal">
+        <div class="card-icon">🩺</div>
+        <div class="card-badge">10 لغات</div>
+        <div class="card-content">
+          <h3 class="card-title">الرقية الشرعية</h3>
+          <p class="card-desc">شفاء بالقرآن والسنة</p>
+          <span class="card-arrow">اقرأ ← </span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 4: WORSHIP TOOLS ═══ -->
+<section class="section" style="background: var(--surface);">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title">🕌 أدوات العبادة</h2>
+      <p class="section-sub">حاسبات وأدوات لمساعدتك في عبادتك</p>
+    </div>
+    <div class="cards-grid">
+      <a href="hajj.html" class="card reveal">
+        <div class="card-icon">🕋</div>
+        <div class="card-content">
+          <h3 class="card-title">دليل الحج والعمرة</h3>
+          <p class="card-desc">خطوة بخطوة مع الأدعية</p>
+          <span class="card-arrow">اقرأ ← </span>
+        </div>
+      </a>
+      <a href="zakat.html" class="card reveal">
+        <div class="card-icon">💰</div>
+        <div class="card-content">
+          <h3 class="card-title">حاسبة الزكاة</h3>
+          <p class="card-desc">احسب زكاتك بدقة</p>
+          <span class="card-arrow">احسب ← </span>
+        </div>
+      </a>
+      <a href="hijri.html" class="card reveal">
+        <div class="card-icon">📅</div>
+        <div class="card-content">
+          <h3 class="card-title">التقويم الهجري</h3>
+          <p class="card-desc">التاريخ الهجري والمناسبات</p>
+          <span class="card-arrow">افتح ← </span>
+        </div>
+      </a>
+      <a href="baby-names.html" class="card reveal">
+        <div class="card-icon">👶</div>
+        <div class="card-badge">180 اسم</div>
+        <div class="card-content">
+          <h3 class="card-title">أسماء المولود</h3>
+          <p class="card-desc">أسماء بمعانيها الجميلة</p>
+          <span class="card-arrow">تصفح ← </span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 5: EXTRAS ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title">✨ إضافات مميزة</h2>
+      <p class="section-sub">محتوى فريد لا تجده في مكان آخر</p>
+    </div>
+    <div class="cards-grid">
+      <a href="cards.html" class="card reveal">
+        <div class="card-icon">🎨</div>
+        <div class="card-content">
+          <h3 class="card-title">بطاقات النور</h3>
+          <p class="card-desc">صمّم بطاقات إسلامية وشاركها</p>
+          <span class="card-arrow">صمّم ← </span>
+        </div>
+      </a>
+      <a href="world-map.html" class="card reveal">
+        <div class="card-icon">🗺️</div>
+        <div class="card-content">
+          <h3 class="card-title">خريطة الدول</h3>
+          <p class="card-desc">الدول الإسلامية حول العالم</p>
+          <span class="card-arrow">استكشف ← </span>
+        </div>
+      </a>
+      <a href="algeria.html" class="card reveal">
+        <div class="card-icon">🇩🇿</div>
+        <div class="card-content">
+          <h3 class="card-title">حبيبتي الجزائر</h3>
+          <p class="card-desc">بلد المليون شهيد</p>
+          <span class="card-arrow">اقرأ ← </span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SHAHADA ═══ -->
+<section class="container" id="shahada">
+  <div class="shahada-section">
+    <div class="shahada-inner">
+      <div class="shahada-bismillah">﷽</div>
+      <div class="shahada-label">THE TESTIMONY OF FAITH</div>
+      
+      <div class="shahada-text">
+        أشهد أن لا إله إلا الله،<br>
+        وأشهد أن محمداً رسول الله
+      </div>
+      
+      <div class="shahada-translit">
+        Ash-hadu an la ilaha illa Allah,<br>
+        wa ash-hadu anna Muhammadan rasoolu Allah.
+      </div>
+      
+      <div class="shahada-actions">
+        <button class="btn-audio" id="audioBtn">🔊 اسمع وردد</button>
+        <button class="btn-shahada" id="shahadaBtn">🤍 لقد نطقتُ الشهادة الآن</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SHARE ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="share-box">
+      <h3>📢 شارك الموقع</h3>
+      <p>كل شخص يزور الموقع بسببك = أجر لك في ميزانك</p>
+      <div class="share-container"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="footer-dua">اللهم ثبّت قلوبنا على دينك، واجعلنا من عبادك الصالحين</div>
+  <div>صُنع بمحبة <span style="color:var(--gold)">♥</span> لكل من يبحث عن النور</div>
+  <div class="footer-owner">صاحب الموقع: <strong>واشمي محمد</strong> 🇩🇿</div>
+</footer>
+
+<!-- ═══ CERTIFICATE ═══ -->
+<div class="cert-overlay" id="certOverlay">
+  <div class="cert-form" id="certForm">
+    <div class="cert-form-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <h3 class="cert-form-title">مبارك عليك 🤍</h3>
+    <p class="cert-form-sub">أدخل اسمك لنُصدر لك شهادة إسلامك الرقمية</p>
+    <label for="firstName">الاسم الأول</label>
+    <input type="text" id="firstName" maxlength="30" placeholder="محمد، أحمد...">
+    <label for="lastName">اللقب (اختياري)</label>
+    <input type="text" id="lastName" maxlength="30" placeholder="العبد، الخالدي...">
+    <div class="cert-form-actions">
+      <button class="btn-cert-ghost" id="certCancel">إلغاء</button>
+      <button class="btn-cert-primary" id="certConfirm">استلم الشهادة</button>
+    </div>
+  </div>
+
+  <div id="certStep2" style="display:none;width:100%;">
+    <div class="certificate" id="certificate">
+      <div class="cert-inner-border"></div>
+      <div class="cert-rank-badge" id="certRank">#1</div>
+      <div class="cert-content">
+        <div class="cert-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+        <h1 class="cert-main-title">شهادة إسلام</h1>
+        <div class="cert-subtitle-en">Certificate of Shahada</div>
+        <div class="cert-witness">تشهد هذه الوثيقة بأن</div>
+        <div class="cert-name" id="certNameDisplay">—</div>
+        <div class="cert-body">
+          قد نطق بشهادتَي الإسلام بيقينٍ وقلبٍ حاضر،<br>
+          فأسلم لله ربّ العالمين، وبدأ صفحةً جديدةً نقيةً بيضاء.<br>
+          نسأل الله أن يثبّته على دينه، ويهديه صراطاً مستقيماً.
+        </div>
+        <div class="cert-seal-wrap">
+          <div class="cert-seal">
+            <svg class="cert-seal-ring" viewBox="0 0 120 120">
+              <defs><path id="sealCircle" d="M 60,60 m -48,0 a 48,48 0 1,1 96,0 a 48,48 0 1,1 -96,0"/></defs>
+              <circle cx="60" cy="60" r="52" fill="none" stroke="#a67c3c" stroke-width="1.5"/>
+              <circle cx="60" cy="60" r="48" fill="none" stroke="#c9a961" stroke-width=".8"/>
+              <text font-family="Amiri, serif" font-size="8" fill="#a67c3c" letter-spacing="1"><textPath href="#sealCircle" startOffset="0%">✦ أشهد أن لا إله إلا الله ✦ محمد رسول الله ✦</textPath></text>
+            </svg>
+            <div class="cert-seal-center">ﷲ</div>
+          </div>
+        </div>
+        <div class="cert-meta">
+          <div class="cert-meta-item"><div class="lbl">DATE</div><div class="val ar" id="certDateAr">—</div></div>
+          <div class="cert-meta-item"><div class="lbl">CERTIFICATE NO.</div><div class="val" id="certNumber">SHA-000000</div></div>
+          <div class="cert-meta-item"><div class="lbl">ISSUED AT</div><div class="val">mohammedouachemi.work.gd</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="cert-actions">
+      <button class="cert-action-btn cert-dl" id="certDownload">📥 تحميل PNG</button>
+      <button class="cert-action-btn cert-share-wa" id="certShareWa">💬 واتساب</button>
+      <button class="cert-action-btn cert-close" id="certClose">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<canvas id="confetti-canvas" style="position:fixed;inset:0;pointer-events:none;z-index:9999;"></canvas>
+
+<script src="share.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  // ═══ MOSQUE IMAGES — صور مساجد للبطاقات ═══
+  var MOSQUE_IMAGES = [
+    'https://images.unsplash.com/photo-1519817650390-64a93db51149?w=800&q=80', // المسجد الحرام
+    'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=800&q=80', // المسجد النبوي
+    'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=800&q=80',   // مسجد
+    'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=800&q=80', // مسجد
+    'https://images.unsplash.com/photo-1564769662533-4f00a87b4056?w=800&q=80', // الأقصى
+    'https://images.unsplash.com/photo-1512632578888-169bbbc64f33?w=800&q=80', // مسجد سلطان
+    'https://images.unsplash.com/photo-1548783307-f63adc3f200b?w=800&q=80',   // مسجد
+    'https://images.unsplash.com/photo-1585129777188-94600bc7b4b3?w=800&q=80', // مسجد
+    'https://images.unsplash.com/photo-1596782933321-79cb1ec3e6df?w=800&q=80', // قبة
+    'https://images.unsplash.com/photo-1519074002996-a69e7ac46a42?w=800&q=80', // مسجد
+    'https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800&q=80', // مسجد
+    'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=800&q=80',   // مسجد
+    'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80', // مسجد
+    'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=800&q=80', // مسجد نبوي
+    'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80', // مسجد
+    'https://images.unsplash.com/photo-1597212720157-4d37d4b5cd52?w=800&q=80'  // مسجد
+  ];
+
+  // ═══ Apply mosque background to each card ═══
+  document.querySelectorAll('.card').forEach(function(card, i){
+    var img = MOSQUE_IMAGES[i % MOSQUE_IMAGES.length];
+    card.style.setProperty('--bg-img', 'url("' + img + '")');
+    
+    // Insert bg image via ::before
+    var style = document.createElement('style');
+    style.textContent = '.card:nth-child(' + (i+1) + ')::before { background-image: url("' + img + '"); }';
+    document.head.appendChild(style);
+  });
+
+  // ═══ Theme ═══
+  var saved = localStorage.getItem('theme');
+  var prefers = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', saved || (prefers ? 'dark' : 'light'));
+  updateThemeIcon();
+
+  document.getElementById('themeToggle').addEventListener('click', function(){
+    var c = document.documentElement.getAttribute('data-theme');
+    var n = c === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', n);
+    localStorage.setItem('theme', n);
+    updateThemeIcon();
+  });
+
+  function updateThemeIcon(){
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.querySelector('.moon').style.display = isDark ? 'none' : 'block';
+    document.querySelector('.sun').style.display = isDark ? 'block' : 'none';
+  }
+
+  // ═══ Language ═══
+  var LANGS = {
+    ar: '🇸🇦 العربية', en: '🇬🇧 English', fr: '🇫🇷 Français', es: '🇪🇸 Español',
+    de: '🇩🇪 Deutsch', tr: '🇹🇷 Türkçe', ur: '🇵🇰 اردو', id: '🇮🇩 Indonesia',
+    ru: '🇷🇺 Русский', zh: '🇨🇳 中文'
+  };
+  var langSelect = document.getElementById('langSelect');
+  Object.keys(LANGS).forEach(function(c){
+    var o = document.createElement('option');
+    o.value = c; o.textContent = LANGS[c];
+    langSelect.appendChild(o);
+  });
+  langSelect.value = localStorage.getItem('lang') || 'ar';
+  langSelect.addEventListener('change', function(){
+    localStorage.setItem('lang', this.value);
+  });
+
+  // ═══ Scroll Reveal ═══
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e, i){
+      if (e.isIntersecting){
+        setTimeout(function(){ e.target.classList.add('revealed'); }, i * 60);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: .1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  // ═══ Audio ═══
+  var audioBtn = document.getElementById('audioBtn');
+  audioBtn.addEventListener('click', function(){
+    var audio = new Audio('/audio/shahada.mp3');
+    audioBtn.classList.add('playing');
+    audioBtn.textContent = '⏸ جارٍ...';
+    audio.onended = function(){
+      audioBtn.classList.remove('playing');
+      audioBtn.textContent = '🔊 اسمع وردد';
+    };
+    audio.onerror = function(){
+      // fallback to Web Speech
+      if ('speechSynthesis' in window){
+        var u = new SpeechSynthesisUtterance('أشهد أن لا إله إلا الله وأشهد أن محمداً رسول الله');
+        u.lang = 'ar-SA';
+        u.rate = 0.5;
+        u.pitch = 0.65;
+        u.onend = function(){
+          audioBtn.classList.remove('playing');
+          audioBtn.textContent = '🔊 اسمع وردد';
+        };
+        speechSynthesis.speak(u);
+      }
+    };
+    audio.play().catch(function(){ audio.onerror(); });
+  });
+
+  // ═══ Confetti ═══
+  function launchConfetti(){
+    var canvas = document.getElementById('confetti-canvas');
+    var ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    var colors = ['#0d5c3a','#c9a961','#52b788','#fff','#e6c988','#d8f3dc'];
+    var parts = [];
+    for (var i = 0; i < 180; i++){
+      parts.push({
+        x: Math.random() * canvas.width,
+        y: -20 - Math.random() * 300,
+        w: 6 + Math.random() * 10,
+        h: 8 + Math.random() * 12,
+        vx: (Math.random() - 0.5) * 4,
+        vy: 2 + Math.random() * 5,
+        rot: Math.random() * Math.PI * 2,
+        vrot: (Math.random() - 0.5) * 0.25,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        shape: Math.random() > 0.6 ? 'circle' : 'rect',
+        opacity: 0.9
+      });
+    }
+    var frame = 0;
+    function draw(){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      parts.forEach(function(p){
+        p.x += p.vx; p.y += p.vy; p.vy += 0.09; p.vx *= 0.995; p.rot += p.vrot;
+        ctx.save();
+        ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+        ctx.globalAlpha = p.opacity; ctx.fillStyle = p.color;
+        if (p.shape === 'circle'){ ctx.beginPath(); ctx.arc(0,0,p.w/2,0,Math.PI*2); ctx.fill(); }
+        else { ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h); }
+        ctx.restore();
+      });
+      frame++;
+      if (frame < 320) requestAnimationFrame(draw);
+      else ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    draw();
+  }
+
+  // ═══ Certificate ═══
+  var shahadaBtn = document.getElementById('shahadaBtn');
+  var certOverlay = document.getElementById('certOverlay');
+  var certForm = document.getElementById('certForm');
+  var certStep2 = document.getElementById('certStep2');
+
+  shahadaBtn.addEventListener('click', function(){
+    certOverlay.classList.add('show');
+    certForm.style.display = '';
+    certStep2.style.display = 'none';
+    document.getElementById('firstName').value = localStorage.getItem('firstName') || '';
+    document.getElementById('lastName').value = localStorage.getItem('lastName') || '';
+    setTimeout(function(){ document.getElementById('firstName').focus(); }, 400);
+  });
+
+  document.getElementById('certCancel').addEventListener('click', function(){
+    certOverlay.classList.remove('show');
+  });
+  certOverlay.addEventListener('click', function(e){
+    if (e.target === certOverlay) certOverlay.classList.remove('show');
+  });
+
+  document.getElementById('certConfirm').addEventListener('click', function(){
+    var first = document.getElementById('firstName').value.trim();
+    var last = document.getElementById('lastName').value.trim();
+    if (!first){ document.getElementById('firstName').focus(); return; }
+    localStorage.setItem('firstName', first);
+    localStorage.setItem('lastName', last);
+
+    var now = new Date();
+    var months = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+    document.getElementById('certNameDisplay').textContent = last ? (first + ' ' + last) : first;
+    document.getElementById('certDateAr').textContent = now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+    document.getElementById('certNumber').textContent = 'SHA-' + now.getFullYear() + '-' + Math.floor(100000 + Math.random() * 900000);
+    document.getElementById('certRank').textContent = '#1';
+    document.getElementById('certRank').style.display = 'block';
+
+    certForm.style.display = 'none';
+    certStep2.style.display = 'block';
+    launchConfetti();
+    shahadaBtn.textContent = '✓ مبارك عليك، تقبّل الله';
+  });
+
+  document.getElementById('certClose').addEventListener('click', function(){
+    certOverlay.classList.remove('show');
+  });
+
+  document.getElementById('certDownload').addEventListener('click', async function(){
+    var btn = this;
+    var orig = btn.textContent;
+    btn.textContent = '⏳ جارٍ...'; btn.disabled = true;
+    try {
+      var canvas = await html2canvas(document.getElementById('certificate'), {
+        backgroundColor: '#fdfcf7', scale: 2.5, useCORS: true
+      });
+      var link = document.createElement('a');
+      link.download = 'shahada-certificate.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } catch(e){ alert('تعذّر التحميل'); }
+    btn.textContent = orig; btn.disabled = false;
+  });
+
+  document.getElementById('certShareWa').addEventListener('click', function(){
+    var name = document.getElementById('certNameDisplay').textContent;
+    var text = '🤍 الحمد لله — نطقتُ الشهادتين\n\nأشهد أن لا إله إلا الله، وأشهد أن محمداً رسول الله\n\nصاحب الشهادة: ' + name + '\n\nhttps://www.mohammedouachemi.work.gd';
+    window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') certOverlay.classList.remove('show');
+  });
+
+})();
+</script>
+
+</body>
+</html>
