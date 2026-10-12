@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أسماء المولود · Baby Names</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&family=Reem+Kufi:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.bn-hero{text-align:center;padding:3rem 1rem 2rem;position:relative;z-index:2;background:radial-gradient(circle at center,rgba(82,183,136,.10),transparent 70%);border-radius:var(--r-xl);margin-bottom:2rem}
+.bn-hero .arab{font-family:var(--f-q);font-size:2.5rem;color:var(--au500);opacity:.7;margin-bottom:1rem}
+.bn-hero h1{font-family:var(--f-d);font-size:clamp(1.9rem,5.5vw,3rem);font-weight:700;background:linear-gradient(135deg,var(--g700),var(--au500));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+.bn-hero .en-sub{font-family:var(--f-l);font-size:.85rem;color:var(--i400);letter-spacing:.15em;direction:ltr;margin-bottom:1.5rem}
+.bn-hero .verse{font-family:var(--f-q);font-size:clamp(1rem,2.7vw,1.2rem);color:var(--g800);line-height:2;max-width:720px;margin:0 auto;padding:1.3rem;background:var(--g50);border-radius:var(--r-m);border-right:4px solid var(--g500)}
+[data-theme="dark"] .bn-hero .verse{background:rgba(82,183,136,.08);color:var(--g200)}
+
+/* Toolbar */
+.toolbar{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-l);padding:1.2rem;margin-bottom:1.5rem;box-shadow:var(--sh-md);position:sticky;top:1rem;z-index:30}
+[data-theme="dark"] .toolbar{border-color:rgba(82,183,136,.15)}
+.search-input{width:100%;padding:1rem 1.3rem;background:var(--i100);border:1.5px solid transparent;border-radius:var(--r-pill);font-family:var(--f-b);font-size:1rem;color:var(--i900);outline:none;transition:all .3s var(--e);margin-bottom:1rem}
+[data-theme="dark"] .search-input{background:rgba(24,34,27,.5);color:#fff}
+.search-input:focus{border-color:var(--g500);background:var(--paper);box-shadow:0 0 0 4px rgba(82,183,136,.15)}
+
+.gender-tabs{display:flex;gap:.5rem;margin-bottom:1rem}
+.gender-tab{flex:1;padding:.9rem 1rem;background:var(--i100);border:2px solid transparent;border-radius:var(--r-m);font-family:var(--f-b);font-size:.95rem;font-weight:700;color:var(--i500);cursor:pointer;transition:all .3s var(--e);display:flex;align-items:center;justify-content:center;gap:.5rem}
+[data-theme="dark"] .gender-tab{background:rgba(82,183,136,.05)}
+.gender-tab:hover{border-color:var(--g400);color:var(--g700)}
+.gender-tab.active{background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;border-color:var(--g600);box-shadow:0 8px 20px rgba(45,106,79,.25)}
+.gender-tab[data-gender="girl"].active{background:linear-gradient(135deg,#e8b4c8,#c8869e);box-shadow:0 8px 20px rgba(200,134,158,.3)}
+
+.letters-row{display:flex;flex-wrap:wrap;gap:.3rem;justify-content:center}
+.letter-btn{padding:.5rem .8rem;background:var(--i100);border:1.5px solid transparent;border-radius:var(--r-s);font-family:var(--f-q);font-size:1rem;font-weight:700;color:var(--i700);cursor:pointer;transition:all .2s var(--e);min-width:36px}
+[data-theme="dark"] .letter-btn{background:rgba(82,183,136,.05);color:var(--i500)}
+.letter-btn:hover{border-color:var(--g400);transform:scale(1.1)}
+.letter-btn.active{background:linear-gradient(135deg,var(--au500),var(--au600));color:#fff;border-color:var(--au500)}
+
+.stats-bar{text-align:center;font-size:.88rem;color:var(--i500);margin-bottom:1rem}
+.stats-bar strong{color:var(--g700);font-family:var(--f-l);font-weight:700}
+[data-theme="dark"] .stats-bar strong{color:var(--g400)}
+
+/* Names Grid */
+.names-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.8rem;margin-bottom:3rem}
+.name-card{background:var(--paper);border:1.5px solid var(--i200);border-radius:var(--r-m);padding:1.2rem;text-align:center;transition:all .3s var(--e);position:relative;overflow:hidden}
+[data-theme="dark"] .name-card{border-color:rgba(82,183,136,.12)}
+.name-card::before{content:'';position:absolute;top:0;left:20%;right:20%;height:3px;background:linear-gradient(90deg,transparent,var(--au500),transparent);opacity:0;transition:opacity .3s}
+.name-card:hover{transform:translateY(-5px);border-color:var(--g400);box-shadow:0 16px 40px rgba(13,40,24,.10)}
+.name-card:hover::before{opacity:1}
+[data-theme="dark"] .name-card:hover{box-shadow:0 16px 40px rgba(0,0,0,.4)}
+.name-card[data-gender="girl"]:hover{border-color:#e8b4c8}
+.name-card[data-gender="girl"]::before{background:linear-gradient(90deg,transparent,#e8b4c8,transparent)}
+
+.nc-arabic{font-family:var(--f-q);font-size:1.8rem;font-weight:700;color:var(--g800);margin-bottom:.3rem;line-height:1.3}
+[data-theme="dark"] .nc-arabic{color:var(--g300)}
+.nc-translit{font-family:var(--f-l);font-size:.82rem;color:var(--au600);font-style:italic;margin-bottom:.6rem;letter-spacing:.03em}
+[data-theme="dark"] .nc-translit{color:var(--au400)}
+.nc-meaning{font-size:.88rem;color:var(--i600);line-height:1.6;padding-top:.6rem;border-top:1px dashed var(--i200)}
+[data-theme="dark"] .nc-meaning{color:var(--i500);border-color:var(--i300)}
+
+.nc-badge{position:absolute;top:.6rem;left:.6rem;font-family:var(--f-l);font-size:.65rem;font-weight:700;padding:.2rem .5rem;border-radius:var(--r-pill);background:var(--g50);color:var(--g700)}
+[data-theme="dark"] .nc-badge{background:rgba(82,183,136,.15);color:var(--g300)}
+.name-card[data-gender="girl"] .nc-badge{background:#fce8ef;color:#a04a6b}
+[data-theme="dark"] .name-card[data-gender="girl"] .nc-badge{background:rgba(200,134,158,.2);color:#f0c8d6}
+
+/* Empty state */
+.empty-state{text-align:center;padding:3rem 1rem;color:var(--i400)}
+.empty-state .es-icon{font-size:3rem;margin-bottom:1rem;opacity:.6}
+
+/* Tips */
+.tips-sec{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-xl);padding:clamp(1.5rem,4vw,2rem);margin-bottom:2rem;box-shadow:var(--sh-md)}
+[data-theme="dark"] .tips-sec{border-color:rgba(82,183,136,.12)}
+.tips-sec h2{font-family:var(--f-d);font-size:1.3rem;color:var(--i900);margin-bottom:1rem}
+[data-theme="dark"] .tips-sec h2{color:var(--g300)}
+.tips-list{list-style:none;padding:0}
+.tips-list li{padding:.8rem 1.2rem;background:var(--i100);border-radius:var(--r-m);margin-bottom:.5rem;font-size:.94rem;color:var(--i700);line-height:1.8;border-right:3px solid var(--g400)}
+[data-theme="dark"] .tips-list li{background:rgba(82,183,136,.05);color:var(--i500)}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <a href="index.html" style="text-decoration:none;padding:.6rem 1.1rem;background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-pill);color:var(--i800);font-family:var(--f-b);font-size:.85rem;font-weight:600;box-shadow:var(--sh-md)">🏠 الرئيسية</a>
+</div>
+<button class="theme-toggle" id="themeToggle">
+  <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+</button>
+
+<main class="container">
+
+<section class="bn-hero">
+  <div class="arab">👶</div>
+  <h1>أسماء المولود</h1>
+  <div class="en-sub">Baby Names — Islamic &amp; Arabic</div>
+  <div class="verse">﴿ وَإِنَّكَ لَعَلَىٰ خُلُقٍ عَظِيمٍ ﴾ — القلم: 4</div>
+</section>
+
+<div class="toolbar">
+  <input type="text" class="search-input" id="searchInput" placeholder="🔍 ابحث باسم... (عربي أو إنجليزي)">
+  
+  <div class="gender-tabs">
+    <button class="gender-tab" data-gender="all">👥 الكل</button>
+    <button class="gender-tab" data-gender="boy">👦 أولاد</button>
+    <button class="gender-tab" data-gender="girl">👧 بنات</button>
+  </div>
+
+  <div class="letters-row" id="lettersRow"></div>
+</div>
+
+<div class="stats-bar">
+  <strong id="resultCount">80</strong> اسم
+</div>
+
+<div class="names-grid" id="namesGrid"></div>
+
+<div class="tips-sec">
+  <h2>💡 نصائح لاختيار اسم المولود</h2>
+  <ul class="tips-list">
+    <li>✅ <strong>الأفضل:</strong> ما عُبّد لله (عبد الله، عبد الرحمن)، ثم أسماء الأنبياء، ثم أسماء الصحابة الصالحين</li>
+    <li>✅ <strong>المعنى الطيب:</strong> اختر اسماً له معنى جميل، لأن الاسم يُؤثر على النفس</li>
+    <li>✅ <strong>سهولة النطق:</strong> اختر اسماً لا يصعب نطقه على الطفل ولا على الناس</li>
+    <li>❌ <strong>تجنّب أسماء الشرك:</strong> مثل عبد المسيح، عبد النبي، أو أسماء الأصنام</li>
+    <li>❌ <strong>تجنّب الألقاب السيئة:</strong> أسماء الحيوانات المهينة، أو الألفاظ السوقية</li>
+    <li>💭 قال ﷺ: <strong>«إنكم تدعون يوم القيامة بأسمائكم وأسماء آبائكم، فحسّنوا أسماءكم»</strong></li>
+  </ul>
+</div>
+
+<footer class="footer">
+  <div class="footer-dua">اللهم بارك لنا في أولادنا، واجعلهم من الصالحين</div>
+  <div class="footer-owner">صاحب الموقع: <strong>واشمي محمد</strong></div>
+</footer>
+
+</main>
+
+<div class="share-container"></div>
+
+<script src="names-baby-data.js"></script>
+<script src="share.js"></script>
+<script>
+(function(){
+  var s=localStorage.getItem('theme');
+  var d=window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme',s||(d?'dark':'light'));
+  document.getElementById('themeToggle').addEventListener('click',function(){
+    var c=document.documentElement.getAttribute('data-theme');
+    var n=c==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',n);
+    localStorage.setItem('theme',n);
+  });
+
+  var ALL_NAMES = window.BABY_NAMES || [];
+  var LETTERS = window.ARABIC_LETTERS || [];
+  var currentGender = 'all';
+  var currentLetter = '';
+  var currentSearch = '';
+
+  // Render letters
+  var lettersRow = document.getElementById('lettersRow');
+  var allLetterBtn = document.createElement('button');
+  allLetterBtn.className = 'letter-btn active';
+  allLetterBtn.textContent = 'الكل';
+  allLetterBtn.dataset.letter = '';
+  lettersRow.appendChild(allLetterBtn);
+  LETTERS.forEach(function(l){
+    var btn = document.createElement('button');
+    btn.className = 'letter-btn';
+    btn.textContent = l;
+    btn.dataset.letter = l;
+    lettersRow.appendChild(btn);
+  });
+
+  lettersRow.addEventListener('click', function(e){
+    if(!e.target.classList.contains('letter-btn')) return;
+    lettersRow.querySelectorAll('.letter-btn').forEach(function(b){ b.classList.remove('active'); });
+    e.target.classList.add('active');
+    currentLetter = e.target.dataset.letter;
+    render();
+  });
+
+  // Gender tabs
+  document.querySelectorAll('.gender-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.gender-tab').forEach(function(t){ t.classList.remove('active'); });
+      this.classList.add('active');
+      currentGender = this.getAttribute('data-gender');
+      render();
+    });
+  });
+
+  // Search
+  document.getElementById('searchInput').addEventListener('input', function(){
+    currentSearch = this.value.trim().toLowerCase();
+    render();
+  });
+
+  function filter(){
+    return ALL_NAMES.filter(function(n){
+      if(currentGender !== 'all' && n.gender !== currentGender) return false;
+      if(currentLetter && n.ar.charAt(0) !== currentLetter) return false;
+      if(currentSearch){
+        var match = n.ar.toLowerCase().indexOf(currentSearch) !== -1 ||
+                    n.tr.toLowerCase().indexOf(currentSearch) !== -1 ||
+                    n.meaning.toLowerCase().indexOf(currentSearch) !== -1;
+        if(!match) return false;
+      }
+      return true;
+    });
+  }
+
+  function render(){
+    var list = filter();
+    var grid = document.getElementById('namesGrid');
+    document.getElementById('resultCount').textContent = list.length;
+
+    if(!list.length){
+      grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="es-icon">🤍</div><div>لا توجد أسماء مطابقة</div></div>';
+      return;
+    }
+
+    grid.innerHTML = list.map(function(n){
+      return '<div class="name-card" data-gender="' + n.gender + '">' +
+        '<span class="nc-badge">' + (n.gender === 'boy' ? '👦 ولد' : '👧 بنت') + '</span>' +
+        '<div class="nc-arabic">' + n.ar + '</div>' +
+        '<div class="nc-translit">' + n.tr + '</div>' +
+        '<div class="nc-meaning">' + n.meaning + '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
