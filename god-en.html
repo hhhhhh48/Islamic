@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Does God Exist? · Evidence &amp; Logic</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Reem+Kufi:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.god-hero{text-align:center;padding:4rem 1rem 3rem;position:relative;z-index:2;background:radial-gradient(circle at center, rgba(82,183,136,.10) 0%, transparent 70%);border-radius:var(--r-xl);margin-bottom:2rem}
+.god-hero .arabesque{font-family:var(--f-q);font-size:2.5rem;color:var(--au500);opacity:.7;margin-bottom:1.2rem}
+.god-hero h1{font-family:var(--f-d);font-size:clamp(1.9rem,5.5vw,3rem);font-weight:700;background:linear-gradient(135deg,var(--g700),var(--au500));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:1rem;line-height:1.3}
+.god-hero .sub{font-family:var(--f-l);font-size:.9rem;color:var(--i400);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.5rem}
+.god-hero .verse{font-family:var(--f-q);font-size:clamp(1.05rem,3vw,1.3rem);color:var(--g800);line-height:2;max-width:700px;margin:0 auto;padding:1.5rem;background:var(--g50);border-radius:var(--r-m);border-left:4px solid var(--g500)}
+[data-theme="dark"] .god-hero .verse{background:rgba(82,183,136,.08);color:var(--g200)}
+
+.toc{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-l);padding:1.5rem 1.8rem;margin-bottom:2rem;box-shadow:var(--sh-md);position:relative;z-index:2}
+[data-theme="dark"] .toc{border-color:rgba(82,183,136,.15)}
+.toc-title{font-family:var(--f-d);font-size:1rem;color:var(--g700);margin-bottom:1rem;font-weight:600}
+[data-theme="dark"] .toc-title{color:var(--g400)}
+.toc-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.5rem}
+.toc-list a{color:var(--i600);text-decoration:none;font-size:.88rem;padding:.5rem .8rem;border-radius:var(--r-s);transition:all .3s var(--e);display:flex;align-items:center;gap:.5rem}
+.toc-list a:hover{background:var(--g50);color:var(--g700);transform:translateX(4px)}
+[data-theme="dark"] .toc-list a:hover{background:rgba(82,183,136,.1);color:var(--g300)}
+
+.section-card{background:var(--paper);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.6);border-radius:var(--r-xl);padding:clamp(1.8rem,5vw,3rem);box-shadow:var(--sh-lg);margin-bottom:2rem;position:relative;overflow:hidden;opacity:0;transform:translateY(40px);transition:all .9s var(--e);isolation:isolate;scroll-margin-top:80px}
+[data-theme="dark"] .section-card{border-color:rgba(82,183,136,.12)}
+.section-card.revealed{opacity:1;transform:translateY(0)}
+.section-card::before{content:'';position:absolute;top:-2px;left:15%;right:15%;height:2px;background:linear-gradient(90deg,transparent,var(--g400),var(--au400),var(--g400),transparent);opacity:.6}
+.section-num{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,var(--g500),var(--g700));color:#fff;font-family:var(--f-l);font-size:1.4rem;font-weight:700;margin-bottom:1.2rem;box-shadow:0 8px 20px rgba(45,106,79,.28)}
+.section-card h2{font-family:var(--f-d);font-size:clamp(1.4rem,4vw,1.9rem);font-weight:700;color:var(--i900);margin-bottom:.4rem;line-height:1.3}
+.section-card .ar-title{font-family:var(--f-q);font-size:.85rem;color:var(--i400);direction:rtl;text-align:right;margin-bottom:1rem}
+.section-card p{font-size:1.02rem;color:var(--i700);line-height:1.85;margin-bottom:1.2rem}
+.section-card p strong{color:var(--g700);font-weight:700}
+[data-theme="dark"] .section-card p strong{color:var(--g300)}
+.section-card .highlight{display:block;background:linear-gradient(135deg,var(--g50),rgba(201,169,97,.06));border-left:4px solid var(--au500);border-radius:var(--r-m);padding:1.3rem 1.8rem 1.3rem 1.5rem;margin:1.5rem 0;font-family:var(--f-q);font-size:1.1rem;line-height:2;color:var(--g800);font-weight:400}
+[data-theme="dark"] .section-card .highlight{background:rgba(82,183,136,.08);color:var(--g200)}
+.section-card .highlight .ref{display:block;font-family:var(--f-l);font-size:.75rem;color:var(--au600);margin-top:.5rem;text-align:right;letter-spacing:.05em}
+
+.logic-list{list-style:none;padding:0;margin:1.5rem 0}
+.logic-list li{display:flex;gap:1rem;padding:1rem 1.2rem;background:var(--i100);border-radius:var(--r-m);margin-bottom:.7rem;font-size:.98rem;line-height:1.75;color:var(--i700);border-left:3px solid var(--g400);transition:all .3s var(--e)}
+[data-theme="dark"] .logic-list li{background:rgba(82,183,136,.05);color:var(--i500);border-left-color:var(--g500)}
+.logic-list li:hover{transform:translateX(4px);border-left-color:var(--au500)}
+.logic-list li::before{content:'✦';color:var(--au500);font-size:1rem;flex-shrink:0;font-weight:700}
+
+.question-box{background:linear-gradient(135deg,var(--au200),var(--au400));border-radius:var(--r-l);padding:clamp(1.8rem,5vw,2.5rem);margin:2rem 0;text-align:center;color:var(--g900);position:relative;overflow:hidden}
+[data-theme="dark"] .question-box{background:linear-gradient(135deg,rgba(201,169,97,.25),rgba(201,169,97,.15));color:var(--g100)}
+.question-box h3{font-family:var(--f-d);font-size:clamp(1.2rem,3.5vw,1.6rem);font-weight:700;margin-bottom:1rem;line-height:1.4}
+.question-box p{font-family:var(--f-q);font-size:clamp(1rem,2.8vw,1.15rem);line-height:1.85;opacity:.95}
+
+.analogy{background:linear-gradient(135deg,rgba(82,183,136,.08),rgba(201,169,97,.06));border-radius:var(--r-m);padding:1.4rem 1.5rem;margin:1.3rem 0;border-left:4px solid var(--g500);font-size:1rem;line-height:1.85;color:var(--i700);position:relative}
+[data-theme="dark"] .analogy{background:rgba(82,183,136,.06);color:var(--i500)}
+.analogy::before{content:'💡';font-size:1.4rem;display:block;margin-bottom:.5rem}
+
+.cta-god{display:block;text-align:center;margin:3rem auto 1rem;max-width:520px}
+.cta-god-btn{display:inline-flex;align-items:center;justify-content:center;gap:.8rem;padding:1.3rem 2.5rem;background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;border-radius:var(--r-pill);font-family:var(--f-b);font-size:1.05rem;font-weight:700;box-shadow:0 20px 50px rgba(45,106,79,.35);transition:all .4s var(--e);text-decoration:none;width:100%}
+.cta-god-btn:hover{transform:translateY(-3px);box-shadow:0 28px 65px rgba(45,106,79,.5);color:#fff}
+.cta-god-btn svg{width:22px;height:22px}
+.cta-god-sub{font-family:var(--f-l);font-size:.8rem;color:var(--i400);margin-top:.8rem;direction:rtl}
+
+.lang-switch{display:inline-flex;gap:.5rem;padding:.5rem;background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-pill);margin-bottom:1.5rem;box-shadow:var(--sh-sm)}
+.lang-switch a{padding:.5rem 1rem;border-radius:var(--r-pill);text-decoration:none;color:var(--i500);font-family:var(--f-l);font-size:.85rem;font-weight:600;transition:all .3s var(--e)}
+.lang-switch a.active{background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff}
+.lang-switch a:not(.active):hover{background:var(--g50);color:var(--g700)}
+
+.pill-row{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.3rem 0;justify-content:center}
+.pill{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1rem;background:var(--g50);color:var(--g800);border-radius:var(--r-pill);font-size:.82rem;font-weight:600;border:1px solid rgba(82,183,136,.2)}
+[data-theme="dark"] .pill{background:rgba(82,183,136,.1);color:var(--g300)}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <a href="index.html" style="text-decoration:none;padding:.6rem 1.1rem;background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-pill);color:var(--i800);font-family:var(--f-b);font-size:.85rem;font-weight:600;box-shadow:var(--sh-md)">🏠 Home</a>
+</div>
+<button class="theme-toggle" id="themeToggle">
+  <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+</button>
+
+<main class="container">
+
+<section class="god-hero">
+  <div class="arabesque">﷽</div>
+  <div class="lang-switch">
+    <a href="about-god.html">🇸🇦 العربية</a>
+    <a href="god-en.html" class="active">🇬🇧 English</a>
+  </div>
+  <h1>Have you ever asked...<br>Who created you?</h1>
+  <div class="sub">Evidence &amp; Logic — For sincere seekers</div>
+  <div class="verse">"Or were they created by nothing, or were they themselves the creators?"<span class="ref" style="font-family:Inter,sans-serif;font-size:.75rem;color:#a67c3c;display:block;margin-top:.5rem">— Quran 52:35</span></div>
+</section>
+
+<div class="toc">
+  <div class="toc-title">📑 Read in order, or jump to what interests you</div>
+  <div class="toc-list">
+    <a href="#s1">1. Where did you come from?</a>
+    <a href="#s2">2. The phone in the desert</a>
+    <a href="#s3">3. Astonishing cosmic precision</a>
+    <a href="#s4">4. The proof within you</a>
+    <a href="#s5">5. Why ONE God?</a>
+    <a href="#s6">6. "Who created God?"</a>
+    <a href="#s7">7. "Why can't we see Him?"</a>
+    <a href="#s8">8. Why does evil exist?</a>
+    <a href="#s9">9. Your message — sincerely</a>
+  </div>
+</div>
+
+<article class="section-card" id="s1">
+  <div class="section-num">1</div>
+  <h2>Where did you come from?</h2>
+  <div class="ar-title">من أين جئت؟</div>
+  <p>Pause for a moment, and answer honestly: You are reading these words right now. You have eyes that see, a mind that thinks, a heart that feels. Who gave you all of this?</p>
+  <p>Did you come from nothing? Did you create yourself? Or is there <strong>Someone who brought you into existence</strong>?</p>
+  <div class="question-box">
+    <h3>Just one question</h3>
+    <p>If you found a phone on the ground, would you say "it formed itself"?<br>Then how can you say about yourself — far more complex than a billion phones — that you came to be without a Creator?</p>
+  </div>
+  <p>This is the <strong>cosmological argument</strong> — the simplest and strongest: everything that begins to exist requires a cause. You were not, then you were. And everything that was not and then was, must have a Maker who made it.</p>
+</article>
+
+<article class="section-card" id="s2">
+  <div class="section-num">2</div>
+  <h2>The phone in the desert</h2>
+  <div class="ar-title">الهاتف في الصحراء</div>
+  <p>Imagine: you're walking in a barren desert. No humans, no footprints. Suddenly you find a <strong>smartphone</strong> on the sand — camera, buttons, a working screen.</p>
+  <p>Could you say: "It formed itself over millions of years"? Even the most stubborn atheist would refuse this. Why? Because a phone requires an <strong>intelligent maker</strong>.</p>
+  <div class="analogy">
+    The phone is made of: metals + plastic + glass. You are made of: cells + DNA + consciousness. The phone is billions of times <strong>less complex than you</strong>. So if the phone must have a maker, <strong>you have far more right to have a Maker</strong> — an infinitely wise Creator.
+  </div>
+  <p>This is not an emotional conclusion — it's a <strong>self-evident rational judgment</strong>: every made thing has a maker, and every created thing has a Creator.</p>
+</article>
+
+<article class="section-card" id="s3">
+  <div class="section-num">3</div>
+  <h2>Astonishing cosmic precision</h2>
+  <div class="ar-title">دقة الكون المذهلة</div>
+  <p>These are not opinions — they are <strong>verified physical facts</strong> acknowledged by astronomers of every belief:</p>
+  <ul class="logic-list">
+    <li><strong>Gravity:</strong> If it were stronger by 1 in 10<sup>120</sup>, the universe would have collapsed instantly. If weaker, matter would have scattered and no stars would form.</li>
+    <li><strong>Distance Earth–Sun:</strong> Exactly 149.6 million km. 5% closer — we burn. 5% farther — we freeze.</li>
+    <li><strong>Oxygen in air:</strong> Precisely 21%. At 25%, every forest would burn on the first lightning strike. At 15%, every animal would suffocate.</li>
+    <li><strong>Strong nuclear force:</strong> If changed by 0.5%, no atom would exist — and no anything.</li>
+    <li><strong>Cosmological constant:</strong> Tuned to 1 in 10<sup>120</sup>. A hair's difference, no universe.</li>
+  </ul>
+  <div class="question-box">
+    <h3>Is all this coincidence?</h3>
+    <p>If you took 100 letters in a bag, shook it, and a complete poem came out — who would believe you? So how about a whole universe of such precision?</p>
+  </div>
+</article>
+
+<article class="section-card" id="s4">
+  <div class="section-num">4</div>
+  <h2>The proof within you</h2>
+  <div class="ar-title">الدليل من داخلك</div>
+  <p>Reflect on these truths about yourself — you don't need a laboratory, only quiet reflection:</p>
+  <ul class="logic-list">
+    <li><strong>Consciousness:</strong> No one knows how thoughts arise from brain cells. Thought is not matter, isn't measured, isn't seen. Who gave it to you?</li>
+    <li><strong>Conscience:</strong> Even an atheist knows inside that killing innocents is evil. Where did this moral sense come from? Blind matter cannot be a source of morality.</li>
+    <li><strong>Love:</strong> A mother shielding her child from fire with her body — does something chemistry and hormones cannot explain.</li>
+    <li><strong>Yearning for the eternal:</strong> Every human, even an atheist, rejects the idea that his existence is meaningless. Who planted this yearning in you?</li>
+  </ul>
+  <p>These are the <strong>proofs of the fitrah</strong> — the inner nature. Every soul carries the seed of belief in a Creator. The atheist does not deny it, but tries to bury it.</p>
+</article>
+
+<article class="section-card" id="s5">
+  <div class="section-num">5</div>
+  <h2>Why ONE God — not three, not a million?</h2>
+  <div class="ar-title">لماذا إله واحد؟</div>
+  <p>Why not three gods? Or 33 million as in Hinduism? The logical answer is very simple:</p>
+  <ul class="logic-list">
+    <li>If there were two gods, what if they disagreed? One wants something, the other opposes — who wins?</li>
+    <li>If one always overrides the other, the second isn't really a god.</li>
+    <li>If they're equal, the universe wouldn't be stable for a moment — but it has been stable for 13.8 billion years.</li>
+    <li>Therefore: <strong>there must be ONE God</strong>, all-powerful, undefeated, uncontested.</li>
+  </ul>
+  <div class="highlight">"Had there been within the heavens and earth gods besides Allah, they both would have been ruined."<span class="ref">— Quran 21:22</span></div>
+  <p>As for "33 million gods" in Hinduism, or the "many gods" of Greek mythology — they are <strong>reflections of human minds</strong> who lived in societies with many tribal chiefs, and transferred that plurality to the sky.</p>
+</article>
+
+<article class="section-card" id="s6">
+  <div class="section-num">6</div>
+  <h2>"Who created God?" — A logically flawed question</h2>
+  <div class="ar-title">"من خلق الله؟"</div>
+  <p>This question sounds clever, but it <strong>measures the Creator by the standards of the created</strong>. It's an outright logical error.</p>
+  <div class="analogy">
+    The architect sets the laws of building, but is himself <strong>not subject</strong> to those laws. God is the Creator of time and space, and He is <strong>beyond time and space</strong> — so it makes no sense to ask "who created Him?" because He is not created.
+  </div>
+  <p>The decisive logical rule:</p>
+  <ul class="logic-list">
+    <li>Everything with a beginning has a cause. But God <strong>has no beginning</strong> — He is the First before whom there is nothing.</li>
+    <li>If we said "God was created by something else," we'd fall into infinite regress — impossible.</li>
+    <li>The regress must end at <strong>the Necessary Being</strong> — whose existence is from Himself, not from another. That is God.</li>
+  </ul>
+</article>
+
+<article class="section-card" id="s7">
+  <div class="section-num">7</div>
+  <h2>"Why doesn't He show Himself?"</h2>
+  <div class="ar-title">"لماذا لا نراه؟"</div>
+  <p>We don't see many things that exist:</p>
+  <div class="pill-row">
+    <span class="pill">⚡ Electricity</span>
+    <span class="pill">🧲 Magnetism</span>
+    <span class="pill">🌬️ Wind</span>
+    <span class="pill">🧠 Mind</span>
+    <span class="pill">💭 Thoughts</span>
+    <span class="pill">🌌 Dark matter</span>
+  </div>
+  <p>All of these exist, yet we don't see them. But we <strong>see their effects and feel them</strong>. God's existence is perceived through His magnificent effects in the universe, not through physical vision.</p>
+  <div class="analogy">
+    The sun — come close and you burn; but you see its light and warmth from afar. Likewise God: eyes cannot grasp Him in this world, but you see traces of His power everywhere.
+  </div>
+  <p>Moreover, seeing Him in this world is <strong>impossible</strong> — He is unlike anything, and you are limited, while God is unlimited. In the Hereafter, He has promised the believers the vision of Him — the greatest bliss of Paradise.</p>
+</article>
+
+<article class="section-card" id="s8">
+  <div class="section-num">8</div>
+  <h2>"Why does evil exist?"</h2>
+  <div class="ar-title">"لماذا الشر؟"</div>
+  <p>A fair question, with a logical answer:</p>
+  <p>If God had created humans <strong>forced</strong> to do good, they'd be like angels — no freedom, no choice, no test. Faith would be worthless. Patience would mean nothing. Justice would have no place.</p>
+  <p><strong>Freedom's price is the test.</strong> God gave you free will, made this world a test, and the Hereafter a place of reward. Whoever oppresses will face his outcome. Whoever is patient will receive his reward.</p>
+  <div class="highlight">"And We did not wrong them, but they were the wrongdoers."<span class="ref">— Quran 43:76</span></div>
+  <div class="analogy">
+    A surgeon may cut a patient to heal him — an apparent "harm," but really mercy. Many "evils" in your life you later understand were good for you.
+  </div>
+</article>
+
+<article class="section-card" id="s9">
+  <div class="section-num">9</div>
+  <h2>For every seeker of truth — this is your message</h2>
+  <div class="ar-title">رسالتك الأخيرة</div>
+  <p>If you've read all this with reflection, you now stand before a truth you may not have seen before:</p>
+  <ul class="logic-list">
+    <li>You were not created in vain.</li>
+    <li>This universe, with its precision, did not come by chance.</li>
+    <li>There is One Creator, magnificent, all-knowing, wise.</li>
+    <li>He wants you to know Him and worship Him alone.</li>
+  </ul>
+  <div class="question-box">
+    <h3>Now one question for you</h3>
+    <p>After all this evidence... are you ready to say:<br><strong>"There is no god but Allah, and Muhammad is His Messenger"</strong>?</p>
+  </div>
+  <p>You don't need priests, no intermediaries, no temple. Between you and God is supplication, without any mediator. Speak to Him with your tongue, anywhere, without anyone's permission.</p>
+  <p>This is <strong>Islam</strong> — surrender to God alone. True freedom from all servitudes.</p>
+</article>
+
+<div class="cta-god">
+  <a href="index.html#card-shahada" class="cta-god-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+    <span>I believe in One God — I want to embrace Islam</span>
+  </a>
+  <div class="cta-god-sub">آمنتُ بالله الواحد — أريد أن أُسلم</div>
+</div>
+
+<footer class="footer">
+  <div class="footer-dua">O Allah, show us the truth as truth and grant us to follow it</div>
+  <div class="footer-owner">Site owner: <strong>Mohamed Ouachemi</strong></div>
+</footer>
+
+</main>
+
+<div class="share-container"></div>
+
+<script src="share.js"></script>
+<script>
+(function(){
+  var s=localStorage.getItem('theme');
+  var d=window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme',s||(d?'dark':'light'));
+  document.getElementById('themeToggle').addEventListener('click',function(){
+    var c=document.documentElement.getAttribute('data-theme');
+    var n=c==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',n);
+    localStorage.setItem('theme',n);
+  });
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e,i){
+      if(e.isIntersecting){
+        setTimeout(function(){ e.target.classList.add('revealed'); }, i*100);
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:.1,rootMargin:'0px 0px -60px 0px'});
+  document.querySelectorAll('.section-card').forEach(function(c){ io.observe(c); });
+  document.querySelectorAll('.toc-list a').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
+</script>
+</body>
+</html>
