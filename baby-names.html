@@ -134,6 +134,7 @@
 <div class="share-container"></div>
 
 <script src="names-baby-data.js"></script>
+<script src="names-baby-add.js"></script>
 <script src="share.js"></script>
 <script>
 (function(){
@@ -147,7 +148,7 @@
     localStorage.setItem('theme',n);
   });
 
-  var ALL_NAMES = window.BABY_NAMES || [];
+  var ALL_NAMES = (window.BABY_NAMES || []).concat(window.BABY_NAMES_ADD || []);
   var LETTERS = window.ARABIC_LETTERS || [];
   var currentGender = 'all';
   var currentLetter = '';
