@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أول 40 يوم · First 40 Days</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&family=Reem+Kufi:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+.f40-hero{text-align:center;padding:3rem 1rem 2rem;position:relative;z-index:2}
+.f40-hero .arabesque{font-family:var(--f-q);font-size:2rem;color:var(--au500);opacity:.7;margin-bottom:.5rem}
+.f40-hero h1{font-family:var(--f-d);font-size:clamp(1.9rem,5.5vw,2.8rem);font-weight:700;background:linear-gradient(135deg,var(--g700),var(--au500));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+.f40-hero p{font-family:var(--f-l);font-size:.85rem;color:var(--i400);direction:ltr;letter-spacing:.05em}
+.f40-hero .subtitle-ar{font-family:var(--f-q);font-size:1.05rem;color:var(--i600);margin-top:1rem;line-height:1.9;max-width:640px;margin-left:auto;margin-right:auto}
+[data-theme="dark"] .f40-hero .subtitle-ar{color:var(--i400)}
+
+.progress-card{background:linear-gradient(160deg,var(--g800),var(--g900));border-radius:var(--r-xl);padding:clamp(1.5rem,4vw,2.5rem);margin-bottom:2rem;color:#fff;text-align:center;position:relative;overflow:hidden;box-shadow:var(--sh-lg);border:1px solid rgba(230,201,136,.15)}
+.progress-card::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='.6' opacity='.3'%3E%3Cpath d='M40 10 L70 40 L40 70 L10 40 Z'/%3E%3Ccircle cx='40' cy='40' r='20'/%3E%3C/g%3E%3C/svg%3E");opacity:.06}
+.progress-card>*{position:relative;z-index:1}
+.pc-title{font-family:var(--f-d);font-size:1.3rem;font-weight:700;color:#fff;margin-bottom:.3rem}
+.pc-sub{font-family:var(--f-l);font-size:.75rem;color:rgba(255,255,255,.5);letter-spacing:.15em;direction:ltr;margin-bottom:1.5rem}
+.pc-ring-wrap{position:relative;width:180px;height:180px;margin:0 auto 1.2rem}
+.pc-ring-wrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+.pc-ring-bg{fill:none;stroke:rgba(255,255,255,.08);stroke-width:10}
+.pc-ring-fill{fill:none;stroke:url(#ringGrad);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 1.2s var(--e);filter:drop-shadow(0 0 8px rgba(230,201,136,.6))}
+.pc-ring-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.pc-ring-num{font-family:var(--f-d);font-size:3rem;font-weight:700;line-height:1;background:linear-gradient(180deg,#fff,#e6c988);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;direction:ltr}
+.pc-ring-lbl{font-size:.85rem;color:rgba(255,255,255,.6);margin-top:.3rem}
+.pc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:1rem}
+.pc-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-m);padding:.9rem .5rem}
+.pc-stat .val{font-family:var(--f-d);font-size:1.3rem;font-weight:700;color:var(--au300);line-height:1;direction:ltr}
+.pc-stat .lbl{font-size:.7rem;color:rgba(255,255,255,.6);margin-top:.3rem}
+
+.days-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:.6rem;margin-bottom:2rem}
+.day-btn{aspect-ratio:1;border-radius:var(--r-m);background:var(--paper);border:2px solid var(--i200);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem;cursor:pointer;transition:all .3s var(--e);position:relative;overflow:hidden;padding:.5rem}
+[data-theme="dark"] .day-btn{background:rgba(24,34,27,.5);border-color:var(--i300)}
+.day-btn.locked{opacity:.4;cursor:not-allowed}
+.day-btn.locked::after{content:'🔒';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:1.4rem;background:rgba(13,40,24,.8);color:#fff;width:100%;height:100%;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
+.day-btn.completed{background:linear-gradient(135deg,var(--g500),var(--g700));border-color:var(--g600);color:#fff}
+.day-btn.completed .day-num{color:#fff}
+.day-btn.completed .day-icon{filter:drop-shadow(0 0 6px rgba(255,255,255,.5))}
+.day-btn.today{border-color:var(--au500);background:linear-gradient(135deg,var(--au200),var(--au400));box-shadow:0 8px 20px rgba(201,169,97,.3);animation:pulseDay 2s infinite}
+@keyframes pulseDay{0%,100%{box-shadow:0 8px 20px rgba(201,169,97,.3)}50%{box-shadow:0 8px 30px rgba(201,169,97,.6)}}
+.day-btn:hover:not(.locked){transform:translateY(-3px);box-shadow:var(--sh-md)}
+.day-btn .day-num{font-family:var(--f-l);font-size:.7rem;font-weight:700;color:var(--au600);direction:ltr}
+[data-theme="dark"] .day-btn .day-num{color:var(--au400)}
+.day-btn .day-icon{font-size:1.4rem;line-height:1}
+
+.day-panel{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-xl);padding:clamp(1.8rem,5vw,2.8rem);margin-bottom:2rem;box-shadow:var(--sh-lg);position:relative;overflow:hidden}
+[data-theme="dark"] .day-panel{border-color:rgba(82,183,136,.12)}
+.day-panel::before{content:'';position:absolute;top:-2px;left:15%;right:15%;height:2px;background:linear-gradient(90deg,transparent,var(--g400),var(--au400),var(--g400),transparent)}
+.dp-head{display:flex;align-items:center;gap:1rem;margin-bottom:.5rem}
+.dp-icon{font-size:2.5rem;line-height:1}
+.dp-day-num{font-family:var(--f-l);font-size:.75rem;color:var(--au600);letter-spacing:.15em;font-weight:700;direction:ltr}
+[data-theme="dark"] .dp-day-num{color:var(--au400)}
+.dp-title{font-family:var(--f-d);font-size:clamp(1.3rem,4vw,1.8rem);font-weight:700;color:var(--i900);line-height:1.3}
+
+.dp-section{margin-top:1.5rem;padding:1.3rem 1.5rem;border-radius:var(--r-m);background:var(--i100);border-right:3px solid var(--g500);transition:all .3s var(--e)}
+[data-theme="dark"] .dp-section{background:rgba(82,183,136,.05)}
+.dp-section.ayah{background:linear-gradient(135deg,var(--g50),rgba(201,169,97,.06));border-right-color:var(--au500)}
+[data-theme="dark"] .dp-section.ayah{background:rgba(82,183,136,.08)}
+.dp-section.hadith{border-right-color:var(--au500)}
+.dp-section.dua{border-right-color:var(--g600)}
+.dp-section.exercise{border-right-color:var(--g400)}
+.dp-section.challenge{background:linear-gradient(135deg,var(--au200),var(--au400));border-right-color:var(--g700)}
+[data-theme="dark"] .dp-section.challenge{background:linear-gradient(135deg,rgba(201,169,97,.25),rgba(201,169,97,.15))}
+.dp-section.reflection{border-right-color:var(--au600);background:var(--paper);border:1.5px dashed var(--au400);border-right-width:3px}
+.dp-label{font-family:var(--f-l);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--au600);margin-bottom:.6rem;font-weight:700;display:flex;align-items:center;gap:.4rem}
+[data-theme="dark"] .dp-label{color:var(--au400)}
+.dp-label .lbl-icon{font-size:1rem}
+.dp-text{font-size:1rem;color:var(--i800);line-height:1.9;font-family:var(--f-b)}
+[data-theme="dark"] .dp-text{color:var(--i700)}
+.dp-section.ayah .dp-text,.dp-section.hadith .dp-text{font-family:var(--f-q);font-size:1.15rem;line-height:2;color:var(--g800)}
+[data-theme="dark"] .dp-section.ayah .dp-text,[data-theme="dark"] .dp-section.hadith .dp-text{color:var(--g200)}
+.dp-ref{font-family:var(--f-l);font-size:.75rem;color:var(--au600);margin-top:.4rem;direction:ltr;text-align:right}
+[data-theme="dark"] .dp-ref{color:var(--au400)}
+
+.dp-actions{display:flex;gap:.7rem;margin-top:2rem;flex-wrap:wrap}
+.dp-btn{flex:1;min-width:140px;padding:1rem 1.3rem;border-radius:var(--r-pill);font-family:var(--f-b);font-size:.95rem;font-weight:700;cursor:pointer;transition:all .3s var(--e);border:none;display:inline-flex;align-items:center;justify-content:center;gap:.5rem}
+.dp-btn.primary{background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;box-shadow:0 12px 30px rgba(45,106,79,.3)}
+.dp-btn.primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(45,106,79,.4)}
+.dp-btn.primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.dp-btn.ghost{background:transparent;color:var(--i600);border:1.5px solid var(--i200)}
+[data-theme="dark"] .dp-btn.ghost{border-color:var(--i300);color:var(--i500)}
+.dp-btn.ghost:hover{border-color:var(--g400);color:var(--g700)}
+
+.journal-input{width:100%;padding:1rem;background:var(--paper);border:1.5px solid var(--i200);border-radius:var(--r-m);font-family:var(--f-b);font-size:.95rem;color:var(--i900);resize:vertical;min-height:80px;outline:none;transition:all .3s var(--e);margin-top:.5rem}
+[data-theme="dark"] .journal-input{background:rgba(24,34,27,.5);color:#fff;border-color:var(--i300)}
+.journal-input:focus{border-color:var(--g500);box-shadow:0 0 0 4px rgba(82,183,136,.15)}
+
+.nav-days{display:flex;gap:.5rem;justify-content:space-between;margin-top:1.5rem}
+.nav-btn{padding:.7rem 1.2rem;background:var(--i100);border:none;border-radius:var(--r-pill);font-family:var(--f-b);font-size:.85rem;font-weight:600;color:var(--i700);cursor:pointer;transition:all .3s var(--e)}
+[data-theme="dark"] .nav-btn{background:rgba(82,183,136,.08);color:var(--i500)}
+.nav-btn:hover:not(:disabled){background:var(--g100);color:var(--g800)}
+.nav-btn:disabled{opacity:.4;cursor:not-allowed}
+
+.f40-actions{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin:2rem 0}
+.action-btn{padding:.7rem 1.3rem;border:1.5px solid var(--i200);background:var(--paper);border-radius:var(--r-pill);color:var(--i700);font-family:var(--f-b);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .3s var(--e);display:inline-flex;align-items:center;gap:.5rem;text-decoration:none}
+[data-theme="dark"] .action-btn{background:rgba(24,34,27,.5);border-color:var(--i300);color:var(--i500)}
+.action-btn:hover{border-color:var(--g500);background:var(--g50);color:var(--g800)}
+[data-theme="dark"] .action-btn:hover{background:rgba(82,183,136,.15);color:var(--g300)}
+.action-btn.primary{background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;border-color:transparent}
+.action-btn.primary:hover{box-shadow:0 12px 28px rgba(45,106,79,.4);color:#fff}
+.action-btn.danger{border-color:rgba(229,115,115,.4);color:#c62828}
+
+.onboard-overlay{position:fixed;inset:0;background:rgba(13,40,24,.85);backdrop-filter:blur(12px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;visibility:hidden;transition:opacity .4s var(--e),visibility .4s;overflow-y:auto}
+.onboard-overlay.show{opacity:1;visibility:visible}
+.onboard-box{background:var(--cream);border-radius:var(--r-xl);padding:2rem;max-width:480px;width:100%;box-shadow:var(--sh-lg);transform:scale(.9);transition:transform .5s var(--eb);margin:auto}
+.onboard-overlay.show .onboard-box{transform:scale(1)}
+.onboard-box h2{font-family:var(--f-d);font-size:1.5rem;color:var(--i900);text-align:center;margin-bottom:.5rem}
+.onboard-box .sub{text-align:center;color:var(--i500);font-size:.9rem;margin-bottom:1.8rem;line-height:1.7}
+.onboard-box label{display:block;font-size:.82rem;font-weight:600;color:var(--i700);margin-bottom:.4rem;font-family:var(--f-l)}
+.onboard-box input{width:100%;padding:.9rem 1.1rem;background:var(--i100);border:1.5px solid transparent;border-radius:var(--r-s);font-family:var(--f-b);font-size:1rem;color:var(--i900);margin-bottom:1.1rem;outline:none;transition:all .3s var(--e)}
+.onboard-box input:focus{border-color:var(--g500);background:var(--paper);box-shadow:0 0 0 4px rgba(82,183,136,.15)}
+.onboard-box button{width:100%;padding:1rem;background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;border:none;border-radius:var(--r-pill);font-family:var(--f-b);font-size:1rem;font-weight:700;cursor:pointer;transition:all .3s var(--e);box-shadow:0 12px 30px rgba(45,106,79,.3)}
+.onboard-box button:hover{transform:translateY(-2px)}
+
+.cert-overlay{position:fixed;inset:0;background:rgba(13,40,24,.9);backdrop-filter:blur(12px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s;overflow-y:auto}
+.cert-overlay.show{opacity:1;visibility:visible}
+.cert-box{background:linear-gradient(135deg,#fdfcf7 0%,#f8f4e8 100%);border-radius:var(--r-l);padding:clamp(1.6rem,5vw,2.8rem) clamp(1.2rem,4vw,2.4rem);max-width:640px;width:100%;position:relative;box-shadow:0 32px 80px rgba(0,0,0,.5);transform:scale(.85);transition:transform .7s var(--eb);overflow:hidden;margin:auto;direction:rtl}
+.cert-overlay.show .cert-box{transform:scale(1)}
+.cert-box::before{content:'';position:absolute;inset:10px;border:1.5px solid var(--au500);border-radius:22px;pointer-events:none;opacity:.5}
+.cert-box::after{content:'';position:absolute;inset:16px;border:1px dashed var(--au400);border-radius:18px;pointer-events:none;opacity:.4}
+.cert-inner{position:relative;z-index:1;text-align:center;color:var(--i800)}
+.cert-orn{font-family:var(--f-q);color:var(--g700);font-size:1.5rem;opacity:.6;margin-bottom:.5rem}
+.cert-bis{font-family:var(--f-q);font-size:clamp(1.15rem,3.5vw,1.5rem);color:var(--g800);margin-bottom:1.5rem}
+.cert-head{font-family:var(--f-d);font-size:clamp(1.6rem,5vw,2.4rem);font-weight:700;color:var(--g800);margin-bottom:.3rem}
+.cert-head-en{font-family:var(--f-l);font-size:.85rem;color:var(--au600);letter-spacing:.25em;text-transform:uppercase;margin-bottom:1.8rem;direction:ltr}
+.cert-text{font-family:var(--f-q);font-size:1rem;color:var(--i700);line-height:2;margin-bottom:1rem;padding:0 1rem}
+.cert-name{font-family:var(--f-q);font-size:clamp(1.6rem,5.5vw,2.4rem);font-weight:700;color:var(--g800);padding:.8rem 1.5rem;margin:1.2rem auto;display:inline-block;border-bottom:2px solid var(--au500);border-top:2px solid var(--au500)}
+.cert-seal{width:110px;height:110px;margin:1.8rem auto 1rem;position:relative;display:flex;align-items:center;justify-content:center}
+.cert-seal svg{width:100%;height:100%;position:absolute;inset:0;animation:sealRot 40s linear infinite}
+@keyframes sealRot{to{transform:rotate(360deg)}}
+.cert-seal-t{position:relative;z-index:1;font-family:var(--f-d);font-weight:700;color:var(--g800);font-size:.85rem;text-align:center}
+.cert-seal-t .big{font-size:1.6rem;display:block;color:var(--au600)}
+.cert-meta{display:flex;justify-content:space-between;gap:1rem;margin-top:1.8rem;padding-top:1.5rem;border-top:1px dashed rgba(166,124,60,.35);font-size:.8rem;flex-wrap:wrap}
+.cert-mi{text-align:center;flex:1;min-width:110px}
+.cert-mi .lbl{font-family:var(--f-l);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--au600);margin-bottom:.25rem}
+.cert-mi .val{font-family:var(--f-d);font-size:.95rem;color:var(--i800);font-weight:600;direction:ltr}
+.cert-actions{display:flex;gap:.6rem;margin-top:1.5rem;flex-wrap:wrap}
+.cert-actions button{flex:1;min-width:140px;padding:.9rem 1.2rem;font-family:var(--f-b);font-size:.9rem;font-weight:600;border-radius:var(--r-pill);cursor:pointer;transition:all .3s var(--e);border:none}
+.cert-dl{background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff}
+.cert-dl:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(45,106,79,.4)}
+.cert-cl{background:transparent;color:var(--i500);border:1.5px solid var(--i200)!important}
+.cert-cl:hover{border-color:var(--i400)!important;color:var(--i700)}
+
+.toast-f40{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%) translateY(-150%);background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;padding:1rem 1.5rem;border-radius:var(--r-pill);box-shadow:0 20px 50px rgba(45,106,79,.5);z-index:10000;font-weight:700;font-family:var(--f-b);transition:transform .6s var(--eb);display:flex;align-items:center;gap:.7rem;max-width:90vw}
+.toast-f40.show{transform:translateX(-50%) translateY(0)}
+.toast-f40 .t-icon{font-size:1.5rem}
+
+@media(max-width:600px){
+  .pc-ring-wrap{width:150px;height:150px}
+  .pc-ring-num{font-size:2.4rem}
+  .days-grid{grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:.4rem}
+  .day-btn .day-icon{font-size:1.1rem}
+  .day-btn .day-num{font-size:.6rem}
+  .dp-head{flex-direction:column;text-align:center;gap:.5rem}
+}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <a href="index.html" style="text-decoration:none;padding:.6rem 1.1rem;background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-pill);color:var(--i800);font-family:var(--f-b);font-size:.85rem;font-weight:600;box-shadow:var(--sh-md)">🏠 الرئيسية</a>
+</div>
+<button class="theme-toggle" id="themeToggle">
+  <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+</button>
+
+<main class="container">
+
+<section class="f40-hero">
+  <div class="arabesque">❁ ✦ ❁</div>
+  <h1>أول 40 يوماً</h1>
+  <p>First 40 Days — A journey to build your new life</p>
+  <p class="subtitle-ar">برنامج يومي متدرّج: آية + حديث + دعاء + تمرين + تحدي — لتبني إيمانك خطوة بخطوة</p>
+</section>
+
+<div class="progress-card">
+  <div class="pc-title">تقدمك في الرحلة</div>
+  <div class="pc-sub">YOUR PROGRESS</div>
+  <div class="pc-ring-wrap">
+    <svg viewBox="0 0 100 100">
+      <defs>
+        <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#52b788"/>
+          <stop offset="100%" stop-color="#e6c988"/>
+        </linearGradient>
+      </defs>
+      <circle class="pc-ring-bg" cx="50" cy="50" r="42"/>
+      <circle class="pc-ring-fill" id="ringFill" cx="50" cy="50" r="42"/>
+    </svg>
+    <div class="pc-ring-text">
+      <div class="pc-ring-num" id="ringNum">0</div>
+      <div class="pc-ring-lbl">من 40 يوم</div>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="val" id="statCompleted">0</div><div class="lbl">أكملت</div></div>
+    <div class="pc-stat"><div class="val" id="statJournal">0</div><div class="lbl">تدوينات</div></div>
+    <div class="pc-stat"><div class="val" id="statStreak">0</div><div class="lbl">تتابع</div></div>
+  </div>
+</div>
+
+<div class="days-grid" id="daysGrid"></div>
+
+<div id="dayPanelWrap"></div>
+
+<div class="f40-actions">
+  <button class="action-btn primary" id="showCertBtn">🏆 شهادتي</button>
+  <button class="action-btn" id="exportF40Btn">💾 تصدير</button>
+  <label class="action-btn" for="importF40Input">📥 استيراد</label>
+  <input type="file" id="importF40Input" accept=".json" style="display:none">
+  <button class="action-btn danger" id="resetF40Btn">🗑️ حذف الكل</button>
+</div>
+
+<footer class="footer">
+  <div class="footer-dua">اللهم ثبّتنا على دينك حتى نلقاك</div>
+  <div class="footer-owner">صاحب الموقع: <strong>واشمي محمد</strong></div>
+</footer>
+
+</main>
+
+<div class="share-container"></div>
+
+<div class="onboard-overlay" id="onboardOverlay">
+  <div class="onboard-box">
+    <h2>مرحباً بك في رحلة 40 يوماً 🌟</h2>
+    <p class="sub">سجّل اسمك لتبدأ رحلتك — سيتحفظ تقدمك في متصفحك</p>
+    <label for="onboardName">اسمك</label>
+    <input type="text" id="onboardName" placeholder="مثال: محمد" maxlength="30">
+    <button id="onboardSave">ابدأ رحلتي ✨</button>
+  </div>
+</div>
+
+<div class="cert-overlay" id="certOverlay">
+  <div class="cert-box">
+    <div class="cert-inner">
+      <div class="cert-orn">❁ ❁ ❁</div>
+      <div class="cert-bis">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+      <h2 class="cert-head">شهادة إتمام 40 يوم</h2>
+      <div class="cert-head-en">40-Day Journey Certificate</div>
+      <p class="cert-text">تشهد هذه الشهادة بأن</p>
+      <div class="cert-name" id="certName">—</div>
+      <p class="cert-text">قد أكمل رحلة الأربعين يوماً بنجاح، والتزم ببرنامج الإيمان والتزكية، وبدأ صفحة جديدة في حياته مع الله.</p>
+      <div class="cert-seal">
+        <svg viewBox="0 0 100 100">
+          <defs><path id="cp" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"/></defs>
+          <circle cx="50" cy="50" r="48" fill="none" stroke="#c9a961" stroke-width="1.2"/>
+          <circle cx="50" cy="50" r="44" fill="none" stroke="#c9a961" stroke-width=".6"/>
+          <circle cx="50" cy="50" r="32" fill="none" stroke="#c9a961" stroke-width=".8"/>
+          <text font-family="Amiri, serif" font-size="7" fill="#a67c3c"><textPath href="#cp" startOffset="0%">✦ رحلة الأربعين يوماً ✦ Forty Days Journey ✦</textPath></text>
+        </svg>
+        <div class="cert-seal-t"><span class="big">ﷲ</span></div>
+      </div>
+      <div class="cert-meta">
+        <div class="cert-mi"><div class="lbl">DATE</div><div class="val" id="certDate">—</div></div>
+        <div class="cert-mi"><div class="lbl">CERT No.</div><div class="val" id="certNo">F40-000000</div></div>
+        <div class="cert-mi"><div class="lbl">STATUS</div><div class="val" id="certStatus">—</div></div>
+      </div>
+      <div class="cert-actions">
+        <button class="cert-dl" id="certDlBtn">📥 تحميل الشهادة PNG</button>
+        <button class="cert-cl" id="certClBtn">إغلاق</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-f40" id="toastF40">
+  <span class="t-icon" id="toastF40Icon">🎉</span>
+  <span id="toastF40Text">أحسنت!</span>
+</div>
+
+<script src="first40-data.js"></script>
+<script src="share.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  var STORAGE_KEY = 'first40_data_v1';
+
+  // Theme
+  var s = localStorage.getItem('theme');
+  var d = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', s || (d ? 'dark' : 'light'));
+  document.getElementById('themeToggle').addEventListener('click', function(){
+    var c = document.documentElement.getAttribute('data-theme');
+    var n = c === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', n);
+    localStorage.setItem('theme', n);
+  });
+
+  function loadData(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    }catch(e){ return null; }
+  }
+  function saveData(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }catch(e){} }
+
+  function todayKey(dd){
+    dd = dd || new Date();
+    return dd.getFullYear()+'-'+String(dd.getMonth()+1).padStart(2,'0')+'-'+String(dd.getDate()).padStart(2,'0');
+  }
+  function daysBetween(a,b){
+    return Math.floor((b-a)/(24*60*60*1000));
+  }
+
+  var data = loadData();
+  var DAYS = window.FIRST40_DAYS || [];
+  var currentDayView = 1;
+
+  // Onboarding
+  var onboardOverlay = document.getElementById('onboardOverlay');
+  if(!data){
+    onboardOverlay.classList.add('show');
+  }
+  document.getElementById('onboardSave').addEventListener('click', function(){
+    var name = document.getElementById('onboardName').value.trim();
+    if(!name){ alert('اكتب اسمك أولاً'); return; }
+    data = {
+      name: name,
+      startDate: todayKey(),
+      completedDays: [],
+      journals: {},
+      lastCompletedAt: null
+    };
+    saveData();
+    onboardOverlay.classList.remove('show');
+    renderAll();
+  });
+
+  // ===== Ring Progress =====
+  function updateRing(){
+    var completed = (data.completedDays || []).length;
+    var pct = completed / 40;
+    var circumference = 2 * Math.PI * 42;
+    var offset = circumference * (1 - pct);
+    var ringFill = document.getElementById('ringFill');
+    ringFill.style.strokeDasharray = circumference;
+    ringFill.style.strokeDashoffset = offset;
+    document.getElementById('ringNum').textContent = completed;
+  }
+
+  // ===== Days Grid =====
+  function renderDaysGrid(){
+    var grid = document.getElementById('daysGrid');
+    grid.innerHTML = '';
+    var completed = data.completedDays || [];
+    var maxUnlocked = completed.length + 1;
+    if(maxUnlocked > 40) maxUnlocked = 40;
+    var todayIdx = Math.max(1, Math.min(40, maxUnlocked));
+
+    DAYS.forEach(function(dayObj, idx){
+      var dayNum = idx + 1;
+      var isCompleted = completed.indexOf(dayNum) !== -1;
+      var isLocked = dayNum > maxUnlocked;
+      var isToday = dayNum === todayIdx && !isCompleted;
+
+      var btn = document.createElement('button');
+      btn.className = 'day-btn';
+      if(isCompleted) btn.classList.add('completed');
+      if(isLocked) btn.classList.add('locked');
+      if(isToday) btn.classList.add('today');
+      btn.innerHTML =
+        '<span class="day-num">DAY ' + dayNum + '</span>' +
+        '<span class="day-icon">' + dayObj.icon + '</span>';
+      if(!isLocked){
+        btn.addEventListener('click', function(){ showDay(dayNum); });
+      }
+      grid.appendChild(btn);
+    });
+  }
+
+  // ===== Show Day =====
+  function showDay(dayNum){
+    currentDayView = dayNum;
+    var dayObj = DAYS[dayNum - 1];
+    if(!dayObj) return;
+    var completed = (data.completedDays || []).indexOf(dayNum) !== -1;
+    var isLocked = dayNum > (data.completedDays || []).length + 1;
+    if(isLocked){
+      showToast('🔒', 'أكمل الأيام السابقة أولاً');
+      return;
+    }
+
+    var wrap = document.getElementById('dayPanelWrap');
+    var journalKey = 'day_' + dayNum;
+    var journalText = (data.journals || {})[journalKey] || '';
+
+    wrap.innerHTML =
+      '<div class="day-panel">' +
+        '<div class="dp-head">' +
+          '<div class="dp-icon">' + dayObj.icon + '</div>' +
+          '<div style="flex:1">' +
+            '<div class="dp-day-num">DAY ' + dayNum + ' / 40</div>' +
+            '<div class="dp-title">' + dayObj.title + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="dp-section ayah">' +
+          '<div class="dp-label"><span class="lbl-icon">📖</span> آية اليوم</div>' +
+          '<div class="dp-text">' + dayObj.ayah + '</div>' +
+          '<div class="dp-ref">' + dayObj.ayahRef + '</div>' +
+        '</div>' +
+        '<div class="dp-section hadith">' +
+          '<div class="dp-label"><span class="lbl-icon">📜</span> حديث اليوم</div>' +
+          '<div class="dp-text">«' + dayObj.hadith + '»</div>' +
+          '<div class="dp-ref">' + dayObj.hadithRef + '</div>' +
+        '</div>' +
+        '<div class="dp-section dua">' +
+          '<div class="dp-label"><span class="lbl-icon">🤲</span> دعاء اليوم</div>' +
+          '<div class="dp-text">' + dayObj.dua + '</div>' +
+        '</div>' +
+        '<div class="dp-section exercise">' +
+          '<div class="dp-label"><span class="lbl-icon">💭</span> تمرين روحي</div>' +
+          '<div class="dp-text">' + dayObj.exercise + '</div>' +
+        '</div>' +
+        '<div class="dp-section challenge">' +
+          '<div class="dp-label"><span class="lbl-icon">🎯</span> تحدي اليوم</div>' +
+          '<div class="dp-text">' + dayObj.challenge + '</div>' +
+        '</div>' +
+        '<div class="dp-section reflection">' +
+          '<div class="dp-label"><span class="lbl-icon">✍️</span> تأمل — اكتب ما في قلبك</div>' +
+          '<div style="font-size:.85rem;color:var(--i500);margin-bottom:.5rem">' + dayObj.reflection + '</div>' +
+          '<textarea class="journal-input" id="journalInput" placeholder="اكتب هنا...">' + escapeHtml(journalText) + '</textarea>' +
+        '</div>' +
+        '<div class="dp-actions">' +
+          (completed ?
+            '<button class="dp-btn primary" disabled>✓ أكملت هذا اليوم</button>' :
+            '<button class="dp-btn primary" id="completeDayBtn">✅ أكملت هذا اليوم</button>'
+          ) +
+          (dayNum > 1 ? '<button class="dp-btn ghost" id="prevDayBtn">← اليوم السابق</button>' : '') +
+          (dayNum < 40 ? '<button class="dp-btn ghost" id="nextDayBtn">اليوم التالي →</button>' : '') +
+        '</div>' +
+      '</div>';
+
+    // Save journal on typing
+    var journalInput = document.getElementById('journalInput');
+    if(journalInput){
+      journalInput.addEventListener('input', function(){
+        if(!data.journals) data.journals = {};
+        data.journals[journalKey] = this.value;
+        saveData();
+        updateJournalCount();
+      });
+    }
+
+    // Complete day button
+    var completeBtn = document.getElementById('completeDayBtn');
+    if(completeBtn){
+      completeBtn.addEventListener('click', function(){
+        if(!data.completedDays) data.completedDays = [];
+        if(data.completedDays.indexOf(dayNum) === -1){
+          data.completedDays.push(dayNum);
+          data.lastCompletedAt = new Date().toISOString();
+          saveData();
+          fireConfetti();
+          showToast('🎉', 'أحسنت! اليوم ' + dayNum + ' مكتمل');
+          renderAll();
+          setTimeout(function(){
+            if(dayNum < 40) showDay(dayNum + 1);
+          }, 1200);
+        }
+      });
+    }
+
+    // Nav buttons
+    var prevBtn = document.getElementById('prevDayBtn');
+    if(prevBtn) prevBtn.addEventListener('click', function(){ showDay(dayNum - 1); });
+    var nextBtn = document.getElementById('nextDayBtn');
+    if(nextBtn) nextBtn.addEventListener('click', function(){ showDay(dayNum + 1); });
+
+    wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; });
+  }
+
+  function updateJournalCount(){
+    var count = 0;
+    if(data.journals){
+      Object.keys(data.journals).forEach(function(k){
+        if(data.journals[k] && data.journals[k].trim().length > 0) count++;
+      });
+    }
+    document.getElementById('statJournal').textContent = count;
+  }
+
+  function calcStreak(){
+    if(!data.completedDays || !data.completedDays.length) return 0;
+    // Approximate: consecutive completed days
+    var sorted = data.completedDays.slice().sort(function(a,b){ return a - b; });
+    var streak = 1;
+    for(var i = sorted.length - 1; i > 0; i--){
+      if(sorted[i] - sorted[i-1] === 1) streak++;
+      else break;
+    }
+    return streak;
+  }
+
+  function renderAll(){
+    if(!data) return;
+    renderDaysGrid();
+    updateRing();
+    document.getElementById('statCompleted').textContent = (data.completedDays || []).length;
+    updateJournalCount();
+    document.getElementById('statStreak').textContent = calcStreak();
+    var nextDay = Math.min((data.completedDays || []).length + 1, 40);
+    showDay(nextDay);
+  }
+
+  // Toast
+  function showToast(icon, text){
+    var t = document.getElementById('toastF40');
+    document.getElementById('toastF40Icon').textContent = icon;
+    document.getElementById('toastF40Text').textContent = text;
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, 3200);
+  }
+
+  // Confetti
+  function fireConfetti(){
+    var canvas = document.getElementById('confetti-canvas');
+    if(!canvas){
+      canvas = document.createElement('canvas');
+      canvas.id = 'confetti-canvas';
+      document.body.appendChild(canvas);
+    }
+    var ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9999';
+    var colors = ['#52b788','#c9a961','#74c69d','#fff','#40916c','#e6c988','#d8f3dc'];
+    var parts = [];
+    for(var i=0;i<160;i++){
+      parts.push({
+        x: Math.random()*canvas.width, y: -20-Math.random()*300,
+        w: 6+Math.random()*10, h: 8+Math.random()*12,
+        vx: (Math.random()-.5)*4, vy: 2+Math.random()*5,
+        rot: Math.random()*Math.PI*2, vrot: (Math.random()-.5)*.25,
+        color: colors[Math.floor(Math.random()*colors.length)],
+        shape: Math.random()>.6?'circle':'rect', op: .85+Math.random()*.15
+      });
+    }
+    var frame = 0;
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      parts.forEach(function(p){
+        p.x += p.vx; p.y += p.vy; p.vy += .09; p.vx *= .995; p.rot += p.vrot;
+        ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+        ctx.globalAlpha = p.op; ctx.fillStyle = p.color;
+        if(p.shape==='circle'){ctx.beginPath();ctx.arc(0,0,p.w/2,0,Math.PI*2);ctx.fill();}
+        else{ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);}
+        ctx.restore();
+      });
+      frame++;
+      if(frame<340) requestAnimationFrame(draw);
+      else ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+    draw();
+  }
+
+  // Certificate
+  document.getElementById('showCertBtn').addEventListener('click', function(){
+    var completed = (data.completedDays || []).length;
+    var certName = document.getElementById('certName');
+    var certDate = document.getElementById('certDate');
+    var certNo = document.getElementById('certNo');
+    var certStatus = document.getElementById('certStatus');
+    certName.textContent = data.name || '—';
+    var now = new Date();
+    certDate.textContent = now.toLocaleDateString('en-GB', { year:'numeric', month:'short', day:'numeric' });
+    certNo.textContent = 'F40-' + now.getFullYear() + '-' + Math.floor(100000 + Math.random()*900000);
+    certStatus.textContent = completed + ' / 40';
+    document.getElementById('certOverlay').classList.add('show');
+    fireConfetti();
+  });
+  document.getElementById('certClBtn').addEventListener('click', function(){
+    document.getElementById('certOverlay').classList.remove('show');
+  });
+  document.getElementById('certOverlay').addEventListener('click', function(e){
+    if(e.target === this) this.classList.remove('show');
+  });
+  document.getElementById('certDlBtn').addEventListener('click', async function(){
+    var btn = this;
+    var orig = btn.textContent;
+    btn.textContent = '⏳ جاري التحميل...';
+    btn.disabled = true;
+    try{
+      var box = document.querySelector('.cert-box');
+      var canvas = await html2canvas(box, { backgroundColor:null, scale:2, useCORS:true });
+      var link = document.createElement('a');
+      link.download = 'first40-certificate.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }catch(e){ alert('تعذّر التحميل'); }
+    btn.textContent = orig;
+    btn.disabled = false;
+  });
+
+  // Export / Import / Reset
+  document.getElementById('exportF40Btn').addEventListener('click', function(){
+    var blob = new Blob([JSON.stringify(data,null,2)], { type:'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'first40-' + todayKey() + '.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+  document.getElementById('importF40Input').addEventListener('change', function(e){
+    var file = e.target.files[0];
+    if(!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev){
+      try{
+        var imported = JSON.parse(ev.target.result);
+        if(!imported.completedDays) throw new Error('bad');
+        if(confirm('استبدال بياناتك الحالية؟')){
+          data = imported;
+          if(!data.journals) data.journals = {};
+          saveData();
+          renderAll();
+        }
+      }catch(err){ alert('ملف غير صالح'); }
+    };
+    reader.readAsText(file);
+  });
+  document.getElementById('resetF40Btn').addEventListener('click', function(){
+    if(!confirm('حذف كل تقدمك؟ لا يمكن التراجع.')) return;
+    if(!confirm('تأكيد أخير؟')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  });
+
+  // Init
+  if(data) renderAll();
+
+})();
+</script>
+</body>
+</html>
