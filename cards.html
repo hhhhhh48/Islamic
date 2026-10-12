@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بطاقات النور · Islamic Cards</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&family=Reem+Kufi:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+.cards-hero{text-align:center;padding:3rem 1rem 2rem;position:relative;z-index:2}
+.cards-hero .arabesque{font-family:var(--f-q);font-size:2rem;color:var(--au500);opacity:.7;margin-bottom:.5rem}
+.cards-hero h1{font-family:var(--f-d);font-size:clamp(1.9rem,5.5vw,2.8rem);font-weight:700;background:linear-gradient(135deg,var(--g700),var(--au500));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+.cards-hero p{font-family:var(--f-l);font-size:.85rem;color:var(--i400);direction:ltr;letter-spacing:.05em}
+.cards-hero .subtitle-ar{font-family:var(--f-q);font-size:1.05rem;color:var(--i600);margin-top:1rem;line-height:1.9;max-width:640px;margin-left:auto;margin-right:auto}
+[data-theme="dark"] .cards-hero .subtitle-ar{color:var(--i400)}
+
+.tabs-row{display:flex;gap:.4rem;padding:.5rem;background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-pill);margin-bottom:1.5rem;box-shadow:var(--sh-md);overflow-x:auto;scrollbar-width:none}
+.tabs-row::-webkit-scrollbar{display:none}
+[data-theme="dark"] .tabs-row{border-color:rgba(82,183,136,.15)}
+.tab-btn{flex-shrink:0;padding:.7rem 1.1rem;background:transparent;border:none;border-radius:var(--r-pill);font-family:var(--f-b);font-size:.88rem;font-weight:700;color:var(--i500);cursor:pointer;transition:all .3s var(--e);display:flex;align-items:center;gap:.4rem;white-space:nowrap}
+.tab-btn.active{background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;box-shadow:0 8px 20px rgba(45,106,79,.25)}
+.tab-btn:not(.active):hover{background:var(--g50);color:var(--g700)}
+[data-theme="dark"] .tab-btn:not(.active):hover{background:rgba(82,183,136,.1);color:var(--g300)}
+
+.config-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-bottom:1.5rem}
+.config-box{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-m);padding:1.2rem;box-shadow:var(--sh-sm)}
+[data-theme="dark"] .config-box{border-color:rgba(82,183,136,.12)}
+.config-box h4{font-family:var(--f-d);font-size:.95rem;color:var(--g700);margin-bottom:.8rem;font-weight:600;display:flex;align-items:center;gap:.4rem}
+[data-theme="dark"] .config-box h4{color:var(--g400)}
+.config-select{width:100%;padding:.7rem 1rem;background:var(--i100);border:1.5px solid transparent;border-radius:var(--r-s);font-family:var(--f-b);font-size:.9rem;color:var(--i900);outline:none;cursor:pointer;transition:all .3s var(--e)}
+[data-theme="dark"] .config-select{background:rgba(24,34,27,.5);color:#fff}
+.config-select:focus{border-color:var(--g500)}
+
+.quote-input{width:100%;padding:.9rem 1.1rem;background:var(--i100);border:1.5px solid transparent;border-radius:var(--r-m);font-family:var(--f-q);font-size:1.05rem;color:var(--i900);resize:vertical;min-height:110px;outline:none;transition:all .3s var(--e);line-height:1.9;text-align:center}
+[data-theme="dark"] .quote-input{background:rgba(24,34,27,.5);color:#fff}
+.quote-input:focus{border-color:var(--g500);background:var(--paper);box-shadow:0 0 0 4px rgba(82,183,136,.15)}
+.author-input{width:100%;padding:.7rem 1rem;background:var(--i100);border:1.5px solid transparent;border-radius:var(--r-s);font-family:var(--f-b);font-size:.9rem;color:var(--i900);outline:none;margin-top:.5rem;transition:all .3s var(--e);text-align:center}
+[data-theme="dark"] .quote-input{background:rgba(24,34,27,.5);color:#fff}
+.author-input:focus{border-color:var(--g500);background:var(--paper)}
+
+.quick-quotes{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+.quick-q{padding:.4rem .8rem;background:var(--g50);border:1px solid var(--g200);border-radius:var(--r-pill);font-size:.75rem;color:var(--g700);cursor:pointer;transition:all .3s var(--e);font-family:var(--f-b)}
+[data-theme="dark"] .quick-q{background:rgba(82,183,136,.1);border-color:rgba(82,183,136,.25);color:var(--g300)}
+.quick-q:hover{background:var(--g100);transform:translateY(-1px)}
+
+/* Preview Area */
+.preview-wrap{background:var(--i100);border-radius:var(--r-l);padding:1.5rem;margin-bottom:1.5rem;display:flex;justify-content:center;align-items:center;min-height:420px;overflow:hidden}
+[data-theme="dark"] .preview-wrap{background:rgba(24,34,27,.5)}
+#cardPreview{width:100%;max-width:400px;aspect-ratio:1/1;border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;text-align:center;position:relative;overflow:hidden;box-shadow:0 20px 50px rgba(13,40,24,.25);transition:all .4s var(--e)}
+#cardPreview::before{content:'';position:absolute;inset:12px;border:1px solid rgba(255,255,255,.25);border-radius:18px;pointer-events:none}
+#cardPreview::after{content:'';position:absolute;inset:18px;border:1px dashed rgba(255,255,255,.15);border-radius:14px;pointer-events:none}
+
+.card-ornament{font-family:var(--f-q);font-size:1.1rem;opacity:.6;margin-bottom:.8rem;position:relative;z-index:1}
+.card-bismillah{font-family:var(--f-q);font-size:1.3rem;color:#fff;opacity:.85;margin-bottom:1.2rem;position:relative;z-index:1}
+.card-quote{font-family:var(--f-q);font-size:1.4rem;line-height:2;color:#fff;font-weight:400;position:relative;z-index:1;padding:0 .5rem;text-shadow:0 2px 12px rgba(0,0,0,.15);word-wrap:break-word}
+.card-author{font-family:var(--f-d);font-size:.9rem;color:rgba(255,255,255,.85);margin-top:1.2rem;position:relative;z-index:1;padding:.3rem 1rem;border-top:1px solid rgba(255,255,255,.3);border-bottom:1px solid rgba(255,255,255,.3)}
+.card-footer{position:absolute;bottom:1.2rem;left:0;right:0;text-align:center;font-family:var(--f-l);font-size:.7rem;color:rgba(255,255,255,.6);letter-spacing:.1em;z-index:1}
+
+/* Background Themes */
+#cardPreview[data-bg="emerald"]{background:linear-gradient(160deg,#1b4332 0%,#2d6a4f 50%,#0d2818 100%)}
+#cardPreview[data-bg="gold"]{background:linear-gradient(160deg,#4a3a1a 0%,#a67c3c 50%,#3d2f12 100%)}
+#cardPreview[data-bg="night"]{background:linear-gradient(160deg,#0a1229 0%,#1e3a5f 50%,#050a18 100%)}
+#cardPreview[data-bg="rose"]{background:linear-gradient(160deg,#4a1d2e 0%,#8a3a54 50%,#2d0f1a 100%)}
+#cardPreview[data-bg="pure"]{background:linear-gradient(160deg,#fafaf7 0%,#f0ede3 100%)}
+#cardPreview[data-bg="pure"] .card-quote,#cardPreview[data-bg="pure"] .card-bismillah,#cardPreview[data-bg="pure"] .card-author{color:#0d2818}
+#cardPreview[data-bg="pure"] .card-ornament{color:#a67c3c}
+#cardPreview[data-bg="pure"] .card-footer{color:#5a6b62}
+#cardPreview[data-bg="pure"]::before{border-color:rgba(45,106,79,.3)}
+#cardPreview[data-bg="pure"]::after{border-color:rgba(166,124,60,.2)}
+#cardPreview[data-bg="pure"] .card-author{border-color:rgba(166,124,60,.4)}
+
+/* Sizes */
+#cardPreview[data-size="square"]{aspect-ratio:1/1}
+#cardPreview[data-size="story"]{aspect-ratio:9/16;max-width:280px}
+#cardPreview[data-size="post"]{aspect-ratio:4/5;max-width:340px}
+
+.actions-cards{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin:1.5rem 0}
+.act-btn{padding:.85rem 1.5rem;border:none;border-radius:var(--r-pill);font-family:var(--f-b);font-size:.9rem;font-weight:700;cursor:pointer;transition:all .3s var(--e);display:inline-flex;align-items:center;gap:.5rem}
+.act-btn.primary{background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;box-shadow:0 12px 28px rgba(45,106,79,.35)}
+.act-btn.primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(45,106,79,.5)}
+.act-btn.ghost{background:var(--paper);color:var(--i700);border:1.5px solid var(--i200)}
+[data-theme="dark"] .act-btn.ghost{background:rgba(24,34,27,.5);border-color:var(--i300);color:var(--i500)}
+.act-btn.ghost:hover{border-color:var(--g400);color:var(--g700)}
+.act-btn svg{width:16px;height:16px}
+
+.toast-card{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%) translateY(-150%);background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;padding:1rem 1.5rem;border-radius:var(--r-pill);box-shadow:0 20px 50px rgba(45,106,79,.5);z-index:10000;font-weight:700;font-family:var(--f-b);transition:transform .6s var(--eb);display:flex;align-items:center;gap:.7rem}
+.toast-card.show{transform:translateX(-50%) translateY(0)}
+
+@media(max-width:600px){
+  .preview-wrap{padding:1rem;min-height:360px}
+  #cardPreview{max-width:100%}
+  .card-quote{font-size:1.2rem}
+}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <a href="index.html" style="text-decoration:none;padding:.6rem 1.1rem;background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-pill);color:var(--i800);font-family:var(--f-b);font-size:.85rem;font-weight:600;box-shadow:var(--sh-md)">🏠 الرئيسية</a>
+</div>
+<button class="theme-toggle" id="themeToggle">
+  <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+</button>
+
+<main class="container">
+
+<section class="cards-hero">
+  <div class="arabesque">❁ ✦ ❁</div>
+  <h1>بطاقات النور</h1>
+  <p>Islamic Cards — Design your shareable quote</p>
+  <p class="subtitle-ar">صمّم بطاقة جميلة بآية أو حديث أو دعاء — وشاركها على وسائل التواصل بضغطة زر</p>
+</section>
+
+<div class="tabs-row">
+  <button class="tab-btn active" data-preset="quran">📖 آيات</button>
+  <button class="tab-btn" data-preset="hadith">📜 أحاديث</button>
+  <button class="tab-btn" data-preset="dua">🤲 أدعية</button>
+  <button class="tab-btn" data-preset="wisdom">💡 حكم</button>
+  <button class="tab-btn" data-preset="custom">✍️ مخصص</button>
+</div>
+
+<div class="config-grid">
+  <div class="config-box">
+    <h4>🎨 لون البطاقة</h4>
+    <select class="config-select" id="bgSelect">
+      <option value="emerald">🌿 زمردي (أخضر)</option>
+      <option value="gold">✨ ذهبي</option>
+      <option value="night">🌙 ليلي</option>
+      <option value="rose">🌸 وردي</option>
+      <option value="pure">🤍 أبيض نقي</option>
+    </select>
+  </div>
+  <div class="config-box">
+    <h4>📐 المقاس</h4>
+    <select class="config-select" id="sizeSelect">
+      <option value="square">⬛ مربع (Instagram Post)</option>
+      <option value="story">📱 قصة (WhatsApp/Instagram Story)</option>
+      <option value="post">🖼️ 4:5 (Facebook Post)</option>
+    </select>
+  </div>
+</div>
+
+<div class="config-box" style="margin-bottom:1.5rem">
+  <h4>✏️ نص البطاقة</h4>
+  <textarea class="quote-input" id="quoteInput" placeholder="اكتب الآية أو الحديث أو الدعاء هنا...">﴿ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ ﴾</textarea>
+  <input type="text" class="author-input" id="authorInput" placeholder="المصدر (اختياري)" value="الرعد: 28">
+  <div class="quick-quotes" id="quickQuotes"></div>
+</div>
+
+<div class="preview-wrap">
+  <div id="cardPreview" data-bg="emerald" data-size="square">
+    <div class="card-ornament">❁ ❁ ❁</div>
+    <div class="card-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    <div class="card-quote" id="previewQuote">﴿ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ ﴾</div>
+    <div class="card-author" id="previewAuthor">الرعد: 28</div>
+    <div class="card-footer">islamic-sxqp.onrender.com</div>
+  </div>
+</div>
+
+<div class="actions-cards">
+  <button class="act-btn primary" id="downloadBtn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+    📥 تحميل الصورة
+  </button>
+  <button class="act-btn ghost" id="copyTextBtn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+    📋 نسخ النص
+  </button>
+  <button class="act-btn ghost" id="shareWhatsBtn">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    WhatsApp
+  </button>
+</div>
+
+<footer class="footer">
+  <div class="footer-dua">اللهم اجعلنا من الذاكرين الشاكرين</div>
+  <div class="footer-owner">صاحب الموقع: <strong>واشمي محمد</strong></div>
+</footer>
+
+</main>
+
+<div class="share-container"></div>
+
+<div class="toast-card" id="toastCard">
+  <span id="toastCardIcon">✅</span>
+  <span id="toastCardText">تم!</span>
+</div>
+
+<script src="share.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  var s = localStorage.getItem('theme');
+  var d = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', s || (d ? 'dark' : 'light'));
+  document.getElementById('themeToggle').addEventListener('click', function(){
+    var c = document.documentElement.getAttribute('data-theme');
+    var n = c === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', n);
+    localStorage.setItem('theme', n);
+  });
+
+  // ===== Presets =====
+  var PRESETS = {
+    quran: [
+      {q:'﴿ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ ﴾', a:'الرعد: 28'},
+      {q:'﴿ وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ ﴾', a:'الطلاق: 3'},
+      {q:'﴿ إِنَّ مَعَ الْعُسْرِ يُسْرًا ﴾', a:'الشرح: 6'},
+      {q:'﴿ وَعَسَىٰ أَن تَكْرَهُوا شَيْئًا وَهُوَ خَيْرٌ لَّكُمْ ﴾', a:'البقرة: 216'},
+      {q:'﴿ فَاذْكُرُونِي أَذْكُرْكُمْ ﴾', a:'البقرة: 152'},
+      {q:'﴿ إِنَّ اللَّهَ مَعَ الصَّابِرِينَ ﴾', a:'البقرة: 153'}
+    ],
+    hadith: [
+      {q:'«إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ»', a:'صحيح البخاري'},
+      {q:'«الدِّينُ النَّصِيحَةُ»', a:'صحيح مسلم'},
+      {q:'«مَنْ لَا يَرْحَمُ النَّاسَ لَا يَرْحَمُهُ اللَّهُ»', a:'صحيح البخاري'},
+      {q:'«تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ»', a:'رواه الترمذي'},
+      {q:'«الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ»', a:'صحيح البخاري'}
+    ],
+    dua: [
+      {q:'اللَّهُمَّ أَعِنِّي عَلَىٰ ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ', a:'دعاء نبوي'},
+      {q:'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً', a:'البقرة: 201'},
+      {q:'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَىٰ وَالتُّقَىٰ وَالْعَفَافَ وَالْغِنَىٰ', a:'صحيح مسلم'},
+      {q:'حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ', a:'آل عمران: 173'}
+    ],
+    wisdom: [
+      {q:'الصَّبْرُ مِفْتَاحُ الْفَرَجِ', a:'حكمة'},
+      {q:'مَنْ صَبَرَ ظَفِرَ', a:'حكمة عربية'},
+      {q:'اعْمَلْ لِدُنْيَاكَ كَأَنَّكَ تَعِيشُ أَبَدًا، وَاعْمَلْ لِآخِرَتِكَ كَأَنَّكَ تَمُوتُ غَدًا', a:'حكمة'},
+      {q:'لَا تَحْزَنْ إِنَّ اللَّهَ مَعَنَا', a:'من القرآن'}
+    ]
+  };
+
+  var quoteInput = document.getElementById('quoteInput');
+  var authorInput = document.getElementById('authorInput');
+  var previewQuote = document.getElementById('previewQuote');
+  var previewAuthor = document.getElementById('previewAuthor');
+  var cardPreview = document.getElementById('cardPreview');
+  var quickQuotes = document.getElementById('quickQuotes');
+  var currentPreset = 'quran';
+
+  function renderQuickQuotes(){
+    var list = PRESETS[currentPreset] || [];
+    quickQuotes.innerHTML = '';
+    list.forEach(function(item){
+      var btn = document.createElement('button');
+      btn.className = 'quick-q';
+      var short = item.q.length > 32 ? item.q.substring(0, 32) + '...' : item.q;
+      btn.textContent = short;
+      btn.addEventListener('click', function(){
+        quoteInput.value = item.q;
+        authorInput.value = item.a;
+        updatePreview();
+      });
+      quickQuotes.appendChild(btn);
+    });
+    if(currentPreset === 'custom'){
+      quickQuotes.innerHTML = '<div style="font-size:.8rem;color:var(--i400);padding:.4rem">✍️ اكتب نصك في الأعلى</div>';
+    }
+  }
+
+  function updatePreview(){
+    previewQuote.textContent = quoteInput.value || 'اكتب نصك...';
+    previewAuthor.textContent = authorInput.value || '';
+    previewAuthor.style.display = authorInput.value ? '' : 'none';
+  }
+
+  // Tabs
+  document.querySelectorAll('.tab-btn').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.tab-btn').forEach(function(t){ t.classList.remove('active'); });
+      this.classList.add('active');
+      currentPreset = this.getAttribute('data-preset');
+      renderQuickQuotes();
+    });
+  });
+
+  // Background & Size
+  document.getElementById('bgSelect').addEventListener('change', function(){
+    cardPreview.setAttribute('data-bg', this.value);
+  });
+  document.getElementById('sizeSelect').addEventListener('change', function(){
+    cardPreview.setAttribute('data-size', this.value);
+  });
+
+  quoteInput.addEventListener('input', updatePreview);
+  authorInput.addEventListener('input', updatePreview);
+
+  // Download
+  document.getElementById('downloadBtn').addEventListener('click', async function(){
+    var btn = this;
+    var orig = btn.innerHTML;
+    btn.innerHTML = '⏳ جاري الإنشاء...';
+    btn.disabled = true;
+    try {
+      var canvas = await html2canvas(cardPreview, { backgroundColor:null, scale:3, useCORS:true });
+      var link = document.createElement('a');
+      link.download = 'islamic-card-' + Date.now() + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      showToast('✅', 'تم تحميل البطاقة');
+    } catch(e) {
+      showToast('⚠️', 'تعذّر إنشاء الصورة');
+    }
+    btn.innerHTML = orig;
+    btn.disabled = false;
+  });
+
+  // Copy text
+  document.getElementById('copyTextBtn').addEventListener('click', function(){
+    var text = quoteInput.value + '\n\n' + (authorInput.value || '');
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(text).then(function(){
+        showToast('📋', 'تم نسخ النص');
+      });
+    } else {
+      alert(text);
+    }
+  });
+
+  // Share WhatsApp
+  document.getElementById('shareWhatsBtn').addEventListener('click', function(){
+    var text = encodeURIComponent(quoteInput.value + '\n\n' + (authorInput.value || '') + '\n\nislamic-sxqp.onrender.com');
+    window.open('https://wa.me/?text=' + text, '_blank');
+  });
+
+  function showToast(icon, text){
+    var t = document.getElementById('toastCard');
+    document.getElementById('toastCardIcon').textContent = icon;
+    document.getElementById('toastCardText').textContent = text;
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, 2500);
+  }
+
+  renderQuickQuotes();
+  updatePreview();
+
+})();
+</script>
+</body>
+</html>
