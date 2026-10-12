@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تعريف الله · Does God Exist?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Reem+Kufi:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.god-hero{text-align:center;padding:4rem 1rem 3rem;position:relative;z-index:2;background:radial-gradient(circle at center, rgba(82,183,136,.10) 0%, transparent 70%);border-radius:var(--r-xl);margin-bottom:2rem}
+.god-hero .arabesque{font-family:var(--f-q);font-size:2.5rem;color:var(--au500);opacity:.7;margin-bottom:1.2rem}
+.god-hero h1{font-family:var(--f-d);font-size:clamp(2rem,6vw,3.2rem);font-weight:700;background:linear-gradient(135deg,var(--g700),var(--au500));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:1rem;line-height:1.3}
+.god-hero .en-sub{font-family:var(--f-l);font-size:.85rem;color:var(--i400);letter-spacing:.15em;text-transform:uppercase;direction:ltr;margin-bottom:1.5rem}
+.god-hero .verse{font-family:var(--f-q);font-size:clamp(1.1rem,3vw,1.4rem);color:var(--g800);line-height:2;max-width:700px;margin:0 auto;padding:1.5rem;background:var(--g50);border-radius:var(--r-m);border-right:4px solid var(--g500)}
+[data-theme="dark"] .god-hero .verse{background:rgba(82,183,136,.08);color:var(--g200)}
+
+.toc{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-l);padding:1.5rem 1.8rem;margin-bottom:2rem;box-shadow:var(--sh-md);position:relative;z-index:2}
+[data-theme="dark"] .toc{border-color:rgba(82,183,136,.15)}
+.toc-title{font-family:var(--f-d);font-size:1rem;color:var(--g700);margin-bottom:1rem;font-weight:600;display:flex;align-items:center;gap:.5rem}
+[data-theme="dark"] .toc-title{color:var(--g400)}
+.toc-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.5rem}
+.toc-list a{color:var(--i600);text-decoration:none;font-size:.88rem;padding:.5rem .8rem;border-radius:var(--r-s);transition:all .3s var(--e);display:flex;align-items:center;gap:.5rem}
+.toc-list a:hover{background:var(--g50);color:var(--g700);transform:translateX(-4px)}
+[data-theme="dark"] .toc-list a:hover{background:rgba(82,183,136,.1);color:var(--g300)}
+
+.section-card{background:var(--paper);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.6);border-radius:var(--r-xl);padding:clamp(1.8rem,5vw,3rem);box-shadow:var(--sh-lg);margin-bottom:2rem;position:relative;overflow:hidden;opacity:0;transform:translateY(40px);transition:all .9s var(--e);isolation:isolate;scroll-margin-top:80px}
+[data-theme="dark"] .section-card{border-color:rgba(82,183,136,.12)}
+.section-card.revealed{opacity:1;transform:translateY(0)}
+.section-card::before{content:'';position:absolute;top:-2px;left:15%;right:15%;height:2px;background:linear-gradient(90deg,transparent,var(--g400),var(--au400),var(--g400),transparent);opacity:.6}
+.section-num{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,var(--g500),var(--g700));color:#fff;font-family:var(--f-d);font-size:1.4rem;font-weight:700;margin-bottom:1.2rem;box-shadow:0 8px 20px rgba(45,106,79,.28)}
+.section-card h2{font-family:var(--f-d);font-size:clamp(1.4rem,4vw,1.9rem);font-weight:700;color:var(--i900);margin-bottom:.4rem;line-height:1.3}
+.section-card .en-title{font-family:var(--f-l);font-size:.8rem;color:var(--i400);letter-spacing:.1em;text-transform:uppercase;direction:ltr;margin-bottom:1.5rem}
+.section-card p{font-size:1.02rem;color:var(--i700);line-height:1.95;margin-bottom:1.2rem}
+.section-card p strong{color:var(--g700);font-weight:700}
+[data-theme="dark"] .section-card p strong{color:var(--g300)}
+.section-card .highlight{display:block;background:linear-gradient(135deg,var(--g50),rgba(201,169,97,.06));border-right:4px solid var(--au500);border-radius:var(--r-m);padding:1.3rem 1.5rem 1.3rem 1.8rem;margin:1.5rem 0;font-family:var(--f-q);font-size:1.15rem;line-height:2;color:var(--g800);font-weight:400}
+[data-theme="dark"] .section-card .highlight{background:rgba(82,183,136,.08);color:var(--g200)}
+.section-card .highlight .ref{display:block;font-family:var(--f-l);font-size:.75rem;color:var(--au600);margin-top:.5rem;direction:ltr;text-align:right;letter-spacing:.05em}
+
+.logic-list{list-style:none;padding:0;margin:1.5rem 0}
+.logic-list li{display:flex;gap:1rem;padding:1rem 1.2rem;background:var(--i100);border-radius:var(--r-m);margin-bottom:.7rem;font-size:.98rem;line-height:1.8;color:var(--i700);border-right:3px solid var(--g400);transition:all .3s var(--e)}
+[data-theme="dark"] .logic-list li{background:rgba(82,183,136,.05);color:var(--i500);border-right-color:var(--g500)}
+.logic-list li:hover{transform:translateX(-4px);border-right-color:var(--au500)}
+.logic-list li::before{content:'✦';color:var(--au500);font-size:1rem;flex-shrink:0;font-weight:700}
+
+.question-box{background:linear-gradient(135deg,var(--au200),var(--au400));border-radius:var(--r-l);padding:clamp(1.8rem,5vw,2.5rem);margin:2rem 0;text-align:center;color:var(--g900);position:relative;overflow:hidden}
+[data-theme="dark"] .question-box{background:linear-gradient(135deg,rgba(201,169,97,.25),rgba(201,169,97,.15));color:var(--g100)}
+.question-box::before{content:'"';position:absolute;top:-20px;right:20px;font-family:var(--f-q);font-size:8rem;opacity:.15;line-height:1}
+.question-box h3{font-family:var(--f-d);font-size:clamp(1.2rem,3.5vw,1.6rem);font-weight:700;margin-bottom:1rem;line-height:1.4;position:relative}
+.question-box p{font-family:var(--f-q);font-size:clamp(1rem,2.8vw,1.15rem);line-height:1.9;opacity:.95;position:relative}
+
+.qa-block{background:var(--paper);border:1.5px solid var(--i200);border-radius:var(--r-m);padding:1.5rem 1.6rem;margin-bottom:1rem;transition:all .3s var(--e)}
+[data-theme="dark"] .qa-block{background:var(--i100);border-color:var(--i300)}
+.qa-block:hover{border-color:var(--g400);box-shadow:var(--sh-sm)}
+.qa-block .q{font-family:var(--f-d);font-size:1.05rem;font-weight:600;color:var(--g800);margin-bottom:.9rem;display:flex;gap:.7rem;align-items:flex-start;line-height:1.5}
+[data-theme="dark"] .qa-block .q{color:var(--g300)}
+.qa-block .q::before{content:'؟';flex-shrink:0;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--au400),var(--au500));color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700}
+.qa-block .a{font-size:.98rem;color:var(--i700);line-height:1.9;padding-right:2.7rem;position:relative}
+[data-theme="dark"] .qa-block .a{color:var(--i500)}
+.qa-block .a::before{content:'✓';position:absolute;right:.4rem;top:0;color:var(--g500);font-weight:700;font-size:1.1rem}
+
+.analogy{background:linear-gradient(135deg,rgba(82,183,136,.08),rgba(201,169,97,.06));border-radius:var(--r-m);padding:1.4rem 1.5rem;margin:1.3rem 0;border-right:4px solid var(--g500);font-size:1rem;line-height:1.9;color:var(--i700);position:relative}
+[data-theme="dark"] .analogy{background:rgba(82,183,136,.06);color:var(--i500)}
+.analogy::before{content:'💡';font-size:1.4rem;display:block;margin-bottom:.5rem}
+
+.cta-god{display:block;text-align:center;margin:3rem auto 1rem;max-width:500px}
+.cta-god-btn{display:inline-flex;align-items:center;justify-content:center;gap:.8rem;padding:1.3rem 2.5rem;background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;border-radius:var(--r-pill);font-family:var(--f-b);font-size:1.05rem;font-weight:700;box-shadow:0 20px 50px rgba(45,106,79,.35);transition:all .4s var(--e);text-decoration:none;width:100%}
+.cta-god-btn:hover{transform:translateY(-3px);box-shadow:0 28px 65px rgba(45,106,79,.5)}
+.cta-god-btn svg{width:22px;height:22px}
+.cta-god-sub{font-family:var(--f-l);font-size:.8rem;color:var(--i400);margin-top:.8rem;direction:ltr}
+
+.pill-row{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.3rem 0;justify-content:center}
+.pill{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1rem;background:var(--g50);color:var(--g800);border-radius:var(--r-pill);font-size:.82rem;font-weight:600;border:1px solid rgba(82,183,136,.2)}
+[data-theme="dark"] .pill{background:rgba(82,183,136,.1);color:var(--g300)}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <a href="index.html" style="text-decoration:none;padding:.6rem 1.1rem;background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-pill);color:var(--i800);font-family:var(--f-b);font-size:.85rem;font-weight:600;box-shadow:var(--sh-md)">🏠 الرئيسية</a>
+</div>
+<button class="theme-toggle" id="themeToggle">
+  <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+</button>
+
+<main class="container">
+
+<section class="god-hero">
+  <div class="arabesque">﷽</div>
+  <h1>هل فكّرت يوماً... من خلقك؟</h1>
+  <div class="en-sub">Have you ever asked... Who created you?</div>
+  <div class="verse">﴿ أَمْ خُلِقُوا مِنْ غَيْرِ شَيْءٍ أَمْ هُمُ الْخَالِقُونَ ﴾<span class="ref">At-Tur · 52:35</span></div>
+</section>
+
+<!-- جدول المحتويات -->
+<div class="toc">
+  <div class="toc-title">📑 اقرأ بترتيب، أو اختر ما يهمك</div>
+  <div class="toc-list">
+    <a href="#s1">1. من أين جئت؟</a>
+    <a href="#s2">2. الهاتف على الرمل</a>
+    <a href="#s3">3. دقة الكون المذهلة</a>
+    <a href="#s4">4. الدليل من داخلك</a>
+    <a href="#s5">5. لماذا إله واحد؟</a>
+    <a href="#s6">6. من خلق الله؟</a>
+    <a href="#s7">7. لماذا لا نراه؟</a>
+    <a href="#s8">8. لماذا الشر؟</a>
+    <a href="#s9">9. لكل باحث عن الحق</a>
+  </div>
+</div>
+
+<!-- ═══ 1: من أين جئت؟ ═══ -->
+<article class="section-card" id="s1">
+  <div class="section-num">1</div>
+  <h2>من أين جئت؟</h2>
+  <div class="en-title">Where did you come from?</div>
+  <p>توقّف لحظة، وأجب بصدق: أنت الآن تقرأ هذه الكلمات. عندك عينان ترى، عقل يفكّر، قلب يشعر. من أعطاك هذا كله؟</p>
+  <p>هل أتيتَ من العدم؟ هل صنعت نفسك بنفسك؟ أم أن هناك <strong>مَن أوجدك</strong>؟</p>
+  <div class="question-box">
+    <h3>سؤال واحد فقط</h3>
+    <p>لو رأيت هاتفاً على الأرض، هل تقول: "تشكّل من تلقاء نفسه"؟<br>فكيف تقول عن نفسك — وأنت أعقد من مليار هاتف — إنك وُجدت بلا خالق؟</p>
+  </div>
+  <p>هذا هو <strong>الدليل الكوني</strong> — أبسط دليل وأقواه: كل شيء حادث، يحتاج إلى مُحدِث. أنت لم تكن، ثم كنت. وكل من لم يكن ثم كان، لا بدّ له من مُوجد أوجده.</p>
+</article>
+
+<!-- ═══ 2: الهاتف ═══ -->
+<article class="section-card" id="s2">
+  <div class="section-num">2</div>
+  <h2>الهاتف في الصحراء</h2>
+  <div class="en-title">The phone in the desert</div>
+  <p>تخيّل: تمشي في صحراء قاحلة، لا بشر فيها، ولا أثر لأقدام. فجأة تجد <strong>هاتفاً ذكياً</strong> على الرمل، بكاميرا وأزرار وشاشة تعمل.</p>
+  <p>هل يمكن أن تقول: "تشكّل من تلقاء نفسه عبر ملايين السنين"؟ حتى الملحد الأكثر عناداً سيرفض هذا. لماذا؟ لأن الهاتف يحتاج إلى <strong>صانع عاقل</strong>.</p>
+  <div class="analogy">
+    الهاتف مصنوع من: معادن + بلاستيك + زجاج. وأنت مصنوع من: خلايا + DNA + وعي. الهاتف أقلّ تعقيداً منك بمليارات المرات. فإذا كان الهاتف لا بدّ له من صانع، <strong>فأنت أحقّ بأن يكون لك صانع</strong> — خالق عظيم.
+  </div>
+  <p>هذا ليس استنتاجاً عاطفياً، بل <strong>حكم عقلي بديهي</strong>: كل مُصنَع له صانع، وكل مُحدَث له مُحدِث.</p>
+</article>
+
+<!-- ═══ 3: دقة الكون ═══ -->
+<article class="section-card" id="s3">
+  <div class="section-num">3</div>
+  <h2>دقة الكون المذهلة</h2>
+  <div class="en-title">The Unbelievable Precision of the Universe</div>
+  <p>هذه ليست مجرد كلام — هذه <strong>حقائق فيزيائية</strong> يقرّ بها كل علماء الكون، مسلمين وغير مسلمين:</p>
+  <ul class="logic-list">
+    <li><strong>قوة الجاذبية:</strong> لو كانت أقوى بنسبة 1 من مليار مليار، لانهار الكون على نفسه في لحظة. ولو كانت أضعف بنفس النسبة، لتطايرت المادة ولم تتشكل النجوم.</li>
+    <li><strong>المسافة بين الأرض والشمس:</strong> بالضبط 149.6 مليون كم. لو كانت أقرب بـ 5% لاحترقنا. لو كانت أبعد بـ 5% لتجمّدنا.</li>
+    <li><strong>نسبة الأوكسجين في الهواء:</strong> 21% بالضبط. لو كانت 25% لاحترقت كل غابة بأول صاعقة. لو كانت 15% لاختَنق كل حيوان.</li>
+    <li><strong>قوة الجذب النووي القوي:</strong> لو تغيّرت بنسبة 0.5% فقط، لما وُجدت الذرّة أصلاً — ولما وُجد أي شيء.</li>
+    <li><strong>ثابت الكون (Cosmological Constant):</strong> دقة تصل إلى 1 من 10^120. لو اختلف بمقدار ضئيل، لما وُجد الكون.</li>
+  </ul>
+  <div class="question-box">
+    <h3>هل كل هذا صدفة؟</h3>
+    <p>لو أخذت كيساً فيه 100 حرف مبعثرة، ورجّجته، وخرجت منه قصيدة كاملة — مَن سيصدّقك؟ فكيف بكون كامل بهذه الدقة؟</p>
+  </div>
+</article>
+
+<!-- ═══ 4: الدليل من داخلك ═══ -->
+<article class="section-card" id="s4">
+  <div class="section-num">4</div>
+  <h2>الدليل من داخلك</h2>
+  <div class="en-title">The Proof Within You</div>
+  <p>تأمّل هذه الحقائق عن نفسك — لا تحتاج مختبراً، ولا فلسفة، فقط تأمّل هادئ:</p>
+  <ul class="logic-list">
+    <li><strong>الوعي:</strong> لا أحد يعرف كيف تنشأ الأفكار من خلايا المخ. الفكر ليس مادة، ولا يُقاس، ولا يُرى. فمن أعطاك إياه؟</li>
+    <li><strong>الضمير:</strong> حتى الملحد يعرف في داخله أن قتل الأبرياء شرّ. من أين جاء هذا الإحساس الأخلاقي؟ لا يمكن أن تكون المادة العمياء مصدراً للأخلاق.</li>
+    <li><strong>الحب:</strong> الأم التي تحمي طفلها بجسدها من النار — تفعل شيئاً لا تفسّره الكيمياء ولا الهرمونات.</li>
+    <li><strong>الشوق للخالد:</strong> كل إنسان، حتى الملحد، يرفض فكرة أن يكون وجوده بلا معنى. من زرع هذا الشوق فيك؟</li>
+  </ul>
+  <p>هذه <strong>دلائل الفطرة</strong> — كل نفس تحمل بذرة الإيمان بالخالق. والملحد لا يُنكرها، بل يحاول دفنها.</p>
+</article>
+
+<!-- ═══ 5: لماذا إله واحد؟ ═══ -->
+<article class="section-card" id="s5">
+  <div class="section-num">5</div>
+  <h2>لماذا إله <em>واحد</em> لا ثلاثة ولا مليون؟</h2>
+  <div class="en-title">Why ONE God — not three, not a million?</div>
+  <p>لماذا لا يكون هناك ثلاثة آلهة؟ أو 33 مليوناً كما في الهندوسية؟ الجواب المنطقي بسيط جداً:</p>
+  <ul class="logic-list">
+    <li>لو كان هناك إلهان، فماذا لو اختلفا؟ أحدهما يريد شيئاً والآخر ضده — من يغلب؟</li>
+    <li>لو تغلّب أحدهما دائماً، فالثاني ليس إلهاً حقيقياً.</li>
+    <li>لو تعادلا، فالكون لا يستقرّ لحظة واحدة — لكن الكون مستقرّ منذ 13.8 مليار سنة.</li>
+    <li>إذن: <strong>لا بدّ من إله واحد</strong>، قادر على كل شيء، لا يُغلَب، ولا يُعارَض.</li>
+  </ul>
+  <div class="highlight">﴿ لَوْ كَانَ فِيهِمَا آلِهَةٌ إِلَّا اللَّهُ لَفَسَدَتَا ﴾<span class="ref">Al-Anbiya · 21:22</span></div>
+  <p>أما فكرة "33 مليون إله" في الهندوسية، أو "الآلهة المتعددة" في الأساطير اليونانية — فهي <strong>انعكاس لعقول بشرية</strong> عاشت في مجتمعات متعددة الزعماء، فنقلت تعددها إلى السماء.</p>
+</article>
+
+<!-- ═══ 6: من خلق الله؟ ═══ -->
+<article class="section-card" id="s6">
+  <div class="section-num">6</div>
+  <h2>"من خلق الله؟" — سؤال خاطئ منطقياً</h2>
+  <div class="en-title">"Who created God?" — A logically flawed question</div>
+  <p>هذا السؤال يبدو ذكياً، لكنه <strong>يقيس الخالق بمقاييس المخلوق</strong>. وهو خطأ منطقي صريح.</p>
+  <div class="analogy">
+    مهندس العمارة هو من يضع قوانين البناء، لكنه هو نفسه <strong>لا يخضع</strong> لتلك القوانين. فالله خالق الزمان والمكان، وهو <strong>فوق الزمان والمكان</strong>، فلا يصحّ أن نسأل: "من خلقه؟" لأنه ليس مخلوقاً.
+  </div>
+  <p>القاعدة المنطقية الحاسمة:</p>
+  <ul class="logic-list">
+    <li>كل ما له بداية، له مُسبّب. لكن الله <strong>بلا بداية</strong> — هو الأول الذي ليس قبله شيء.</li>
+    <li>لو قلنا "الله خَلَقه شيء آخر"، لوقعنا في تسلسل لا نهائي — وهذا مستحيل.</li>
+    <li>لا بدّ أن ينتهي التسلسل عند <strong>واجب الوجود</strong> — الذي وجوده من ذاته، لا من غيره. وهذا هو الله.</li>
+  </ul>
+</article>
+
+<!-- ═══ 7: لماذا لا نراه؟ ═══ -->
+<article class="section-card" id="s7">
+  <div class="section-num">7</div>
+  <h2>"لماذا لا يظهر لنا؟"</h2>
+  <div class="en-title">"Why doesn't He show Himself?"</div>
+  <p>نحن لا نرى أشياء كثيرة موجودة:</p>
+  <div class="pill-row">
+    <span class="pill">⚡ الكهرباء</span>
+    <span class="pill">🧲 المغناطيسية</span>
+    <span class="pill">🌬️ الرياح</span>
+    <span class="pill">🧠 العقل</span>
+    <span class="pill">💭 الأفكار</span>
+    <span class="pill">🌌 المادة المظلمة</span>
+  </div>
+  <p>كل هذه موجودة، ونحن لا نراها. لكننا <strong>نرى آثارها ونشعر بها</strong>. وجود الله يُدرك بآثاره العظيمة في الكون، وليس برؤيته بالعين المادية المحدودة.</p>
+  <div class="analogy">
+    الشمس — لو اقتربتَ منها لاحترقت، لكنك ترى نورها ودفأها من بعيد. كذلك الله: لا تدركه الأبصار في الدنيا، لكنك ترى آثار قدرته في كل شيء.
+  </div>
+  <p>ثم إن رؤيته في الدنيا <strong>غير ممكنة</strong> — لأنه ليس كمثله شيء، وأنت محدود، والله لا يُحدّ. أما في الآخرة، فقد وعد المؤمنين برؤيته — وهي أعظم نعيم أهل الجنة.</p>
+</article>
+
+<!-- ═══ 8: لماذا الشر؟ ═══ -->
+<article class="section-card" id="s8">
+  <div class="section-num">8</div>
+  <h2>"لماذا الشر والظلم في العالم؟"</h2>
+  <div class="en-title">"Why does evil exist?"</div>
+  <p>سؤال عادل، وجوابه منطقي:</p>
+  <p>لو خلق الله بشراً <strong>مُجبَرين</strong> على الخير، لكانوا كالملائكة — بلا حرية، بلا اختيار، بلا امتحان. ولما كان للإيمان قيمة. ولما كان للصبر معنى. ولما كان للعدل مكان.</p>
+  <p><strong>الحرية ثمنها الاختبار.</strong> الله أعطاك حرية الاختيار، وجعل الدنيا دار امتحان، والآخرة دار جزاء. من ظلم، سيلقى جزاءه. ومن صبر، سيلقى أجره.</p>
+  <div class="highlight">﴿ وَمَا ظَلَمْنَاهُمْ وَلَٰكِن كَانُوا هُمُ الظَّالِمِينَ ﴾<span class="ref">Az-Zukhruf · 43:76</span></div>
+  <div class="analogy">
+    الطبيب قد يجرح المريض ليعالجه — وهذا "شرّ" ظاهري، لكنه في الحقيقة رحمة. كثير من "الشرور" في حياتك، تفهمها لاحقاً أنها كانت خيراً لك.
+  </div>
+</article>
+
+<!-- ═══ 9: لكل باحث ═══ -->
+<article class="section-card" id="s9">
+  <div class="section-num">9</div>
+  <h2>لكل باحث عن الحق — هذه رسالتك</h2>
+  <div class="en-title">For every seeker of truth</div>
+  <p>إن كنت قرأت كل هذا بتأمّل، فأنت الآن أمام حقيقة لم تكن تراها من قبل:</p>
+  <ul class="logic-list">
+    <li>أنت لم تُخلَق عبثاً.</li>
+    <li>هذا الكون بدقته لم يُوجد صدفة.</li>
+    <li>هناك خالق واحد، عظيم، عليم، حكيم.</li>
+    <li>وهو الذي يريد منك أن تعرفه وتعبده وحده.</li>
+  </ul>
+  <div class="question-box">
+    <h3>الآن سؤال واحد لك</h3>
+    <p>بعد كل هذه الأدلة... هل أنت مستعدّ أن تقول:<br><strong>لا إله إلا الله، محمد رسول الله</strong>؟</p>
+  </div>
+  <p>أنت لست بحاجة إلى كهنوت، ولا واسطة، ولا معبد. بينك وبين الله دعاء، دون وسيط. تكلّمه بلسانك، في أي مكان، بلا إذن أحد.</p>
+  <p>هذا هو <strong>الإسلام</strong> — التسليم لله وحده. الحرية الحقيقية من كل العبوديات.</p>
+</article>
+
+<!-- CTA Final -->
+<div class="cta-god">
+  <a href="index.html#card-shahada" class="cta-god-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+    <span>آمنتُ بالله الواحد — أريد أن أُسلم</span>
+  </a>
+  <div class="cta-god-sub">I believe in One God — I want to embrace Islam</div>
+</div>
+
+<footer class="footer">
+  <div class="footer-dua">اللهم أرنا الحق حقاً وارزقنا اتباعه، وأرنا الباطل باطلاً وارزقنا اجتنابه</div>
+  <div class="footer-owner">صاحب الموقع: <strong>واشمي محمد</strong></div>
+</footer>
+
+</main>
+
+<div class="share-container"></div>
+
+<script src="share.js"></script>
+<script>
+(function(){
+  // Theme
+  var s=localStorage.getItem('theme');
+  var d=window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme',s||(d?'dark':'light'));
+  document.getElementById('themeToggle').addEventListener('click',function(){
+    var c=document.documentElement.getAttribute('data-theme');
+    var n=c==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',n);
+    localStorage.setItem('theme',n);
+  });
+
+  // Scroll reveal
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e,i){
+      if(e.isIntersecting){
+        setTimeout(function(){ e.target.classList.add('revealed'); }, i*100);
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:.1,rootMargin:'0px 0px -60px 0px'});
+  document.querySelectorAll('.section-card').forEach(function(c){ io.observe(c); });
+
+  // Smooth scroll for TOC
+  document.querySelectorAll('.toc-list a').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
+</script>
+</body>
+</html>
