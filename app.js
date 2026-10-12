@@ -53,3 +53,47 @@ document.getElementById('certClose').addEventListener('click',()=>certOverlay.cl
 document.getElementById('certDownload').addEventListener('click',async()=>{const btn=document.getElementById('certDownload');const orig=btn.textContent;btn.textContent='...';btn.disabled=true;try{const canvas=await html2canvas(certificate,{backgroundColor:null,scale:2,useCORS:true});const link=document.createElement('a');link.download='shahada-'+certNameDisplay.textContent.replace(/\s+/g,'-')+'.png';link.href=canvas.toDataURL('image/png');link.click();}catch(err){alert('Error');}finally{btn.textContent=orig;btn.disabled=false;}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')certOverlay.classList.remove('show');});
 setLanguage(currentLang);
+
+
+function speakShahada(){
+  // جرب تشغيل ملف mp3 أولاً
+  var audio = new Audio('/audio/shahada.mp3');
+  audio.volume = 1;
+  
+  isSpeaking = true;
+  audioBtn.classList.add('playing');
+  audioBtnText.textContent = t('audio_btn_playing') || 'جارٍ الترديد...';
+  
+  audio.onended = function(){
+    isSpeaking = false;
+    audioBtn.classList.remove('playing');
+    audioBtnText.textContent = t('audio_btn') || 'اسمع وردد ببطء';
+  };
+  
+  audio.onerror = function(){
+    // إذا فشل mp3، استخدم Web Speech API
+    console.warn('mp3 failed, using Web Speech');
+    if('speechSynthesis' in window){
+      var u = new SpeechSynthesisUtterance('أشهد أن لا إله إلا الله وأشهد أن محمداً رسول الله');
+      u.lang = 'ar-SA';
+      u.rate = 0.5;
+      u.pitch = 0.65;
+      if(selectedVoice) u.voice = selectedVoice;
+      u.onend = function(){
+        isSpeaking = false;
+        audioBtn.classList.remove('playing');
+        audioBtnText.textContent = t('audio_btn') || 'اسمع وردد ببطء';
+      };
+      speechSynthesis.speak(u);
+    } else {
+      isSpeaking = false;
+      audioBtn.classList.remove('playing');
+      audioBtnText.textContent = t('audio_btn') || 'اسمع وردد ببطء';
+    }
+  };
+  
+  audio.play().catch(function(err){
+    console.warn('Cannot play audio:', err);
+    audio.onerror();
+  });
+}
