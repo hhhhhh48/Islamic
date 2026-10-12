@@ -3,6 +3,8 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
+const seoRoutes = require('./seo-sitemap');
+const seoRobots = require('./seo-robots');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -48,6 +50,8 @@ setInterval(() => saveJSON(DB_FILE, db), 30000);
 // ═══ Middlewares ═══
 app.use(cors());
 app.use(express.json());
+app.use(seoRoutes);
+app.use(seoRobots);
 app.use(express.static(__dirname, { index: 'index.html' }));
 
 // ═══ تتبع الزيارات ═══
