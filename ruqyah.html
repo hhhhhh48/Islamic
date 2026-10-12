@@ -242,6 +242,7 @@
 <div class="share-container"></div>
 
 <script src="ruqyah-i18n.js"></script>
+<script src="ruqyah-i18n-add.js"></script>
 <script src="share.js"></script>
 <script>
 (function(){
@@ -254,7 +255,28 @@
     document.documentElement.setAttribute('data-theme',n);
     localStorage.setItem('theme',n);
   });
-  window.injectRuqyahLangSwitcher();
+  
+  var LANGS = {ar:'🇸🇦 العربية', en:'🇬🇧 English', fr:'🇫🇷 Français', es:'🇪🇸 Español'};
+  var bar = document.querySelector('.lang-bar');
+  if(bar && !document.getElementById('ruqyahLangSelect')){
+    var sel = document.createElement('select');
+    sel.id = 'ruqyahLangSelect';
+    sel.className = 'lang-select';
+    Object.keys(LANGS).forEach(function(c){
+      var o = document.createElement('option');
+      o.value = c; o.textContent = LANGS[c];
+      sel.appendChild(o);
+    });
+    sel.value = localStorage.getItem('lang') || 'ar';
+    sel.addEventListener('change', function(){
+      localStorage.setItem('lang', this.value);
+      window.applyRuqyahI18n();
+    });
+    var firstA = bar.querySelector('a');
+    if(firstA) bar.insertBefore(sel, firstA);
+    else bar.appendChild(sel);
+  }
+  
   window.applyRuqyahI18n();
 })();
 </script>
