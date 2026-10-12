@@ -169,7 +169,7 @@ cat > journey.html << 'ENDOFFILE'
 
 <section class="journey-hero">
   <div class="arabesque">❁ ✦ ❁</div>
-  <h1 data-i18n="p_journey_t">رحلتي في الإسلام</h1>
+  <h1 data-i18n="journey_title">رحلتي في الإسلام</h1>
   <p>My Journey with Islam</p>
   <div class="hello" id="helloText"></div>
 </section>
@@ -184,15 +184,15 @@ cat > journey.html << 'ENDOFFILE'
 
 <!-- Quick Stats -->
 <div class="stats-grid">
-  <div class="stat-mini"><div class="icon">🕌</div><div class="val" id="statPrayers">0</div><div class="lbl">صلوات</div></div>
-  <div class="stat-mini"><div class="icon">📿</div><div class="val" id="statDhikr">0</div><div class="lbl">أذكار</div></div>
-  <div class="stat-mini"><div class="icon">📖</div><div class="val" id="statQuran">0</div><div class="lbl">صفحات قرآن</div></div>
-  <div class="stat-mini"><div class="icon">🔥</div><div class="val" id="statStreak">0</div><div class="lbl">يوم متواصل</div></div>
+  <div class="stat-mini"><div class="icon">🕌</div><div class="val" id="statPrayers">0</div><div class="lbl" data-i18n="stat_prayers">صلوات</div></div>
+  <div class="stat-mini"><div class="icon">📿</div><div class="val" id="statDhikr">0</div><div class="lbl" data-i18n="stat_dhikr">أذكار</div></div>
+  <div class="stat-mini"><div class="icon">📖</div><div class="val" id="statQuran">0</div><div class="lbl" data-i18n="stat_quran">صفحات قرآن</div></div>
+  <div class="stat-mini"><div class="icon">🔥</div><div class="val" id="statStreak">0</div><div class="lbl" data-i18n="stat_streak">يوم متواصل</div></div>
 </div>
 
 <!-- Today's Tracker -->
 <div class="journey-section">
-  <h2 class="js-title"><span class="emoji">📅</span> <span>يومي — <span id="todayDate"></span></span></h2>
+  <h2 class="js-title"><span class="emoji">📅</span> <span data-i18n="today_title">يومي</span> — <span id="todayDate"></span></h2>
 
   <div class="prayer-list" id="prayerList">
     <div class="prayer-item" data-prayer="fajr"><span class="check"></span><span class="name">الفجر</span></div>
@@ -224,21 +224,21 @@ cat > journey.html << 'ENDOFFILE'
 
 <!-- Week Calendar -->
 <div class="journey-section">
-  <h2 class="js-title"><span class="emoji">🗓️</span> <span>أسبوعي</span></h2>
+  <h2 class="js-title"><span class="emoji">🗓️</span> <span data-i18n="week_title">أسبوعي</span></h2>
   <div class="week-cal" id="weekCal"></div>
 </div>
 
 <!-- Achievements -->
 <div class="journey-section">
-  <h2 class="js-title"><span class="emoji">🏆</span> <span>إنجازاتي <span id="badgeCount" style="font-family:var(--f-l);font-size:.9rem;color:var(--i400);font-weight:500"></span></span></h2>
+  <h2 class="js-title"><span class="emoji">🏆</span> <span data-i18n="achievements">إنجازاتي</span> <span id="badgeCount" style="font-family:var(--f-l);font-size:.9rem;color:var(--i400);font-weight:500"></span></span></h2>
   <div class="badges-grid" id="badgesGrid"></div>
 </div>
 
 <!-- Journal -->
 <div class="journey-section">
-  <h2 class="js-title"><span class="emoji">📝</span> <span>دفتر يومياتي</span></h2>
+  <h2 class="js-title"><span class="emoji">📝</span> <span data-i18n="journal_title">دفتر يومياتي</span></h2>
   <div class="journal-new">
-    <textarea id="journalInput" placeholder="اكتب هنا أفكارك، أسئلتك، مشاعرك، أو دعاء اليوم..."></textarea>
+    <textarea id="journalInput" data-i18n-ph="journal_ph" placeholder="اكتب هنا أفكارك، أسئلتك، مشاعرك..."></textarea>
     <button id="journalAddBtn">أضف</button>
   </div>
   <div class="journal-list" id="journalList"></div>
@@ -789,6 +789,7 @@ cat > journey.html << 'ENDOFFILE'
 </script>
 <script src="pages-i18n.js"></script>
 <script src="stamp.js"></script>
+<script src="i18n-pages.js"></script>
 </body>
 </html>
 ENDOFFILE
