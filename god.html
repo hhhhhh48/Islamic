@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Does God Exist? · Evidence &amp; Logic</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&family=Reem+Kufi:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.hero{text-align:center;padding:4rem 1rem 3rem;position:relative;z-index:2;background:radial-gradient(circle at center, rgba(82,183,136,.10) 0%, transparent 70%);border-radius:var(--r-xl);margin-bottom:2rem}
+.hero .arab{font-family:var(--f-q);font-size:2.5rem;color:var(--au500);opacity:.7;margin-bottom:1rem}
+.hero h1{font-family:var(--f-d);font-size:clamp(1.7rem,5vw,2.8rem);font-weight:700;background:linear-gradient(135deg,var(--g700),var(--au500));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.8rem;line-height:1.35}
+.hero .sub{font-size:.9rem;color:var(--i400);margin-bottom:1.5rem;line-height:1.7}
+.hero .verse{font-family:var(--f-q);font-size:clamp(1rem,2.8vw,1.25rem);color:var(--g800);line-height:2;max-width:720px;margin:0 auto;padding:1.5rem;background:var(--g50);border-radius:var(--r-m);border-left:4px solid var(--g500);text-align:center}
+[data-theme="dark"] .hero .verse{background:rgba(82,183,136,.08);color:var(--g200)}
+.hero .ref{font-family:var(--f-l);font-size:.75rem;color:var(--au600);display:block;margin-top:.5rem}
+.lang-switch{display:inline-flex;gap:.3rem;padding:.4rem;background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-pill);margin-bottom:1.5rem;box-shadow:var(--sh-sm);flex-wrap:wrap;justify-content:center}
+.lang-switch button{padding:.5rem .9rem;border:none;border-radius:var(--r-pill);background:transparent;color:var(--i500);font-family:var(--f-b);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .3s var(--e);white-space:nowrap}
+.lang-switch button.active{background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff}
+.lang-switch button:not(.active):hover{background:var(--g50);color:var(--g700)}
+.toc{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-l);padding:1.5rem;margin-bottom:2rem;box-shadow:var(--sh-md)}
+[data-theme="dark"] .toc{border-color:rgba(82,183,136,.15)}
+.toc-title{font-family:var(--f-d);font-size:.95rem;color:var(--g700);margin-bottom:.8rem;font-weight:600}
+[data-theme="dark"] .toc-title{color:var(--g400)}
+.toc-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.4rem}
+.toc-list a{color:var(--i600);text-decoration:none;font-size:.85rem;padding:.4rem .7rem;border-radius:var(--r-s);transition:all .3s var(--e);display:block}
+.toc-list a:hover{background:var(--g50);color:var(--g700)}
+[data-theme="dark"] .toc-list a:hover{background:rgba(82,183,136,.1);color:var(--g300)}
+.sec{background:var(--paper);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.6);border-radius:var(--r-xl);padding:clamp(1.6rem,4.5vw,2.6rem);box-shadow:var(--sh-lg);margin-bottom:1.8rem;position:relative;overflow:hidden;opacity:0;transform:translateY(40px);transition:all .9s var(--e);scroll-margin-top:80px}
+[data-theme="dark"] .sec{border-color:rgba(82,183,136,.12)}
+.sec.revealed{opacity:1;transform:translateY(0)}
+.sec::before{content:'';position:absolute;top:-2px;left:15%;right:15%;height:2px;background:linear-gradient(90deg,transparent,var(--g400),var(--au400),var(--g400),transparent);opacity:.6}
+.sec-num{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--g500),var(--g700));color:#fff;font-family:var(--f-l);font-size:1.3rem;font-weight:700;margin-bottom:1rem;box-shadow:0 8px 20px rgba(45,106,79,.28)}
+.sec h2{font-family:var(--f-d);font-size:clamp(1.3rem,3.8vw,1.75rem);font-weight:700;color:var(--i900);margin-bottom:1rem;line-height:1.35}
+.sec .body{font-size:1rem;color:var(--i700);line-height:1.9}
+.sec .body strong{color:var(--g700);font-weight:700}
+[data-theme="dark"] .sec .body strong{color:var(--g300)}
+.cta-wrap{text-align:center;margin:3rem 0 1rem}
+.cta-btn{display:inline-flex;align-items:center;justify-content:center;gap:.7rem;padding:1.25rem 2.2rem;background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;border-radius:var(--r-pill);font-family:var(--f-b);font-size:1.02rem;font-weight:700;box-shadow:0 20px 50px rgba(45,106,79,.35);transition:all .4s var(--e);text-decoration:none;max-width:520px;width:100%}
+.cta-btn:hover{transform:translateY(-3px);box-shadow:0 28px 65px rgba(45,106,79,.5);color:#fff}
+@media(max-width:600px){.hero{padding:2.5rem .8rem 2rem}.hero .arab{font-size:1.8rem}}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <a href="index.html" id="homeLink" style="text-decoration:none;padding:.6rem 1.1rem;background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-pill);color:var(--i800);font-family:var(--f-b);font-size:.85rem;font-weight:600;box-shadow:var(--sh-md)">🏠 الرئيسية</a>
+</div>
+<button class="theme-toggle" id="themeToggle">
+  <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+</button>
+
+<main class="container">
+<section class="hero">
+  <div class="arab">﷽</div>
+  <div class="lang-switch" id="langSwitch"></div>
+  <h1 id="heroTitle"></h1>
+  <div class="sub" id="heroSub"></div>
+  <div class="verse" id="heroVerse"></div>
+</section>
+<div class="toc">
+  <div class="toc-title" id="tocTitle"></div>
+  <div class="toc-list" id="tocList"></div>
+</div>
+<div id="sectionsWrap"></div>
+<div class="cta-wrap">
+  <a href="index.html#card-shahada" class="cta-btn" id="ctaBtn"></a>
+</div>
+<footer class="footer">
+  <div class="footer-dua" id="footerDua"></div>
+  <div class="footer-owner">Site owner: <strong>Mohamed Ouachemi</strong> · صاحب الموقع: <strong>واشمي محمد</strong></div>
+</footer>
+</main>
+
+<div class="share-container"></div>
+<script src="god-i18n.js"></script>
+<script src="share.js"></script>
+<script>
+(function(){
+  // Theme
+  var s=localStorage.getItem('theme');
+  var d=window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme',s||(d?'dark':'light'));
+  document.getElementById('themeToggle').addEventListener('click',function(){
+    var c=document.documentElement.getAttribute('data-theme');
+    var n=c==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',n);
+    localStorage.setItem('theme',n);
+  });
+
+  var LANGS = Object.keys(window.GOD_I18N || {});
+  var RTL = ['ar','ur','fa','he','ku','ps'];
+
+  function getLang(){
+    var url = new URLSearchParams(window.location.search).get('lang');
+    var stored = localStorage.getItem('lang');
+    var browser = (navigator.language||'ar').split('-')[0].toLowerCase();
+    if(url && window.GOD_I18N[url]) return url;
+    if(stored && window.GOD_I18N[stored]) return stored;
+    if(window.GOD_I18N[browser]) return browser;
+    return 'ar';
+  }
+
+  function render(){
+    var lang = getLang();
+    var t = window.GOD_I18N[lang];
+    if(!t) return;
+    var isRtl = RTL.indexOf(lang) !== -1;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
+    document.getElementById('homeLink').textContent = t.home;
+    document.getElementById('heroTitle').textContent = t.hero_title;
+    document.getElementById('heroSub').textContent = t.hero_sub;
+    document.getElementById('heroVerse').innerHTML = t.hero_verse + '<span class="ref">' + t.hero_ref + '</span>';
+    document.getElementById('tocTitle').textContent = t.toc;
+    document.getElementById('ctaBtn').textContent = t.cta;
+    document.getElementById('footerDua').textContent = t.footer;
+
+    // Language switcher
+    var sw = document.getElementById('langSwitch');
+    sw.innerHTML = '';
+    LANGS.forEach(function(code){
+      var b = document.createElement('button');
+      b.textContent = window.GOD_I18N[code].lang_label;
+      if(code === lang) b.classList.add('active');
+      b.addEventListener('click', function(){
+        localStorage.setItem('lang', code);
+        var u = new URL(window.location);
+        u.searchParams.set('lang', code);
+        window.history.replaceState({}, '', u);
+        render();
+      });
+      sw.appendChild(b);
+    });
+
+    // TOC
+    var toc = document.getElementById('tocList');
+    toc.innerHTML = '';
+    t.sections.forEach(function(sec, i){
+      var a = document.createElement('a');
+      a.href = '#s' + (i + 1);
+      a.textContent = (i + 1) + '. ' + sec.t;
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        document.getElementById('s' + (i + 1)).scrollIntoView({behavior:'smooth', block:'start'});
+      });
+      toc.appendChild(a);
+    });
+
+    // Sections
+    var wrap = document.getElementById('sectionsWrap');
+    wrap.innerHTML = '';
+    t.sections.forEach(function(sec, i){
+      var el = document.createElement('article');
+      el.className = 'sec';
+      el.id = 's' + (i + 1);
+      el.innerHTML = '<div class="sec-num">' + (i + 1) + '</div><h2>' + sec.t + '</h2><div class="body">' + sec.b + '</div>';
+      wrap.appendChild(el);
+    });
+
+    // Scroll reveal
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e, i){
+        if(e.isIntersecting){ setTimeout(function(){ e.target.classList.add('revealed'); }, i*80); io.unobserve(e.target); }
+      });
+    }, {threshold:.1, rootMargin:'0px 0px -60px 0px'});
+    document.querySelectorAll('.sec').forEach(function(c){ io.observe(c); });
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
