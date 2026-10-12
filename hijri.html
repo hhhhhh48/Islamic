@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>التقويم الهجري · Hijri Calendar</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&family=Reem+Kufi:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.hj-hero{text-align:center;padding:3rem 1rem 2rem;position:relative;z-index:2;background:radial-gradient(circle at center,rgba(82,183,136,.10),transparent 70%);border-radius:var(--r-xl);margin-bottom:2rem}
+.hj-hero .arab{font-family:var(--f-q);font-size:2.5rem;color:var(--au500);opacity:.7;margin-bottom:1rem}
+.hj-hero h1{font-family:var(--f-d);font-size:clamp(1.9rem,5.5vw,3rem);font-weight:700;background:linear-gradient(135deg,var(--g700),var(--au500));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+.hj-hero .en-sub{font-family:var(--f-l);font-size:.85rem;color:var(--i400);letter-spacing:.15em;direction:ltr;margin-bottom:1.5rem}
+.hj-hero .verse{font-family:var(--f-q);font-size:clamp(1rem,2.7vw,1.2rem);color:var(--g800);line-height:2;max-width:720px;margin:0 auto;padding:1.3rem;background:var(--g50);border-radius:var(--r-m);border-right:4px solid var(--g500)}
+[data-theme="dark"] .hj-hero .verse{background:rgba(82,183,136,.08);color:var(--g200)}
+
+/* Today card */
+.today-card{background:linear-gradient(160deg,var(--g800),var(--g900));border-radius:var(--r-xl);padding:clamp(1.5rem,4vw,2.5rem);text-align:center;color:#fff;margin-bottom:2rem;position:relative;overflow:hidden;box-shadow:var(--sh-lg)}
+.today-card::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='.6' opacity='.3'%3E%3Cpath d='M40 10 L70 40 L40 70 L10 40 Z'/%3E%3Ccircle cx='40' cy='40' r='20'/%3E%3C/g%3E%3C/svg%3E");opacity:.06}
+.today-card>*{position:relative;z-index:1}
+.tc-label{font-family:var(--f-l);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:var(--au300);margin-bottom:.6rem;direction:ltr}
+.tc-day{font-family:var(--f-d);font-size:clamp(4rem,15vw,7rem);font-weight:700;line-height:1;background:linear-gradient(180deg,#fff,#e6c988);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;direction:ltr;margin-bottom:.5rem}
+.tc-month{font-family:var(--f-d);font-size:clamp(1.3rem,4vw,1.8rem);color:var(--au300);margin-bottom:.4rem}
+.tc-year{font-family:var(--f-d);font-size:1.2rem;color:rgba(255,255,255,.8)}
+.tc-gregorian{margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.15);font-family:var(--f-l);font-size:.92rem;color:rgba(255,255,255,.7);direction:ltr}
+
+/* Month grid */
+.calendar-wrap{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-xl);padding:clamp(1.5rem,4vw,2rem);margin-bottom:2rem;box-shadow:var(--sh-md)}
+[data-theme="dark"] .calendar-wrap{border-color:rgba(82,183,136,.12)}
+
+.cal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;gap:1rem;flex-wrap:wrap}
+.cal-title{font-family:var(--f-d);font-size:1.3rem;font-weight:700;color:var(--i900);text-align:center;flex:1}
+[data-theme="dark"] .cal-title{color:var(--g300)}
+.cal-nav{width:42px;height:42px;border-radius:50%;background:var(--i100);border:none;color:var(--i700);font-size:1.2rem;font-weight:700;cursor:pointer;transition:all .3s var(--e);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+[data-theme="dark"] .cal-nav{background:rgba(82,183,136,.1);color:var(--g300)}
+.cal-nav:hover{background:var(--g600);color:#fff;transform:scale(1.1)}
+
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.4rem}
+.cal-head{font-family:var(--f-l);font-size:.75rem;font-weight:700;color:var(--i400);text-align:center;padding:.5rem 0;letter-spacing:.05em}
+.cal-day{aspect-ratio:1;border-radius:var(--r-s);background:var(--i100);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;font-size:.9rem;font-weight:600;color:var(--i700);transition:all .2s var(--e);cursor:pointer;border:2px solid transparent;padding:.2rem}
+[data-theme="dark"] .cal-day{background:rgba(82,183,136,.05);color:var(--i500)}
+.cal-day:hover{background:var(--g100);border-color:var(--g400);transform:scale(1.05)}
+.cal-day.empty{background:transparent;cursor:default;pointer-events:none}
+.cal-day.today{background:linear-gradient(135deg,var(--g600),var(--g700));color:#fff;border-color:var(--au500);box-shadow:0 8px 20px rgba(45,106,79,.3);transform:scale(1.05)}
+.cal-day.holiday{background:linear-gradient(135deg,var(--au200),var(--au400));color:var(--g900);border-color:var(--au500)}
+.cal-day .hijri-num{font-family:var(--f-d);font-size:1.05rem;font-weight:700;line-height:1}
+.cal-day .greg-num{font-family:var(--f-l);font-size:.65rem;color:var(--i400);font-weight:500;direction:ltr}
+.cal-day.today .greg-num{color:rgba(255,255,255,.85)}
+
+/* Islamic months info */
+.info-sec{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-xl);padding:clamp(1.5rem,4vw,2rem);margin-bottom:2rem;box-shadow:var(--sh-md)}
+[data-theme="dark"] .info-sec{border-color:rgba(82,183,136,.12)}
+.info-sec h2{font-family:var(--f-d);font-size:1.3rem;color:var(--i900);margin-bottom:1rem}
+[data-theme="dark"] .info-sec h2{color:var(--g300)}
+.months-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.6rem}
+.month-card{background:var(--i100);border-radius:var(--r-m);padding:1rem;text-align:center;border-right:3px solid var(--g500);transition:all .3s var(--e)}
+[data-theme="dark"] .month-card{background:rgba(82,183,136,.05)}
+.month-card:hover{transform:translateY(-3px);box-shadow:var(--sh-sm);border-right-color:var(--au500)}
+.month-card .mc-num{font-family:var(--f-l);font-size:.75rem;color:var(--au600);font-weight:700;margin-bottom:.3rem}
+.month-card .mc-name{font-family:var(--f-d);font-size:1.05rem;font-weight:700;color:var(--g800)}
+[data-theme="dark"] .month-card .mc-name{color:var(--g300)}
+.month-card .mc-info{font-size:.78rem;color:var(--i500);margin-top:.3rem;line-height:1.5}
+
+/* Special days */
+.special-sec{background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-xl);padding:clamp(1.5rem,4vw,2rem);margin-bottom:2rem;box-shadow:var(--sh-md)}
+[data-theme="dark"] .special-sec{border-color:rgba(82,183,136,.12)}
+.special-sec h2{font-family:var(--f-d);font-size:1.3rem;color:var(--i900);margin-bottom:1rem}
+[data-theme="dark"] .special-sec h2{color:var(--g300)}
+.special-list{list-style:none;padding:0}
+.special-list li{padding:1rem 1.2rem;background:var(--i100);border-radius:var(--r-m);margin-bottom:.6rem;font-size:.95rem;color:var(--i700);line-height:1.85;border-right:3px solid var(--au500);display:flex;gap:.8rem;align-items:flex-start}
+[data-theme="dark"] .special-list li{background:rgba(82,183,136,.05);color:var(--i500)}
+.special-list li .sl-icon{font-size:1.4rem;flex-shrink:0;line-height:1.2}
+.special-list li strong{color:var(--g800);display:block;margin-bottom:.2rem}
+[data-theme="dark"] .special-list li strong{color:var(--g300)}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <a href="index.html" style="text-decoration:none;padding:.6rem 1.1rem;background:var(--paper);border:1px solid var(--i200);border-radius:var(--r-pill);color:var(--i800);font-family:var(--f-b);font-size:.85rem;font-weight:600;box-shadow:var(--sh-md)">🏠 الرئيسية</a>
+</div>
+<button class="theme-toggle" id="themeToggle">
+  <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+</button>
+
+<main class="container">
+
+<section class="hj-hero">
+  <div class="arab">🌙</div>
+  <h1>التقويم الهجري</h1>
+  <div class="en-sub">Hijri Calendar</div>
+  <div class="verse">﴿ إِنَّ عِدَّةَ الشُّهُورِ عِندَ اللَّهِ اثْنَا عَشَرَ شَهْرًا ﴾ — التوبة: 36</div>
+</section>
+
+<div class="today-card">
+  <div class="tc-label">TODAY — اليوم</div>
+  <div class="tc-day" id="tcDay">1</div>
+  <div class="tc-month" id="tcMonth">محرم</div>
+  <div class="tc-year" id="tcYear">1447 هـ</div>
+  <div class="tc-gregorian" id="tcGregorian">—</div>
+</div>
+
+<div class="calendar-wrap">
+  <div class="cal-header">
+    <button class="cal-nav" id="prevMonth">‹</button>
+    <div class="cal-title" id="calTitle">—</div>
+    <button class="cal-nav" id="nextMonth">›</button>
+  </div>
+  <div class="cal-grid" id="calGrid"></div>
+</div>
+
+<div class="info-sec">
+  <h2>📅 الأشهر الهجرية الاثنا عشر</h2>
+  <div class="months-grid" id="monthsGrid"></div>
+</div>
+
+<div class="special-sec">
+  <h2>⭐ المناسبات الإسلامية</h2>
+  <ul class="special-list">
+    <li><span class="sl-icon">🌙</span><div><strong>1 محرم — رأس السنة الهجرية</strong>بداية العام الهجري الجديد</div></li>
+    <li><span class="sl-icon">🤲</span><div><strong>10 محرم — يوم عاشوراء</strong>صيامه يكفر سنة ماضية</div></li>
+    <li><span class="sl-icon">🕌</span><div><strong>12 ربيع الأول — المولد النبوي</strong>ذكرى مولد النبي ﷺ (عند بعض المسلمين)</div></li>
+    <li><span class="sl-icon">🌿</span><div><strong>27 رجب — الإسراء والمعراج</strong>ذكرى رحلة النبي ﷺ إلى السماء</div></li>
+    <li><span class="sl-icon">📖</span><div><strong>1 رمضان — بداية رمضان</strong>شهر الصيام والقرآن</div></li>
+    <li><span class="sl-icon">🎉</span><div><strong>1 شوال — عيد الفطر</strong>فرحة المسلم بعد رمضان</div></li>
+    <li><span class="sl-icon">🕋</span><div><strong>10 ذو الحجة — عيد الأضحى</strong>أكبر مناسبة إسلامية</div></li>
+    <li><span class="sl-icon">🌸</span><div><strong>9 ذو الحجة — يوم عرفة</strong>أعظم يوم في السنة</div></li>
+  </ul>
+</div>
+
+<footer class="footer">
+  <div class="footer-dua">اللهم اجعلنا من عبادك الصالحين في كل عام هجري</div>
+  <div class="footer-owner">صاحب الموقع: <strong>واشمي محمد</strong></div>
+</footer>
+
+</main>
+
+<div class="share-container"></div>
+
+<script src="share.js"></script>
+<script>
+(function(){
+  var s=localStorage.getItem('theme');
+  var d=window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme',s||(d?'dark':'light'));
+  document.getElementById('themeToggle').addEventListener('click',function(){
+    var c=document.documentElement.getAttribute('data-theme');
+    var n=c==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',n);
+    localStorage.setItem('theme',n);
+  });
+
+  var HIJRI_MONTHS = ['محرم','صفر','ربيع الأول','ربيع الثاني','جمادى الأولى','جمادى الآخرة','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'];
+  var WEEKDAYS = ['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+
+  var MONTHS_INFO = {
+    'محرم': 'شهر حرام، فيه يوم عاشوراء',
+    'صفر': 'أول شهر بعد محرم',
+    'ربيع الأول': 'مولد النبي ﷺ',
+    'ربيع الثاني': 'شهر مبارك',
+    'جمادى الأولى': 'شهر جمادي الأول',
+    'جمادى الآخرة': 'شهر جمادي الثاني',
+    'رجب': 'شهر حرام، فيه الإسراء والمعراج',
+    'شعبان': 'يستحب الصيام فيه، يسبق رمضان',
+    'رمضان': 'شهر الصيام والقرآن',
+    'شوال': 'فيه عيد الفطر، وست من شوال',
+    'ذو القعدة': 'شهر حرام، من أشهر الحج',
+    'ذو الحجة': 'شهر الحج، فيه عيد الأضحى'
+  };
+
+  // Hijri to Gregorian (approximate)
+  function gregorianToHijri(date){
+    var gY = date.getFullYear();
+    var gM = date.getMonth() + 1;
+    var gD = date.getDate();
+    
+    // Using Kuwaiti algorithm (approximate)
+    var jd;
+    if ((gY > 1582) || (gY === 1582 && gM > 10) || (gY === 1582 && gM === 10 && gD > 14)) {
+      jd = Math.floor((1461 * (gY + 4800 + Math.floor((gM - 14) / 12))) / 4) +
+           Math.floor((367 * (gM - 2 - 12 * Math.floor((gM - 14) / 12))) / 12) -
+           Math.floor((3 * Math.floor((gY + 4900 + Math.floor((gM - 14) / 12)) / 100)) / 4) +
+           gD - 32075;
+    } else {
+      jd = 367 * gY - Math.floor((7 * (gY + 5001 + Math.floor((gM - 9) / 7))) / 4) +
+           Math.floor((275 * gM) / 9) + gD + 1729777;
+    }
+    
+    var l = jd - 1948440 + 10632;
+    var n = Math.floor((l - 1) / 10631);
+    l = l - 10631 * n + 354;
+    var j = Math.floor((10985 - l) / 5316) * Math.floor((50 * l) / 17719) +
+            Math.floor(l / 5670) * Math.floor((43 * l) / 15238);
+    l = l - Math.floor((30 - j) / 15) * Math.floor((17719 * j) / 50) -
+        Math.floor(j / 16) * Math.floor((15238 * j) / 43) + 29;
+    var hM = Math.floor((24 * l) / 709);
+    var hD = l - Math.floor((709 * hM) / 24);
+    var hY = 30 * n + j - 30;
+    
+    return { day: hD, month: hM, year: hY };
+  }
+
+  function hijriToGregorian(hY, hM, hD){
+    var jd = Math.floor((11 * hY + 3) / 30) + 354 * hY + 30 * hM - Math.floor((hM - 1) / 2) + hD + 1948440 - 385;
+    
+    var l = jd + 68569;
+    var n = Math.floor((4 * l) / 146097);
+    l = l - Math.floor((146097 * n + 3) / 4);
+    var i = Math.floor((4000 * (l + 1)) / 1461001);
+    l = l - Math.floor((1461 * i) / 4) + 31;
+    var j = Math.floor((80 * l) / 2447);
+    var gD = l - Math.floor((2447 * j) / 80);
+    l = Math.floor(j / 11);
+    var gM = j + 2 - 12 * l;
+    var gY = 100 * (n - 49) + i + l;
+    
+    return new Date(gY, gM - 1, gD);
+  }
+
+  // Current state
+  var today = new Date();
+  var todayHijri = gregorianToHijri(today);
+  var viewHijri = { year: todayHijri.year, month: todayHijri.month };
+
+  // Display today card
+  document.getElementById('tcDay').textContent = todayHijri.day;
+  document.getElementById('tcMonth').textContent = HIJRI_MONTHS[todayHijri.month - 1];
+  document.getElementById('tcYear').textContent = todayHijri.year + ' هـ';
+  document.getElementById('tcGregorian').textContent = today.toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+
+  // Render months info
+  var monthsGrid = document.getElementById('monthsGrid');
+  HIJRI_MONTHS.forEach(function(m, i){
+    var card = document.createElement('div');
+    card.className = 'month-card';
+    card.innerHTML =
+      '<div class="mc-num">' + (i + 1) + '</div>' +
+      '<div class="mc-name">' + m + '</div>' +
+      '<div class="mc-info">' + MONTHS_INFO[m] + '</div>';
+    monthsGrid.appendChild(card);
+  });
+
+  // Get number of days in a Hijri month
+  function getHijriMonthDays(hY, hM){
+    // Approximate: 29 or 30 days alternating
+    // Use: odd months 30 days, even months 29 (approximation)
+    if (hM === 12) return 29; // ذو الحجة
+    return (hM % 2 === 1) ? 30 : 29;
+  }
+
+  // Render calendar
+  function renderCalendar(){
+    var title = document.getElementById('calTitle');
+    var grid = document.getElementById('calGrid');
+    
+    var monthName = HIJRI_MONTHS[viewHijri.month - 1];
+    title.textContent = monthName + ' ' + viewHijri.year + ' هـ';
+    
+    // Grid header
+    var headHTML = WEEKDAYS.map(function(w){
+      return '<div class="cal-head">' + w.slice(0, 3) + '</div>';
+    }).join('');
+    
+    // First day of Hijri month — approximate Gregorian date
+    var firstGreg = hijriToGregorian(viewHijri.year, viewHijri.month, 1);
+    var startDay = firstGreg.getDay(); // 0=Sunday
+    
+    // Days in month
+    var monthDays = getHijriMonthDays(viewHijri.year, viewHijri.month);
+    
+    var cells = '';
+    // Empty cells before first day
+    for (var i = 0; i < startDay; i++) {
+      cells += '<div class="cal-day empty"></div>';
+    }
+    
+    // Days
+    for (var d = 1; d <= monthDays; d++) {
+      var gDate = hijriToGregorian(viewHijri.year, viewHijri.month, d);
+      var isToday = (d === todayHijri.day && viewHijri.month === todayHijri.month && viewHijri.year === todayHijri.year);
+      var cls = 'cal-day';
+      if (isToday) cls += ' today';
+      
+      cells += '<div class="' + cls + '">' +
+        '<span class="hijri-num">' + d + '</span>' +
+        '<span class="greg-num">' + gDate.getDate() + '/' + (gDate.getMonth() + 1) + '</span>' +
+      '</div>';
+    }
+    
+    grid.innerHTML = headHTML + cells;
+  }
+
+  document.getElementById('prevMonth').addEventListener('click', function(){
+    viewHijri.month--;
+    if (viewHijri.month < 1) {
+      viewHijri.month = 12;
+      viewHijri.year--;
+    }
+    renderCalendar();
+  });
+  
+  document.getElementById('nextMonth').addEventListener('click', function(){
+    viewHijri.month++;
+    if (viewHijri.month > 12) {
+      viewHijri.month = 1;
+      viewHijri.year++;
+    }
+    renderCalendar();
+  });
+
+  renderCalendar();
+})();
+</script>
+</body>
+</html>
