@@ -57,6 +57,32 @@
 [data-theme="dark"] .dua-card .d-ref{color:var(--au400)}
 
 .footer-owner strong{margin-right:6px}
+
+/* ═══ Ruqyah Notice ═══ */
+.ruqyah-notice{background:linear-gradient(135deg,rgba(82,183,136,.12),rgba(201,169,97,.08));border:2px solid var(--g500);border-radius:var(--r-l);padding:clamp(1.5rem,4vw,2rem);margin-bottom:2rem;text-align:center;position:relative;overflow:hidden;box-shadow:0 12px 32px rgba(82,183,136,.15)}
+.ruqyah-notice::before{content:'';position:absolute;top:0;left:15%;right:15%;height:3px;background:linear-gradient(90deg,transparent,var(--g500),var(--au500),var(--g500),transparent);opacity:.9}
+[data-theme="dark"] .ruqyah-notice{background:linear-gradient(135deg,rgba(82,183,136,.18),rgba(201,169,97,.10));border-color:var(--g400)}
+.notice-icon{font-size:3rem;line-height:1;margin-bottom:.8rem;filter:drop-shadow(0 4px 12px rgba(82,183,136,.4))}
+.notice-title{font-family:var(--f-d);font-size:clamp(1.3rem,3.5vw,1.6rem);font-weight:700;color:var(--g800);margin-bottom:1rem}
+[data-theme="dark"] .notice-title{color:var(--g200)}
+.notice-text{font-size:1.05rem;color:var(--i700);line-height:1.9;margin-bottom:1.3rem}
+[data-theme="dark"] .notice-text{color:var(--i500)}
+.notice-text strong{color:var(--g700);font-weight:700}
+[data-theme="dark"] .notice-text strong{color:var(--g300)}
+.notice-list{list-style:none;padding:0;margin:1.5rem 0;text-align:right}
+.notice-list li{background:var(--paper);border-radius:var(--r-m);padding:.9rem 1.2rem;margin-bottom:.5rem;font-size:.96rem;line-height:1.75;color:var(--i700);border-right:4px solid var(--g500);box-shadow:0 2px 8px rgba(13,40,24,.04);transition:all .3s var(--e)}
+[data-theme="dark"] .notice-list li{background:rgba(24,34,27,.6);color:var(--i500);border-right-color:var(--g400)}
+.notice-list li:hover{transform:translateX(-4px);border-right-color:var(--au500)}
+.notice-list li strong{color:var(--g700);font-weight:700}
+[data-theme="dark"] .notice-list li strong{color:var(--g300)}
+.notice-list li:last-child{border-right-color:#e57373;background:rgba(229,115,115,.08)}
+[data-theme="dark"] .notice-list li:last-child{background:rgba(229,115,115,.12)}
+.notice-list li:last-child strong{color:#c62828}
+[data-theme="dark"] .notice-list li:last-child strong{color:#ffb3b3}
+.notice-hadith{margin-top:1.5rem;padding:1.2rem 1.5rem;background:var(--g800);color:#fff;border-radius:var(--r-m);font-family:var(--f-q);font-size:1.1rem;line-height:1.9;position:relative}
+.notice-hadith strong{color:var(--au200);font-weight:700}
+.notice-ref{display:block;font-family:var(--f-l);font-size:.78rem;color:var(--au400);margin-top:.5rem;letter-spacing:.05em}
+
 </style>
 </head>
 <body>
@@ -77,6 +103,26 @@
   <div class="sub" data-qi18n="hero_sub">Islamic Healing — Quran &amp; Sunnah</div>
   <div class="verse" data-qi18n="hero_verse">﴿ وَنُنَزِّلُ مِنَ الْقُرْآنِ مَا هُوَ شِفَاءٌ وَرَحْمَةٌ لِّلْمُؤْمِنِينَ ﴾ — الإسراء: 82</div>
 </section>
+<!-- ═══ تنويه مهم ═══ -->
+<div class="ruqyah-notice" id="ruqyah-notice">
+  <div class="notice-icon">🛡️</div>
+  <h2 class="notice-title">تنويه مهم</h2>
+  <p class="notice-text">
+    هذه <strong>رقية شرعية صحيحة 100%</strong> — مأخوذة من <strong>القرآن الكريم والسنة النبوية</strong> فقط.
+  </p>
+  <ul class="notice-list">
+    <li>✅ <strong>لا يوجد فيها أي شرك بالله</strong> — لا دعاء لغير الله، ولا استغاثة بغير الله</li>
+    <li>✅ <strong>لا طلاسم، ولا أرقام، ولا حروف مقطّعة</strong></li>
+    <li>✅ <strong>لا تُغني عن الطبيب</strong> — الرقية سنة، والطب سنة، اجمع بينهما</li>
+    <li>✅ <strong>الشافي هو الله وحده</strong> — الرقية سبب، والشفاء بيد الله</li>
+    <li>⚠️ <strong>احذر من السحرة والمشعوذين</strong> — هم كفار أو فساق، لا تأتيهم ولو ادّعوا الرقية</li>
+  </ul>
+  <div class="notice-hadith">
+    قال ﷺ: <strong>«لَا بَأْسَ بِالرُّقَى مَا لَمْ يَكُنْ فِيهِ شِرْكٌ»</strong>
+    <span class="notice-ref">صحيح مسلم</span>
+  </div>
+</div>
+
 
 <div class="sec">
   <h2 class="sec-title" data-qi18n="intro_title">📖 ما هي الرقية الشرعية؟</h2>
