@@ -120,7 +120,37 @@ body{font-family:var(--f-b);background:var(--cream);color:var(--i800);line-heigh
   .dash-header{padding:.5rem 0}
   .dash-title{font-size:1.3rem}
 }
+
+/* ═══ Theme & Layout Overrides ═══ */
+:root{ --f-body:'Tajawal',system-ui,sans-serif; }
+body, p, li, .text, .card, .section { font-family: var(--f-body) !important; }
+section, .container, .card { padding-left: 1.2rem; padding-right: 1.2rem; }
+p, li { line-height: 1.9; margin-bottom: 1rem; }
+.footnotes { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .9rem; color: var(--ink-3); }
+.footnotes ol { padding-right: 1.2rem; }
+.footnotes li { margin-bottom: .5rem; }
+@media (max-width: 768px) {
+  html { font-size: 15px; }
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.4rem; }
+  .container { padding-left: 1rem; padding-right: 1rem; }
+  .grid { grid-template-columns: 1fr !important; }
+}
+[data-theme="dark"] {
+  --paper: #0f1f17;
+  --bg: #0a1510;
+  --bg-2: #12241b;
+  --ink: #e8f0ec;
+  --ink-2: #d0ddd6;
+  --ink-3: #a0b0a8;
+  --line: #1e3328;
+}
+[data-theme="dark"] body { background: var(--bg); color: var(--ink); }
+[data-theme="dark"] .card, [data-theme="dark"] section { background: var(--paper); border-color: var(--line); }
+
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"بيتك الجديد","url":"https://www.mohammedouachemi.work.gd","description":"موقع إسلامي شامل — الشهادة، أسماء الله، الأذكار، القرآن، الرقية، قصص الأنبياء"}</script>
 </head>
 <body>
 

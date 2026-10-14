@@ -58,7 +58,65 @@
 [data-theme="dark"] .nav-btn{background:rgba(24,34,27,.5);border-color:var(--i300);color:var(--i500)}
 .nav-btn:hover{border-color:var(--g500);background:var(--g50);color:var(--g800)}
 .nav-btn:disabled{opacity:.3;cursor:not-allowed}
+
+/* ═══ Theme & Layout Overrides ═══ */
+:root{ --f-body:'Tajawal',system-ui,sans-serif; }
+body, p, li, .text, .card, .section { font-family: var(--f-body) !important; }
+section, .container, .card { padding-left: 1.2rem; padding-right: 1.2rem; }
+p, li { line-height: 1.9; margin-bottom: 1rem; }
+.footnotes { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .9rem; color: var(--ink-3); }
+.footnotes ol { padding-right: 1.2rem; }
+.footnotes li { margin-bottom: .5rem; }
+@media (max-width: 768px) {
+  html { font-size: 15px; }
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.4rem; }
+  .container { padding-left: 1rem; padding-right: 1rem; }
+  .grid { grid-template-columns: 1fr !important; }
+}
+[data-theme="dark"] {
+  --paper: #0f1f17;
+  --bg: #0a1510;
+  --bg-2: #12241b;
+  --ink: #e8f0ec;
+  --ink-2: #d0ddd6;
+  --ink-3: #a0b0a8;
+  --line: #1e3328;
+}
+[data-theme="dark"] body { background: var(--bg); color: var(--ink); }
+[data-theme="dark"] .card, [data-theme="dark"] section { background: var(--paper); border-color: var(--line); }
+
 </style>
+
+<!-- ═══ MANAGED META TAGS ═══ -->
+  <!-- SEO -->
+  <meta name="description" content="7 قصص كبرى من آدم إلى محمد ﷺ — مع الدروس">
+  <meta name="author" content="واشمي محمد">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0d5c3a">
+  <link rel="canonical" href="https://www.mohammedouachemi.work.gd/prophets.html">
+
+  <!-- Open Graph (WhatsApp, Facebook, Telegram) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="بيتك الجديد">
+  <meta property="og:title" content="قصص الأنبياء · Stories of the Prophets">
+  <meta property="og:description" content="7 قصص كبرى من آدم إلى محمد ﷺ — مع الدروس">
+  <meta property="og:url" content="https://www.mohammedouachemi.work.gd/prophets.html">
+  <meta property="og:image" content="https://www.mohammedouachemi.work.gd/logo.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="قصص الأنبياء · Stories of the Prophets">
+  <meta property="og:locale" content="ar_AR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="قصص الأنبياء · Stories of the Prophets">
+  <meta name="twitter:description" content="7 قصص كبرى من آدم إلى محمد ﷺ — مع الدروس">
+  <meta name="twitter:image" content="https://www.mohammedouachemi.work.gd/logo.png">
+<!-- ═══ END MANAGED META TAGS ═══ -->
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"بيتك الجديد","url":"https://www.mohammedouachemi.work.gd","description":"موقع إسلامي شامل — الشهادة، أسماء الله، الأذكار، القرآن، الرقية، قصص الأنبياء"}</script>
 </head>
 <body>
 

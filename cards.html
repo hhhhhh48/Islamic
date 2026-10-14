@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>بطاقات النور · Islamic Cards</title>
+<title>بطاقات النور · Cards of Light</title>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&family=Reem+Kufi:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -92,6 +92,34 @@
   #cardPreview{max-width:100%}
   .card-quote{font-size:1.2rem}
 }
+
+/* ═══ Theme & Layout Overrides ═══ */
+:root{ --f-body:'Tajawal',system-ui,sans-serif; }
+body, p, li, .text, .card, .section { font-family: var(--f-body) !important; }
+section, .container, .card { padding-left: 1.2rem; padding-right: 1.2rem; }
+p, li { line-height: 1.9; margin-bottom: 1rem; }
+.footnotes { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .9rem; color: var(--ink-3); }
+.footnotes ol { padding-right: 1.2rem; }
+.footnotes li { margin-bottom: .5rem; }
+@media (max-width: 768px) {
+  html { font-size: 15px; }
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.4rem; }
+  .container { padding-left: 1rem; padding-right: 1rem; }
+  .grid { grid-template-columns: 1fr !important; }
+}
+[data-theme="dark"] {
+  --paper: #0f1f17;
+  --bg: #0a1510;
+  --bg-2: #12241b;
+  --ink: #e8f0ec;
+  --ink-2: #d0ddd6;
+  --ink-3: #a0b0a8;
+  --line: #1e3328;
+}
+[data-theme="dark"] body { background: var(--bg); color: var(--ink); }
+[data-theme="dark"] .card, [data-theme="dark"] section { background: var(--paper); border-color: var(--line); }
+
 </style>
 
   <!-- Favicon -->
@@ -109,6 +137,36 @@
   <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
+
+<!-- ═══ MANAGED META TAGS ═══ -->
+  <!-- SEO -->
+  <meta name="description" content="صمم بطاقات إسلامية جميلة وشاركها">
+  <meta name="author" content="واشمي محمد">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0d5c3a">
+  <link rel="canonical" href="https://www.mohammedouachemi.work.gd/cards.html">
+
+  <!-- Open Graph (WhatsApp, Facebook, Telegram) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="بيتك الجديد">
+  <meta property="og:title" content="بطاقات النور · Cards of Light">
+  <meta property="og:description" content="صمم بطاقات إسلامية جميلة وشاركها">
+  <meta property="og:url" content="https://www.mohammedouachemi.work.gd/cards.html">
+  <meta property="og:image" content="https://www.mohammedouachemi.work.gd/logo.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="بطاقات النور · Cards of Light">
+  <meta property="og:locale" content="ar_AR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="بطاقات النور · Cards of Light">
+  <meta name="twitter:description" content="صمم بطاقات إسلامية جميلة وشاركها">
+  <meta name="twitter:image" content="https://www.mohammedouachemi.work.gd/logo.png">
+<!-- ═══ END MANAGED META TAGS ═══ -->
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"بيتك الجديد","url":"https://www.mohammedouachemi.work.gd","description":"موقع إسلامي شامل — الشهادة، أسماء الله، الأذكار، القرآن، الرقية، قصص الأنبياء"}</script>
 </head>
 <body>
 

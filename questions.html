@@ -81,6 +81,34 @@
   .qa-q-text{font-size:.95rem}
   .q-tab{font-size:.85rem;padding:.7rem .6rem}
 }
+
+/* ═══ Theme & Layout Overrides ═══ */
+:root{ --f-body:'Tajawal',system-ui,sans-serif; }
+body, p, li, .text, .card, .section { font-family: var(--f-body) !important; }
+section, .container, .card { padding-left: 1.2rem; padding-right: 1.2rem; }
+p, li { line-height: 1.9; margin-bottom: 1rem; }
+.footnotes { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .9rem; color: var(--ink-3); }
+.footnotes ol { padding-right: 1.2rem; }
+.footnotes li { margin-bottom: .5rem; }
+@media (max-width: 768px) {
+  html { font-size: 15px; }
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.4rem; }
+  .container { padding-left: 1rem; padding-right: 1rem; }
+  .grid { grid-template-columns: 1fr !important; }
+}
+[data-theme="dark"] {
+  --paper: #0f1f17;
+  --bg: #0a1510;
+  --bg-2: #12241b;
+  --ink: #e8f0ec;
+  --ink-2: #d0ddd6;
+  --ink-3: #a0b0a8;
+  --line: #1e3328;
+}
+[data-theme="dark"] body { background: var(--bg); color: var(--ink); }
+[data-theme="dark"] .card, [data-theme="dark"] section { background: var(--paper); border-color: var(--line); }
+
 </style>
 
   <!-- Favicon -->
@@ -98,6 +126,36 @@
   <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
+
+<!-- ═══ MANAGED META TAGS ═══ -->
+  <!-- SEO -->
+  <meta name="description" content="لكل سؤال جواب — أسئلة للمسلمين وغير المسلمين">
+  <meta name="author" content="واشمي محمد">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0d5c3a">
+  <link rel="canonical" href="https://www.mohammedouachemi.work.gd/questions.html">
+
+  <!-- Open Graph (WhatsApp, Facebook, Telegram) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="بيتك الجديد">
+  <meta property="og:title" content="الأسئلة الصعبة · Hard Questions">
+  <meta property="og:description" content="لكل سؤال جواب — أسئلة للمسلمين وغير المسلمين">
+  <meta property="og:url" content="https://www.mohammedouachemi.work.gd/questions.html">
+  <meta property="og:image" content="https://www.mohammedouachemi.work.gd/logo.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="الأسئلة الصعبة · Hard Questions">
+  <meta property="og:locale" content="ar_AR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="الأسئلة الصعبة · Hard Questions">
+  <meta name="twitter:description" content="لكل سؤال جواب — أسئلة للمسلمين وغير المسلمين">
+  <meta name="twitter:image" content="https://www.mohammedouachemi.work.gd/logo.png">
+<!-- ═══ END MANAGED META TAGS ═══ -->
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"بيتك الجديد","url":"https://www.mohammedouachemi.work.gd","description":"موقع إسلامي شامل — الشهادة، أسماء الله، الأذكار، القرآن، الرقية، قصص الأنبياء"}</script>
 </head>
 <body>
 
